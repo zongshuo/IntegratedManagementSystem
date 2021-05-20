@@ -2,6 +2,7 @@ package com.zongshuo.web;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Api(tags = "系统功能-菜单管理")
 @RestController
 @RequestMapping("/api/sys/menu")
+@Slf4j
 public class MenuController {
 
     @ApiOperation("分页查询系统菜单")
