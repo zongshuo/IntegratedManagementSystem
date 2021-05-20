@@ -1,7 +1,5 @@
 package com.zongshuo.service;
 
-import com.zongshuo.BO.Menu;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @Author: zongShuo
@@ -10,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Time: 20:11
  * @Description: 系统菜单操作服务类
  */
-public interface MenuService extends JpaRepository<Menu, Integer> {
+public interface MenuService{
 }

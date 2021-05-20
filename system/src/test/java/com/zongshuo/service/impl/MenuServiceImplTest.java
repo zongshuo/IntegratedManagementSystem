@@ -1,6 +1,6 @@
 package com.zongshuo.service.impl;
 
-import com.zongshuo.BO.Menu;
+import com.zongshuo.entity.Menu;
 import com.zongshuo.service.MenuService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ class MenuServiceImplTest {
 
     @Test
     public void save(){
-        Menu menu = new Menu();
-        menuService.save(menu);
+//        Menu menu = new Menu();
+//        menuService.save(menu);
     }
 }

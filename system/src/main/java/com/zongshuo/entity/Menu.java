@@ -1,4 +1,4 @@
-package com.zongshuo.BO;
+package com.zongshuo.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
