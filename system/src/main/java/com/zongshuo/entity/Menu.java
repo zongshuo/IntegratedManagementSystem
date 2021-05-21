@@ -28,67 +28,67 @@ public class Menu implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id", unique = true, nullable = false)
-    @ApiModelProperty("菜单id")
+    @ApiModelProperty(value = "菜单id", name = "menuId")
     private Integer menuId;
 
     @Column(name = "parent_id")
-    @ApiModelProperty("上级菜单id，0是顶级菜单")
+    @ApiModelProperty(value = "上级菜单id，0是顶级菜单", name = "parentId")
     private Integer parentId;
 
     @Column(name = "title", length = 100)
-    @ApiModelProperty("菜单名称")
+    @ApiModelProperty(value = "菜单名称", name = "title")
     private String title ;
 
     @Column(name = "icon", length = 100)
-    @ApiModelProperty("菜单图标")
+    @ApiModelProperty(value = "菜单图标", name = "icon")
     private String icon ;
 
     @Column(name = "path", length = 100)
-    @ApiModelProperty("菜单路由")
+    @ApiModelProperty(value = "菜单路由", name = "path")
     private String path ;
 
     @Column(name = "component", length = 100)
-    @ApiModelProperty("菜单组件地址")
+    @ApiModelProperty(value = "菜单组件地址", name = "component")
     private String component ;
 
     @Column(name = "menu_type")
-    @ApiModelProperty("菜单类型：0-菜单、1-按钮")
+    @ApiModelProperty(value = "菜单类型：0-菜单、1-按钮", name = "menuType")
     private Byte menuType ;
 
     @Column(name = "sort_number")
-    @ApiModelProperty("排序号")
+    @ApiModelProperty(value = "排序号", name = "sortNumber")
     private Integer sortNumber ;
 
     @Column(name = "authority", length = 100)
-    @ApiModelProperty("权限标识")
+    @ApiModelProperty(value = "权限标识", name = "authority")
     private String authority ;
 
     @Column(name = "target", length = 100)
-    @ApiModelProperty("打开位置")
+    @ApiModelProperty(value = "打开位置", name = "target")
     private String target ;
 
     @Column(name = "color", length = 100)
-    @ApiModelProperty("图标颜色")
+    @ApiModelProperty(value = "图标颜色", name = "color")
     private String color ;
 
     @Column(name = "hide")
-    @ApiModelProperty("是否隐藏：0-否、1-是")
+    @ApiModelProperty(value = "是否隐藏：0-否、1-是", name = "hide")
     private Byte hide ;
 
     @Column(name = "left_uid", length = 200)
-    @ApiModelProperty("嵌套路由左侧选中")
+    @ApiModelProperty(value = "嵌套路由左侧选中", name = "leftUid")
     private String leftUid;
 
     @Column(name = "deleted")
-    @ApiModelProperty("是否删除：0-否、1-是")
+    @ApiModelProperty(value = "是否删除：0-否、1-是", name = "deleted")
     private Byte deleted ;
 
     @Column(name = "create_time")
-    @ApiModelProperty("创建时间")
+    @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime ;
 
     @Column(name = "update_time")
-    @ApiModelProperty("更新时间")
+    @ApiModelProperty(value = "更新时间", name = "updateTime")
     private Date updateTime ;
 
     public Integer getMenuId() {
