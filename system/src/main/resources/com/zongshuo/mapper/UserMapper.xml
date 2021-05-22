@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zongshuo.mapper.UserMapper">
+    <!-- 根据用户名查询用户及用户权限 -->
+    <resultMap id="userRoles" type="com.zongshuo.entity.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="nick_name" column="nick_name"/>
+        <result property="isAccountNonExpired" column="is_account_non_expired"/>
+        <result property="isAccountNonLocked" column="is_account_non_locked"/>
+        <result property="isCredentialsNonExpired" column="is_credentials_non_expired"/>
+        <result property="isEnabled" column="is_enabled"/>
+        <collection property="roles" ofType="com.zongshuo.entity.Role">
+            <id property="id" column="id"/>
+            <result property="roleKey" column="role_key"/>
+            <result property="roleName" column="role_name"/>
+            <result property="descriptions" column="descriptions"/>
+        </collection>
+    </resultMap>
+    <select id="selectUserAndRoles" parameterType="java.lang.String" resultMap="userRoles">
+        select a.*, c.* from sys_user a
+        left join sys_user_role b on a.id = b.user_id
+        left join sys_role c on c.id  = b.role_id
+        where a.username = #{username}
+    </select>
+
+</mapper>

@@ -2,6 +2,8 @@ package com.zongshuo.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +17,8 @@ import java.util.Date;
  * @Description: 系统菜单实体类
  */
 @Entity
+@Data
+@ToString
 @Table(name = "SYS_MENU")
 @ApiModel(value = "SYS_MENU", description = "系统菜单实体")
 public class Menu implements Serializable {
@@ -90,154 +94,4 @@ public class Menu implements Serializable {
     @Column(name = "update_time")
     @ApiModelProperty(value = "更新时间", name = "updateTime")
     private Date updateTime ;
-
-    public Integer getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Integer menuId) {
-        this.menuId = menuId;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getComponent() {
-        return component;
-    }
-
-    public void setComponent(String component) {
-        this.component = component;
-    }
-
-    public Byte getMenuType() {
-        return menuType;
-    }
-
-    public void setMenuType(Byte menuType) {
-        this.menuType = menuType;
-    }
-
-    public Integer getSortNumber() {
-        return sortNumber;
-    }
-
-    public void setSortNumber(Integer sortNumber) {
-        this.sortNumber = sortNumber;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public Byte getHide() {
-        return hide;
-    }
-
-    public void setHide(Byte hide) {
-        this.hide = hide;
-    }
-
-    public String getLeftUid() {
-        return leftUid;
-    }
-
-    public void setLeftUid(String leftUid) {
-        this.leftUid = leftUid;
-    }
-
-    public Byte getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Byte deleted) {
-        this.deleted = deleted;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "menuId=" + menuId +
-                ", parentId=" + parentId +
-                ", title='" + title + '\'' +
-                ", icon='" + icon + '\'' +
-                ", path='" + path + '\'' +
-                ", component='" + component + '\'' +
-                ", menuType=" + menuType +
-                ", sortNumber=" + sortNumber +
-                ", authority='" + authority + '\'' +
-                ", target='" + target + '\'' +
-                ", color='" + color + '\'' +
-                ", hide=" + hide +
-                ", leftUid='" + leftUid + '\'' +
-                ", deleted=" + deleted +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

@@ -2,10 +2,11 @@ package com.zongshuo.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * @Author: zongShuo
@@ -15,6 +16,8 @@ import java.io.Serializable;
  * @Description:
  */
 @Entity
+@Data
+@ToString
 @Table(name = "SYS_ROLE")
 @ApiModel(value = "SYS_ROLE", description = "系统角色表")
 public class Role implements GrantedAuthority {
@@ -43,40 +46,6 @@ public class Role implements GrantedAuthority {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getRoleKey() {
-        return roleKey;
-    }
-
-    public void setRoleKey(String roleKey) {
-        this.roleKey = roleKey;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getDescriptions() {
-        return descriptions;
-    }
-
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", roleKey='" + roleKey + '\'' +
-                ", roleName='" + roleName + '\'' +
-                ", descriptions='" + descriptions + '\'' +
-                '}';
     }
 
     @Override

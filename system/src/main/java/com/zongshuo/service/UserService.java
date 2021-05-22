@@ -11,4 +11,11 @@ import com.zongshuo.entity.User;
  * @Description:
  */
 public interface UserService extends IService<User> {
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    User getUserAndRoles(String username);
 }

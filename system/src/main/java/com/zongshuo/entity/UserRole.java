@@ -2,7 +2,8 @@ package com.zongshuo.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.models.auth.In;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +16,8 @@ import java.io.Serializable;
  * @Description:
  */
 @Entity
+@Data
+@ToString
 @Table(name = "SYS_USER_ROLE")
 @ApiModel(value = "SYS_USER_ROLE", discriminator = "系统人员角色表")
 public class UserRole implements Serializable {
@@ -32,37 +35,4 @@ public class UserRole implements Serializable {
     @Column(name = "role_id", nullable = false)
     @ApiModelProperty(value = "角色主键", name = "roleId")
     private Integer roleId ;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    @Override
-    public String toString() {
-        return "UserRole{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", roleId=" + roleId +
-                '}';
-    }
 }
