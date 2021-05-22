@@ -48,3 +48,16 @@ spring:
       name: admin
       password: admin
       roles: admin
+  jackson:
+    date-format: yyyy-mm-dd
+    time-zone: GMT+8
+#mybatisPlus
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  mapper-locations: classpath:com/zongshuo/mapper/*Mapper.xml
+  global-config:
+    db-config:
+      id-type: auto
