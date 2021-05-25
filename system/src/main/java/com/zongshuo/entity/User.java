@@ -2,6 +2,8 @@ package com.zongshuo.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +20,8 @@ import java.util.Set;
  * @Description:
  */
 @Entity
+@Data
+@ToString
 @Table(name = "SYS_USER")
 @ApiModel(value = "SYS_USER", description = "系统用户表")
 public class User implements UserDetails {
@@ -39,6 +43,10 @@ public class User implements UserDetails {
     @Column(name = "nick_name", nullable = false, length = 30)
     @ApiModelProperty(value = "昵称", name = "nickName")
     private String nickName ;
+
+    @Column(name = "email", nullable = false, length = 200)
+    @ApiModelProperty(value = "邮箱", name = "email")
+    private String email ;
 
     @Column(name = "is_account_non_expired")
     @ApiModelProperty(value = "账号是否过期", name = "isAccountNonExpired")
@@ -62,21 +70,10 @@ public class User implements UserDetails {
             , inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles = new HashSet<>(0);
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
-
 
     @Override
     public String getUsername() {
@@ -106,33 +103,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", isAccountNonExpired=" + isAccountNonExpired +
-                ", isAccountNonLocked=" + isAccountNonLocked +
-                ", isCredentialsNonExpired=" + isCredentialsNonExpired +
-                ", isEnabled=" + isEnabled +
-                '}';
     }
 }
