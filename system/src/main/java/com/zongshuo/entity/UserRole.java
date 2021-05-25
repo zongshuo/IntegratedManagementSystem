@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @ToString
 @Table(name = "SYS_USER_ROLE")
-@ApiModel(value = "SYS_USER_ROLE", discriminator = "系统人员角色表")
+@ApiModel(value = "SYS_USER_ROLE", description = "系统人员角色表")
 public class UserRole implements Serializable {
 
     @Id

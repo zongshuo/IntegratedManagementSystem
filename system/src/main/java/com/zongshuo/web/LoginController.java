@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.*;
  * @Time: 19:58
  * @Description:
  */
-@Slf4j
 @Api(tags = "系统功能-登录及注册")
 @RestController
 @RequestMapping("/api/sys/login")
+@Slf4j
 public class LoginController {
 
     @ApiOperation("注册用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "checkCode", value = "验证码", required = true, dataType = "String")
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType = "body"),
+            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "body"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "body"),
+            @ApiImplicitParam(name = "checkCode", value = "验证码", required = true, dataType = "String", paramType = "body")
     })
     @PostMapping("/register")
     public ResponseJsonMsg registerUser(@RequestBody JSONObject request){
