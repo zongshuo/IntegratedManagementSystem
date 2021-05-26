@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //新增swagger请求资源不认证处理
                 .antMatchers("/swagger-resources/**", "/swagger-ui/*", "/v2/api-docs", "/webjars/**").permitAll()
                 //新增无需认证的请求接口
-                .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/sys/login/*").permitAll()
                 //此处后面配置的请求都需要经过认证
                 .anyRequest().authenticated()
                 //springSecurity永远不会创建HTTPSession，且不会使用HTTPSession获取SecurityContext

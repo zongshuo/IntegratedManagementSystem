@@ -3,6 +3,7 @@ server:
   port: 8081
 
 #日志
+logging.level.org.springframework.boot.autoconfigure: ERROR
 logging:
   level:
     root: debug
@@ -43,11 +44,11 @@ spring:
       #update       加载hibernate自动更新数据库结构
       ddl-auto: update
     show-sql: true
-  security:
-    user:
-      name: admin
-      password: admin
-      roles: admin
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+#      roles: admin
   jackson:
     date-format: yyyy-mm-dd
     time-zone: GMT+8

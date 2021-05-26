@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Time: 13:44
  * @Description:
  */
-//@Configuration
+@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
@@ -24,13 +24,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 // 设置允许跨域请求的域名
                 .allowedOrigins("*")
-                // 是否允许证书
-                .allowCredentials(true)
                 // 设置允许使用的方法
                 .allowedMethods("OPTIONS", "PUT", "DELETE", "GET", "POST", "HEAD")
                 // 设置允许的header属性
-//                .allowedHeaders("Content-type", "x-requested-with", "X-Custom-Header")
                 .allowedHeaders("*")
+                // 是否允许证书，此处为true时，allowedOrigins不能为*
+//                .allowCredentials(true)
                 // 跨域允许的时间
                 .maxAge(3600);
 

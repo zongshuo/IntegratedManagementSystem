@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
  * @Time: 19:58
  * @Description:
  */
+@Slf4j
+@CrossOrigin
 @Api(tags = "系统功能-登录及注册")
 @RestController
 @RequestMapping("/api/sys/login")
-@Slf4j
 public class LoginController {
 
     @ApiOperation("注册用户")
@@ -31,7 +32,7 @@ public class LoginController {
     })
     @PostMapping("/register")
     public ResponseJsonMsg registerUser(@RequestBody JSONObject request){
-        log.info("注册用户：{}", request);
+        log.info("注册用户：{}",request);
         return ResponseJsonMsg.ok();
     }
 }
