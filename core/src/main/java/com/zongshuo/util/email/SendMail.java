@@ -21,6 +21,7 @@ import java.util.Properties;
  * @Date: 2021-5-23
  * @Time: 19:46
  * @Description:
+ * 邮件发送代码
  */
 public class SendMail {
     //邮件发送使用的服务器

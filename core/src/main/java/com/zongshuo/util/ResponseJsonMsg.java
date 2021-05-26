@@ -31,7 +31,7 @@ public final class ResponseJsonMsg extends HashMap<String, Object> implements Se
      * @return
      */
     public static ResponseJsonMsg ok(){
-        return ok("");
+        return ok(DEFAULT_SUCCESS_MSG);
     }
     public static ResponseJsonMsg ok(String msg){
         return ok(DEFAULT_SUCCESS_CODE, msg);
@@ -48,7 +48,7 @@ public final class ResponseJsonMsg extends HashMap<String, Object> implements Se
      * @return
      */
     public static ResponseJsonMsg error(){
-        return error("");
+        return error(DEFAULT_FAILED_MSG);
     }
     public static ResponseJsonMsg error(String msg){
         return error(DEFAULT_FAILED_CODE, msg);

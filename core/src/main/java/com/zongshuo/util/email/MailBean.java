@@ -12,6 +12,7 @@ import java.util.List;
  * @Date: 2021-5-23
  * @Time: 19:43
  * @Description:
+ * 发送邮件内容的实体
  */
 public class MailBean {
     //收件人邮箱列表

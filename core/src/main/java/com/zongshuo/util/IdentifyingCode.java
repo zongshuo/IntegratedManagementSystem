@@ -83,7 +83,6 @@ public class IdentifyingCode {
         if (type == CodeType.NUMBER){
             return getNumberCode(size, 10);
         }
-        Random random = new Random();
         List<Integer> integers = createRandomNum(size, 26);
         switch (type) {
             case LOWER_CASE_LATTER:
