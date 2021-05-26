@@ -16,8 +16,8 @@ import java.util.Date;
  * @Time: 19:35
  * @Description: 系统菜单实体类
  */
-@Entity
 @Data
+@Entity
 @ToString
 @Table(name = "SYS_MENU")
 @ApiModel(value = "SYS_MENU", description = "系统菜单实体")
