@@ -1,5 +1,8 @@
 package com.zongshuo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,6 +23,7 @@ import java.util.Date;
 @Entity
 @ToString
 @Table(name = "SYS_MENU")
+@TableName("SYS_MENU")
 @ApiModel(value = "SYS_MENU", description = "系统菜单实体")
 public class Menu implements Serializable {
 
@@ -33,6 +37,7 @@ public class Menu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id", unique = true, nullable = false)
     @ApiModelProperty(value = "菜单id", name = "menuId")
+    @TableId(type = IdType.AUTO)
     private Integer menuId;
 
     @Column(name = "parent_id")

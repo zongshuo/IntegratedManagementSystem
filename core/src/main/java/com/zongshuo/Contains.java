@@ -19,7 +19,11 @@ public final class Contains {
      * 注册验证码失效时间
      * 单位毫秒
      */
-    public static final long CHECK_CODE_REGISTER_OUT_TIME = 600000;
+    public static final long AUTH_CODE_REGISTER_OUT_TIME = 600000;
+    /**
+     * 验证码来源-用户注册
+     */
+    public static final String AUTH_CODE_CHANNEL_REGISTER = "01";
 
     /**
      * 接口响应报告状态码
@@ -32,6 +36,7 @@ public final class Contains {
     public static final String RET_CODE_FAILED_AUTH_LOGIN = "AUTH_E02"; //未登录
     public static final String RET_CODE_FAILED_AUTH_EXPIRE = "AUTH_E03"; //登录已过期
     public static final String RET_CODE_FAILED_PARAM = "PARM_E01"; //参数错误
+    public static final String RET_CODE_FAILED_DATA_STATE = "DATA_E01"; //数据状态错误
 
 
 

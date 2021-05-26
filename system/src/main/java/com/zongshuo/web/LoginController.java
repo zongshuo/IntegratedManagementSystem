@@ -1,7 +1,11 @@
 package com.zongshuo.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.zongshuo.Contains;
+import com.zongshuo.entity.AuthCodeCache;
+import com.zongshuo.service.AuthCodeCacheService;
 import com.zongshuo.util.FormatCheckUtil;
 import com.zongshuo.util.IdentifyingCode;
 import com.zongshuo.util.ResponseJsonMsg;
@@ -12,11 +16,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import java.time.Instant;
 
 /**
  * @Author: zongShuo
@@ -33,6 +39,9 @@ import javax.mail.internet.AddressException;
 public class LoginController {
     @Value("${ims.system.name}")
     String systemName;
+
+    @Autowired
+    private AuthCodeCacheService authCodeCacheService;
 
     @ApiOperation("注册用户")
     @ApiImplicitParams({
@@ -58,21 +67,26 @@ public class LoginController {
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "不支持的邮箱格式！");
         }
 
-        if (true){
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return ResponseJsonMsg.error();
+        AuthCodeCache authCodeCache = new AuthCodeCache();
+        authCodeCache.setUserJoin(email);
+        authCodeCache.setExpireTime(Instant.now().toEpochMilli());
+        authCodeCache.setChannelNo(Contains.AUTH_CODE_CHANNEL_REGISTER);
+        int count = authCodeCacheService.count(
+                new QueryWrapper<AuthCodeCache>()
+                        .eq("user_join", authCodeCache.getUserJoin())
+                        .eq("channel_no", authCodeCache.getChannelNo())
+                        .gt("expire_time", authCodeCache.getExpireTime()));
+        if (count > 0){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "验证码未过期，请查看邮件！");
         }
 
-        String checkCode = IdentifyingCode.getCode(Contains.CHECK_CODE_LENGTH, IdentifyingCode.CodeType.NUMBER_AND_LETTER);
+        String authCode = IdentifyingCode.getCode(Contains.CHECK_CODE_LENGTH, IdentifyingCode.CodeType.NUMBER_AND_LETTER);
+        authCodeCache.setAuthCode(authCode);
         try {
             MailBean mailBean = new MailBean();
             mailBean.setSubject(systemName + "注册邮箱验证");
             mailBean.addTargetAddress(email);
-            mailBean.addContextText("你好！<br><br>你在"+systemName+"注册用户！本次操作的验证码为：" + checkCode);
+            mailBean.addContextText("你好！<br><br>你在"+systemName+"注册用户！本次操作的验证码为：" + authCode);
             mailBean.addContextText(",1分钟内有效。请在验证码输入框输入上述验证码完成验证。<br>如果你没有进行注册，请忽略本邮件。");
 
             SendMail.getSendMail("default").sendMail(mailBean);
@@ -84,6 +98,8 @@ public class LoginController {
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_SYS, "请重试或联系管理员！");
         }
 
+        authCodeCache.setExpireTime(authCodeCache.getExpireTime() + Contains.AUTH_CODE_REGISTER_OUT_TIME);
+        authCodeCacheService.save(authCodeCache);
 
         return ResponseJsonMsg.ok();
     }

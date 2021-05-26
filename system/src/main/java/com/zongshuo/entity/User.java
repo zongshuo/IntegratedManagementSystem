@@ -1,5 +1,8 @@
 package com.zongshuo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,13 +26,15 @@ import java.util.Set;
 @Data
 @ToString
 @Table(name = "SYS_USER")
+@TableName("SYS_USER")
 @ApiModel(value = "SYS_USER", description = "系统用户表")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     @ApiModelProperty(value = "主键", name = "id")
+    @TableId(type = IdType.AUTO)
     private Integer id ;
 
     @Column(name = "user_name", unique = true, nullable = false, length = 30)

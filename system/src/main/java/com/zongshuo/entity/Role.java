@@ -1,5 +1,8 @@
 package com.zongshuo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,13 +22,15 @@ import javax.persistence.*;
 @Data
 @ToString
 @Table(name = "SYS_ROLE")
+@TableName("SYS_ROLE")
 @ApiModel(value = "SYS_ROLE", description = "系统角色表")
 public class Role implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     @ApiModelProperty(value = "主键", name = "id")
+    @TableId(type = IdType.AUTO)
     private Integer id ;
 
     @Column(name = "role_key", unique = true, nullable = false, length = 50)

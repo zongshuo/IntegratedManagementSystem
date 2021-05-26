@@ -1,5 +1,8 @@
 package com.zongshuo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,13 +22,15 @@ import java.io.Serializable;
 @Data
 @Entity
 @ToString
-@Table(name = "SYS_AUTH_CODE-CACHE")
-@ApiModel(value = "SYS_AUTH_CODE-CACHE", description = "系统验证码缓存表")
+@Table(name = "SYS_AUTH_CODE_CACHE")
+@TableName("SYS_AUTH_CODE_CACHE")
+@ApiModel(value = "SYS_AUTH_CODE_CACHE", description = "系统验证码缓存表")
 public class AuthCodeCache implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     @ApiModelProperty(value = "主键", name = "id")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @Column(name = "auth_code", nullable = false, length = 12)
@@ -36,5 +41,11 @@ public class AuthCodeCache implements Serializable {
     @ApiModelProperty(value = "过期时间-毫秒", name = "expireTime")
     private Long expireTime ;
 
+    @Column(name = "channel_no", nullable = false, length = 2)
+    @ApiModelProperty(value = "使用渠道", name = "channel_no")
+    private String channelNo ;
 
+    @Column(name = "user_join", nullable = false, length = 300)
+    @ApiModelProperty(value = "关联用户", name = "userJoin")
+    private String userJoin ;
 }
