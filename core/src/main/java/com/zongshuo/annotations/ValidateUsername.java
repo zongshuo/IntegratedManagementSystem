@@ -27,7 +27,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface ValidateUsername {
 
-    public String value() default "";
     public String message() default "用户名格式不正确！";
 
     Class<?> [] groups() default {};

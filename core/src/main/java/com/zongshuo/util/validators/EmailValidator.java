@@ -1,6 +1,6 @@
 package com.zongshuo.util.validators;
 
-import com.zongshuo.annotations.ValidateUsername;
+import com.zongshuo.annotations.ValidateEmail;
 import com.zongshuo.util.FormatCheckUtil;
 
 import javax.validation.ConstraintValidator;
@@ -10,18 +10,17 @@ import javax.validation.ConstraintValidatorContext;
  * @Author: zongShuo
  * @Version: 1.0
  * @Date: 2021-5-27
- * @Time: 17:04
+ * @Time: 19:25
  * @Description:
- *
- * 系统登录用户名校验注解实现类
  */
-public class UsernameValidator implements ConstraintValidator<ValidateUsername, String> {
+public class EmailValidator implements ConstraintValidator<ValidateEmail, String> {
     @Override
-    public void initialize(ValidateUsername constraintAnnotation) {
+    public void initialize(ValidateEmail constraintAnnotation) {
+
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return FormatCheckUtil.isUsername(value);
+        return FormatCheckUtil.isEmail(value);
     }
 }

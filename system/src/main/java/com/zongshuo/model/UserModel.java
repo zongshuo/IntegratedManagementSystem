@@ -3,6 +3,7 @@ package com.zongshuo.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zongshuo.annotations.ValidateEmail;
 import com.zongshuo.annotations.ValidateUsername;
 import com.zongshuo.entity.Role;
 import com.zongshuo.util.validators.Insert;
@@ -44,6 +45,7 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "昵称", name = "nickName")
     private String nickName ;
 
+    @ValidateEmail(groups = Insert.class)
     @ApiModelProperty(value = "邮箱", name = "email")
     private String email ;
 
