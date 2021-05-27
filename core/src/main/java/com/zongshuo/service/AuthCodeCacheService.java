@@ -1,7 +1,7 @@
 package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zongshuo.entity.AuthCodeCache;
+import com.zongshuo.model.AuthCodeCacheModel;
 
 /**
  * @Author: zongShuo
@@ -10,5 +10,5 @@ import com.zongshuo.entity.AuthCodeCache;
  * @Time: 23:28
  * @Description:
  */
-public interface AuthCodeCacheService extends IService<AuthCodeCache> {
+public interface AuthCodeCacheService extends IService<AuthCodeCacheModel> {
 }

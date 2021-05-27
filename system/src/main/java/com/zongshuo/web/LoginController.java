@@ -2,9 +2,9 @@ package com.zongshuo.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.zongshuo.Contains;
 import com.zongshuo.entity.AuthCodeCache;
+import com.zongshuo.model.AuthCodeCacheModel;
 import com.zongshuo.service.AuthCodeCacheService;
 import com.zongshuo.util.FormatCheckUtil;
 import com.zongshuo.util.IdentifyingCode;
@@ -30,9 +30,9 @@ import java.time.Instant;
  * @Date: 2021-5-23
  * @Time: 19:58
  * @Description:
+ * 前端用户登录、注册、重置密码等操作控制器
  */
 @Slf4j
-@CrossOrigin
 @Api(tags = "系统功能-登录及注册")
 @RestController
 @RequestMapping("/api/sys/login")
@@ -51,8 +51,8 @@ public class LoginController {
             @ApiImplicitParam(name = "checkCode", value = "验证码", required = true, dataType = "String", paramType = "body")
     })
     @PostMapping("/register")
-    public ResponseJsonMsg registerUser(@RequestBody JSONObject request){
-        log.info("注册用户：{}",request);
+    public ResponseJsonMsg registerUser(@RequestBody AuthCodeCache model){
+        log.info("注册用户：{}",model);
 
         return ResponseJsonMsg.ok();
     }
@@ -67,12 +67,12 @@ public class LoginController {
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "不支持的邮箱格式！");
         }
 
-        AuthCodeCache authCodeCache = new AuthCodeCache();
+        AuthCodeCacheModel authCodeCache = new AuthCodeCacheModel();
         authCodeCache.setUserJoin(email);
         authCodeCache.setExpireTime(Instant.now().toEpochMilli());
         authCodeCache.setChannelNo(Contains.AUTH_CODE_CHANNEL_REGISTER);
         int count = authCodeCacheService.count(
-                new QueryWrapper<AuthCodeCache>()
+                new QueryWrapper<com.zongshuo.model.AuthCodeCacheModel>()
                         .eq("user_join", authCodeCache.getUserJoin())
                         .eq("channel_no", authCodeCache.getChannelNo())
                         .gt("expire_time", authCodeCache.getExpireTime()));

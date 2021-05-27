@@ -1,7 +1,7 @@
 package com.zongshuo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zongshuo.entity.AuthCodeCache;
+import com.zongshuo.model.AuthCodeCacheModel;
 
 /**
  * @Author: zongShuo
@@ -10,5 +10,5 @@ import com.zongshuo.entity.AuthCodeCache;
  * @Time: 23:28
  * @Description:
  */
-public interface AuthCodeCacheMapper extends BaseMapper<AuthCodeCache> {
+public interface AuthCodeCacheMapper extends BaseMapper<AuthCodeCacheModel> {
 }

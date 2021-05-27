@@ -1,4 +1,4 @@
-package com.zongshuo.entity;
+package com.zongshuo.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -17,35 +16,26 @@ import java.io.Serializable;
  * @Date: 2021-5-26
  * @Time: 20:59
  * @Description:
- * 该表用于缓存验证码，需要存储验证码，过期时间，验证码使用渠道, 所属用户等
+ * 系统验证码缓存表模型，用于前端参数接收，数据库操作等
  */
 @Data
-@Entity
 @ToString
-@Table(name = "SYS_AUTH_CODE_CACHE")
 @TableName("SYS_AUTH_CODE_CACHE")
-@ApiModel(value = "SYS_AUTH_CODE_CACHE", description = "系统验证码缓存表")
-public class AuthCodeCache implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    @ApiModelProperty(value = "主键", name = "id")
+@ApiModel(value = "AuthCodeCacheModel对象", description = "系统验证码缓存表模型")
+public class AuthCodeCacheModel implements Serializable {
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "主键", name = "id")
     private Integer id;
 
-    @Column(name = "auth_code", nullable = false, length = 12)
     @ApiModelProperty(value = "验证码", name = "authCode")
     private String authCode ;
 
-    @Column(name = "expire_time")
     @ApiModelProperty(value = "过期时间-毫秒", name = "expireTime")
     private Long expireTime ;
 
-    @Column(name = "channel_no", nullable = false, length = 2)
-    @ApiModelProperty(value = "使用渠道", name = "channel_no")
+    @ApiModelProperty(value = "使用渠道", name = "channelNo")
     private String channelNo ;
 
-    @Column(name = "user_join", nullable = false, length = 300)
     @ApiModelProperty(value = "关联用户", name = "userJoin")
     private String userJoin ;
 }

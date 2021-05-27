@@ -22,12 +22,12 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
-    <build>
-        <resources>
-            <resource>
+<!--    <build>-->
+<!--        <resources>-->
+<!--            <resource>-->
 
-            </resource>
-        </resources>
-    </build>
+<!--            </resource>-->
+<!--        </resources>-->
+<!--    </build>-->
 
 </project>

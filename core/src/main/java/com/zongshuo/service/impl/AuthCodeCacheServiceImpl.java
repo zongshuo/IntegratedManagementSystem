@@ -1,8 +1,8 @@
 package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zongshuo.entity.AuthCodeCache;
 import com.zongshuo.mapper.AuthCodeCacheMapper;
+import com.zongshuo.model.AuthCodeCacheModel;
 import com.zongshuo.service.AuthCodeCacheService;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +14,5 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class AuthCodeCacheServiceImpl extends ServiceImpl<AuthCodeCacheMapper, AuthCodeCache> implements AuthCodeCacheService {
+public class AuthCodeCacheServiceImpl extends ServiceImpl<AuthCodeCacheMapper, AuthCodeCacheModel> implements AuthCodeCacheService {
 }
