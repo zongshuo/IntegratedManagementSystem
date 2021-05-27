@@ -1,4 +1,4 @@
-package com.zongshuo.util.validators;
+package com.zongshuo.annotations.validators;
 
 import com.zongshuo.annotations.ValidateUsername;
 import com.zongshuo.util.FormatCheckUtil;

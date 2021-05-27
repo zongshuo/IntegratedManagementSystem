@@ -11,7 +11,7 @@ import com.zongshuo.util.IdentifyingCode;
 import com.zongshuo.util.ResponseJsonMsg;
 import com.zongshuo.util.email.MailBean;
 import com.zongshuo.util.email.SendMail;
-import com.zongshuo.util.validators.Insert;
+import com.zongshuo.annotations.validators.Insert;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

@@ -36,7 +36,7 @@ public final class FormatCheckUtil {
      * @param checkCode
      * @return
      */
-    public static boolean isCheckCode(String checkCode){
+    public static boolean isAuthCode(String checkCode){
         return test(checkCode, "^[a-zA-Z0-9]{" + Contains.CHECK_CODE_LENGTH + "}$");
     }
 

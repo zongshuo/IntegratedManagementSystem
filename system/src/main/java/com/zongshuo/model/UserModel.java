@@ -1,20 +1,21 @@
 package com.zongshuo.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zongshuo.annotations.ValidateAuchCode;
 import com.zongshuo.annotations.ValidateEmail;
+import com.zongshuo.annotations.ValidatePassword;
 import com.zongshuo.annotations.ValidateUsername;
 import com.zongshuo.entity.Role;
-import com.zongshuo.util.validators.Insert;
+import com.zongshuo.annotations.validators.Insert;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,6 +40,7 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "用户名", name = "username")
     private String username ;
 
+    @ValidatePassword(groups = Insert.class)
     @ApiModelProperty(value = "密码", name = "password")
     private String password ;
 
@@ -63,6 +65,11 @@ public class UserModel implements UserDetails {
 
     @ApiModelProperty(value = "用户角色列表", name = "roles")
     private Set<Role> roles = new HashSet<>(0);
+
+    @ValidateAuchCode(groups = Insert.class)
+    @ApiModelProperty(value = "验证码", name = "authCode")
+    @TableField(exist = false)
+    private String authCode ;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,6 +1,6 @@
 package com.zongshuo.annotations;
 
-import com.zongshuo.util.validators.UsernameValidator;
+import com.zongshuo.annotations.validators.UsernameValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
