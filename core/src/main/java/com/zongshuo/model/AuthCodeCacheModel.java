@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @ToString
 @TableName("SYS_AUTH_CODE_CACHE")
-@ApiModel(value = "AuthCodeCacheModel对象", description = "系统验证码缓存表模型")
+@ApiModel(value = "AuthCodeCacheModel", description = "系统验证码缓存表模型")
 public class AuthCodeCacheModel implements Serializable {
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", name = "id")

@@ -2,6 +2,7 @@ package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zongshuo.entity.User;
+import com.zongshuo.model.UserModel;
 
 /**
  * @Author: zongShuo
@@ -10,12 +11,12 @@ import com.zongshuo.entity.User;
  * @Time: 10:05
  * @Description:
  */
-public interface UserService extends IService<User> {
+public interface UserModelService extends IService<UserModel> {
 
     /**
      *
      * @param username
      * @return
      */
-    User getUserAndRoles(String username);
+    UserModel getUserAndRoles(String username);
 }

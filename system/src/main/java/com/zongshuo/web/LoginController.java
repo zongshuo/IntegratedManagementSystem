@@ -3,14 +3,15 @@ package com.zongshuo.web;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.Contains;
-import com.zongshuo.entity.AuthCodeCache;
 import com.zongshuo.model.AuthCodeCacheModel;
+import com.zongshuo.model.UserModel;
 import com.zongshuo.service.AuthCodeCacheService;
 import com.zongshuo.util.FormatCheckUtil;
 import com.zongshuo.util.IdentifyingCode;
 import com.zongshuo.util.ResponseJsonMsg;
 import com.zongshuo.util.email.MailBean;
 import com.zongshuo.util.email.SendMail;
+import com.zongshuo.util.validators.Insert;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -18,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -45,14 +47,15 @@ public class LoginController {
 
     @ApiOperation("注册用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType = "body"),
-            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "body"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "body"),
-            @ApiImplicitParam(name = "checkCode", value = "验证码", required = true, dataType = "String", paramType = "body")
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "checkCode", value = "验证码", required = true, dataType = "String", paramType = "query")
     })
-    @PostMapping("/register")
-    public ResponseJsonMsg registerUser(@RequestBody AuthCodeCache model){
+    @PutMapping("/register")
+    public ResponseJsonMsg registerUser(@RequestBody @Validated(Insert.class) UserModel model){
         log.info("注册用户：{}",model);
+
 
         return ResponseJsonMsg.ok();
     }

@@ -1,9 +1,9 @@
 package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zongshuo.entity.User;
-import com.zongshuo.mapper.UserMapper;
-import com.zongshuo.service.UserService;
+import com.zongshuo.mapper.UserModelMapper;
+import com.zongshuo.model.UserModel;
+import com.zongshuo.service.UserModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +17,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserModelServiceImpl extends ServiceImpl<UserModelMapper, UserModel> implements UserModelService {
     @Autowired(required = false)
-    private UserMapper userMapper;
+    private UserModelMapper userMapper;
 
 
     @Override
-    public User getUserAndRoles(String username) {
+    public UserModel getUserAndRoles(String username) {
         return null;
     }
 }

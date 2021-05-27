@@ -1,7 +1,7 @@
 package com.zongshuo.security;
 
-import com.zongshuo.entity.User;
-import com.zongshuo.service.UserService;
+import com.zongshuo.model.UserModel;
+import com.zongshuo.service.UserModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,11 +18,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired()
-    private UserService userService;
+    private UserModelService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getUserAndRoles(username);
+        UserModel user = userService.getUserAndRoles(username);
         if (user == null) throw new UsernameNotFoundException("用户名不存在");
 
         return user;
