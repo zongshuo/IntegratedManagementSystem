@@ -33,11 +33,14 @@ public class UserRole implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id ;
 
-    @Column(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false, referencedColumnName = "id")
     @ApiModelProperty(value = "用户主键", name = "userId")
-    private Integer userId ;
+    private User user;
 
-    @Column(name = "role_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @ApiModelProperty(value = "角色主键", name = "roleId")
-    private Integer roleId ;
+    @JoinColumn(name = "role_id", insertable = false, updatable = false, referencedColumnName = "id")
+    private Role role;
+
 }

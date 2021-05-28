@@ -35,4 +35,15 @@ public class GlobalExceptionHandler {
     public ResponseJsonMsg validateExceptionHandler(MethodArgumentNotValidException e){
         return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, e.getBindingResult().getFieldError().getDefaultMessage());
     }
+
+    /**
+     * controller 抛出的所有未知异常，均在此捕获
+     * @param e
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    public ResponseJsonMsg validateExceptionHandler(Exception e){
+        return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_UNKNOWN, e.getMessage());
+    }
 }

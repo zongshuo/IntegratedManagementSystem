@@ -19,7 +19,6 @@ import java.io.Serializable;
  * 系统验证码缓存表模型，用于前端参数接收，数据库操作等
  */
 @Data
-@ToString
 @TableName("SYS_AUTH_CODE_CACHE")
 @ApiModel(value = "AuthCodeCacheModel", description = "系统验证码缓存表模型")
 public class AuthCodeCacheModel implements Serializable {

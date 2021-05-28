@@ -1,19 +1,10 @@
 package com.zongshuo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Data;
-import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * @Author: zongShuo
@@ -32,13 +23,13 @@ public class User{
     @Column(name = "id", unique = true, nullable = false)
     private Integer id ;
 
-    @Column(name = "user_name", unique = true, nullable = false, length = 30)
+    @Column(name = "username", unique = true, nullable = false, length = 30)
     private String username ;
 
     @Column(name = "password", nullable = false, length = 200)
     private String password ;
 
-    @Column(name = "nick_name", nullable = false, length = 30)
+    @Column(name = "nick_name", length = 30)
     private String nickName ;
 
     @Column(name = "email", nullable = false, length = 200)
@@ -55,10 +46,4 @@ public class User{
 
     @Column(name = "is_enabled")
     private boolean isEnabled ;
-
-    @ManyToMany
-    @JoinTable(name = "SYS_USER_ROLE"
-            , joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
-            , inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private Set<Role> roles = new HashSet<>(0);
 }

@@ -63,6 +63,7 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "账号是否可用", name = "isEnabled")
     private boolean isEnabled ;
 
+    @TableField(exist = false)
     @ApiModelProperty(value = "用户角色列表", name = "roles")
     private Set<Role> roles = new HashSet<>(0);
 

@@ -6,16 +6,14 @@ import com.zongshuo.Contains;
 import com.zongshuo.model.AuthCodeCacheModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.AuthCodeCacheService;
+import com.zongshuo.service.UserModelService;
 import com.zongshuo.util.FormatCheckUtil;
 import com.zongshuo.util.IdentifyingCode;
 import com.zongshuo.util.ResponseJsonMsg;
 import com.zongshuo.util.email.MailBean;
 import com.zongshuo.util.email.SendMail;
 import com.zongshuo.annotations.validators.Insert;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +42,8 @@ public class LoginController {
 
     @Autowired
     private AuthCodeCacheService authCodeCacheService;
+    @Autowired
+    private UserModelService userModelService;
 
     @ApiOperation("注册用户")
     @ApiImplicitParams({
@@ -55,15 +55,32 @@ public class LoginController {
     @PutMapping("/register")
     public ResponseJsonMsg registerUser(@RequestBody @Validated(Insert.class) UserModel model){
         log.info("注册用户：{}",model);
+        int count = authCodeCacheService.count(new QueryWrapper<AuthCodeCacheModel>()
+                .eq("auth_code", model.getAuthCode())
+                .eq("user_join", model.getEmail())
+                .gt("expire_time", Instant.now().toEpochMilli()));
+        if (count < 1){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "验证码不正确或已过期！");
+        }
 
+        count = userModelService.count(new QueryWrapper<UserModel>().eq("username", model.getUsername()));
+        if (count > 0) {
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "用户名已被注册！");
+        }
 
+        count = userModelService.count(new QueryWrapper<UserModel>().eq("email", model.getEmail()));
+        if (count > 0){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "邮箱已注册过用户！");
+        }
+
+        userModelService.save(model);
         return ResponseJsonMsg.ok();
     }
 
     @ApiOperation("注册用户发送验证码")
     @ApiImplicitParam(name = "email", value = "注册邮箱", required = true, dataType = "String", paramType = "query")
-    @PutMapping("/sendCheckCode")
-    public ResponseJsonMsg sendCheckCode(@RequestBody JSONObject request){
+    @PutMapping("/sendAuthCode")
+    public ResponseJsonMsg sendAuthCode(@RequestBody JSONObject request){
         log.info("注册用户发送验证码：{}", request);
         String email = request.getString("email");
         if (!FormatCheckUtil.isEmail(email)){
@@ -90,7 +107,7 @@ public class LoginController {
             mailBean.setSubject(systemName + "注册邮箱验证");
             mailBean.addTargetAddress(email);
             mailBean.addContextText("你好！<br><br>你在"+systemName+"注册用户！本次操作的验证码为：" + authCode);
-            mailBean.addContextText(",1分钟内有效。请在验证码输入框输入上述验证码完成验证。<br>如果你没有进行注册，请忽略本邮件。");
+            mailBean.addContextText(",10分钟内有效。请在验证码输入框输入上述验证码完成验证。<br>如果你没有进行注册，请忽略本邮件。");
 
             SendMail.getSendMail("default").sendMail(mailBean);
         } catch (AddressException e) {

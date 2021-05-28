@@ -23,7 +23,7 @@ import javax.persistence.*;
 @ToString
 @Table(name = "SYS_ROLE")
 @TableName("SYS_ROLE")
-@ApiModel(value = "SYS_ROLE", description = "系统角色表")
+@ApiModel(value = "Role对象", description = "系统角色表")
 public class Role implements GrantedAuthority {
 
     @Id
@@ -44,14 +44,6 @@ public class Role implements GrantedAuthority {
     @Column(name = "descriptions", length = 200)
     @ApiModelProperty(value = "角色说明", name = "descriptions")
     private String descriptions ;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     @Override
     public String getAuthority() {
