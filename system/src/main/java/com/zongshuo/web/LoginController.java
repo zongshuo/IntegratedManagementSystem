@@ -17,6 +17,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,7 +73,9 @@ public class LoginController {
         if (count > 0){
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "邮箱已注册过用户！");
         }
-
+        //密码加密
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        model.setPassword(encoder.encode(model.getPassword()));
         userModelService.save(model);
         return ResponseJsonMsg.ok();
     }
