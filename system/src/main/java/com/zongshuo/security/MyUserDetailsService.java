@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * security获取用户信息的服务，需要实现UserDetailsService接口
  */
 public class MyUserDetailsService implements UserDetailsService {
-    @Autowired()
+    @Autowired
     private UserModelService userService;
 
     @Override

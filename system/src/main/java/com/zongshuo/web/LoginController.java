@@ -36,7 +36,7 @@ import java.time.Instant;
 @Slf4j
 @Api(tags = "系统功能-登录及注册")
 @RestController
-@RequestMapping("/api/sys/login")
+@RequestMapping("/sys/login")
 public class LoginController {
     @Value("${ims.system.name}")
     String systemName;
@@ -76,6 +76,10 @@ public class LoginController {
         //密码加密
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         model.setPassword(encoder.encode(model.getPassword()));
+        model.setIsEnabled(true);
+        model.setIsAccountNonLocked(true);
+        model.setIsAccountNonExpired(true);
+        model.setIsCredentialsNonExpired(true);
         userModelService.save(model);
         return ResponseJsonMsg.ok();
     }

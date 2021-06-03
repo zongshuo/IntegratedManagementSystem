@@ -12,6 +12,11 @@ public final class Contains {
     private Contains(){}
 
     /**
+     * JWT token slot
+     */
+    public static final String JWT_SLOT = "0ZW?&PmZ";
+
+    /**
      * 验证码长度
      */
     public static final int CHECK_CODE_LENGTH = 6;

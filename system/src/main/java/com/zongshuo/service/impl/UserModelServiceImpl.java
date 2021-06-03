@@ -1,5 +1,6 @@
 package com.zongshuo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.mapper.UserModelMapper;
 import com.zongshuo.model.UserModel;
@@ -24,6 +25,7 @@ public class UserModelServiceImpl extends ServiceImpl<UserModelMapper, UserModel
 
     @Override
     public UserModel getUserAndRoles(String username) {
-        return null;
+        UserModel userModel = getOne(new QueryWrapper<UserModel>().eq("username", username));
+        return userModel;
     }
 }
