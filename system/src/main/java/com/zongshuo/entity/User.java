@@ -4,6 +4,7 @@ package com.zongshuo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -46,4 +47,7 @@ public class User{
 
     @Column(name = "is_enabled")
     private boolean isEnabled ;
+
+    @Column(name = "create_time")
+    private Date createTime;
 }

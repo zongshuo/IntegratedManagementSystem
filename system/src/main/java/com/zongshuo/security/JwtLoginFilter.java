@@ -8,6 +8,7 @@ import com.zongshuo.util.JwtUtil;
 import com.zongshuo.util.ResponseJsonMsg;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -71,17 +72,28 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
-        String userToken = JwtUtil.buildToken(userDetails.getUsername(), Contains.JWT_SLOT, Contains.TOKEN_EFFECTIVE_TIME);
+        String userToken = JwtUtil.buildToken(userDetails.getUsername(), Contains.JWT_SLOT, Contains.EFFECTIVE_TIME_USER_TOKEN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter writer = response.getWriter();
         writer.write(JSONObject.toJSONString(
                 ResponseJsonMsg.ok("登录成功！").put("access_token", userToken).put("token_type", JwtUtil.TOKEN_TYPE)));
         writer.flush();
-//        super.successfulAuthentication(request, response, chain, authResult);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        super.unsuccessfulAuthentication(request, response, failed);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        PrintWriter writer = response.getWriter();
+        ResponseJsonMsg responseJsonMsg = null;
+        //AbstractUserDetailsAuthenticationProvider类的hideUserNotFoundExceptions字段默认为true
+        // 需要设置为false才会在捕获UsernameNotFoundException异常时直接抛出，否则只会抛出BadCredentialsException异常
+        if (failed instanceof BadCredentialsException){
+            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号或密码不正确！");
+        } else {
+            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_UNKNOWN, failed.getMessage());
+        }
+
+        writer.write(JSONObject.toJSONString(responseJsonMsg));
+        writer.flush();
     }
 }

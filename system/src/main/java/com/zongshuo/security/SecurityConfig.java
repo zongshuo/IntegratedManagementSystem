@@ -58,8 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //此处后面配置的请求都需要经过认证
                 .anyRequest().authenticated()
                 //springSecurity永远不会创建HTTPSession，且不会使用HTTPSession获取SecurityContext
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().formLogin().loginPage("/sys/login").usernameParameter("username").passwordParameter("password");
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //设置认证或授权异常自定义处理类
         http.exceptionHandling().accessDeniedHandler(jwtExceptionHandler()).authenticationEntryPoint(jwtExceptionHandler());

@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,6 +63,9 @@ public class UserModel implements UserDetails {
 
     @ApiModelProperty(value = "账号是否可用", name = "isEnabled")
     private boolean isEnabled ;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime ;
 
     @TableField(exist = false)
     @ApiModelProperty(value = "用户角色列表", name = "roles")

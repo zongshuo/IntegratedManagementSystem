@@ -43,6 +43,5 @@ class MenuServiceImplTest {
 
     public static void main(String[] args) {
         String encode = new String(Base64.getEncoder().encode("0ZW?&PmZ_彩色显示器-secret_slot".getBytes()));
-        System.out.println(encode);
     }
 }

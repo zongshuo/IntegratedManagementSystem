@@ -2,7 +2,9 @@ package com.zongshuo.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zongshuo.Contains;
+import com.zongshuo.entity.AuthCodeCache;
 import com.zongshuo.model.AuthCodeCacheModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.AuthCodeCacheService;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import java.time.Instant;
+import java.util.Date;
 
 /**
  * @Author: zongShuo
@@ -80,7 +83,14 @@ public class LoginController {
         model.setIsAccountNonLocked(true);
         model.setIsAccountNonExpired(true);
         model.setIsCredentialsNonExpired(true);
+        model.setCreateTime(new Date());
         userModelService.save(model);
+
+        authCodeCacheService.remove(new UpdateWrapper<AuthCodeCacheModel>()
+                .eq("auth_code", model.getAuthCode())
+                .eq("channel_no", Contains.CHANNEL_AUTH_CODE_REGISTER)
+                .eq("user_join", model.getEmail()));
+
         return ResponseJsonMsg.ok();
     }
 
@@ -97,7 +107,7 @@ public class LoginController {
         AuthCodeCacheModel authCodeCache = new AuthCodeCacheModel();
         authCodeCache.setUserJoin(email);
         authCodeCache.setExpireTime(Instant.now().toEpochMilli());
-        authCodeCache.setChannelNo(Contains.AUTH_CODE_CHANNEL_REGISTER);
+        authCodeCache.setChannelNo(Contains.CHANNEL_AUTH_CODE_REGISTER);
         int count = authCodeCacheService.count(
                 new QueryWrapper<com.zongshuo.model.AuthCodeCacheModel>()
                         .eq("user_join", authCodeCache.getUserJoin())
@@ -113,8 +123,8 @@ public class LoginController {
             MailBean mailBean = new MailBean();
             mailBean.setSubject(systemName + "注册邮箱验证");
             mailBean.addTargetAddress(email);
-            mailBean.addContextText("你好！<br><br>你在"+systemName+"注册用户！本次操作的验证码为：" + authCode);
-            mailBean.addContextText(",10分钟内有效。请在验证码输入框输入上述验证码完成验证。<br>如果你没有进行注册，请忽略本邮件。");
+            mailBean.addContextText("您好！<br><br>您在"+systemName+"注册用户！本次操作的验证码为：" + authCode);
+            mailBean.addContextText("，1小时内有效。请在验证码输入框输入上述验证码完成验证。<br>如果您没有进行注册，可以忽略本邮件。");
 
             SendMail.getSendMail("default").sendMail(mailBean);
         } catch (AddressException e) {
@@ -125,9 +135,103 @@ public class LoginController {
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_SYS, "请重试或联系管理员！");
         }
 
-        authCodeCache.setExpireTime(authCodeCache.getExpireTime() + Contains.AUTH_CODE_REGISTER_OUT_TIME);
+        authCodeCache.setExpireTime(authCodeCache.getExpireTime() + Contains.EFFECTIVE_TIME_AUTH_CODE_REGISTER);
         authCodeCacheService.save(authCodeCache);
 
         return ResponseJsonMsg.ok();
+    }
+
+
+    @ApiOperation("重置密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "authCode", value = "验证码", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "query")
+    })
+    @PostMapping("/resetPassword")
+    public ResponseJsonMsg resetPassword(@RequestBody UserModel userModel){
+        if (FormatCheckUtil.isNotUsername(userModel.getUsername())){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "用户名不正确！");
+        }
+        if (FormatCheckUtil.isNotAuthCode(userModel.getAuthCode())){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "验证码不正确！");
+        }
+        if (FormatCheckUtil.isNotPassword(userModel.getPassword())){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "密码格式错误！");
+        }
+
+        int count = authCodeCacheService.count(
+                new QueryWrapper<AuthCodeCacheModel>()
+                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD)
+                        .eq("user_join", userModel.getUsername())
+                        .gt("expire_time", Instant.now().toEpochMilli()));
+        if (count < 1){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "验证码错误或已过期！");
+        }
+
+        userModel.setPassword(new BCryptPasswordEncoder().encode(userModel.getPassword()));
+
+        userModelService.update(
+                new UpdateWrapper<UserModel>()
+                        .set("password", userModel.getPassword())
+                        .eq("username", userModel.getUsername()));
+        authCodeCacheService.remove(
+                new UpdateWrapper<AuthCodeCacheModel>()
+                        .eq("auth_code", userModel.getAuthCode())
+                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD)
+                        .eq("user_join", userModel.getUsername()));
+
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("重置密码发送验证码")
+    @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType = "query")
+    @PutMapping("/sendResetPasswordAuthCode")
+    public ResponseJsonMsg sendResetPasswordAuthCode(@RequestBody JSONObject request){
+        log.info("重置密码发送验证码：{}", request);
+        String username = request.getString("username");
+        if (!FormatCheckUtil.isUsername(username)){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "用户名不正确！");
+        }
+
+        int count = authCodeCacheService.count(
+                new QueryWrapper<AuthCodeCacheModel>()
+                        .eq("user_join", username)
+                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD)
+                        .gt("expire_time", Instant.now().toEpochMilli()));
+        if (count > 0){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "验证码未过期，请查看邮件！");
+        }
+
+        UserModel userModel = userModelService.getOne(new QueryWrapper<UserModel>().eq("username", username));
+        if (userModel == null){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "用户名不正确！");
+        }
+
+        String authCode = IdentifyingCode.getCode(Contains.CHECK_CODE_LENGTH, IdentifyingCode.CodeType.NUMBER_AND_LETTER);
+        try {
+            MailBean mailBean = new MailBean();
+            mailBean.setSubject(systemName + "重置密码");
+            mailBean.addTargetAddress(userModel.getEmail());
+            mailBean.addContextText("您好！<br><br>您在"+systemName+"重置账号密码！本次操作的验证码为：" + authCode);
+            mailBean.addContextText("，10分钟内有效。请在验证码输入框输入上述验证码完成验证。<br>如果非您本人操作，请及时更新密码。");
+
+            SendMail.getSendMail("default").sendMail(mailBean);
+        } catch (AddressException e) {
+            log.error("重置密码-邮箱验证码发送异常：", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "email地址不正确！");
+        } catch (MessagingException e) {
+            log.error("重置密码-邮箱验证码发送异常：", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_SYS, "请重试或联系管理员！");
+        }
+
+        AuthCodeCacheModel authCodeCache = new AuthCodeCacheModel();
+        authCodeCache.setChannelNo(Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD);
+        authCodeCache.setUserJoin(userModel.getUsername());
+        authCodeCache.setAuthCode(authCode);
+        authCodeCache.setExpireTime(Instant.now().toEpochMilli() + Contains.EFFECTIVE_TIME_AUTH_CODE_RESET_PASSWORD);
+        authCodeCacheService.save(authCodeCache);
+
+        return ResponseJsonMsg.ok("验证码已发送！");
     }
 }

@@ -31,14 +31,20 @@ public final class Contains {
      */
     public static final int CHECK_CODE_LENGTH = 6;
     /**
-     * 注册验证码失效时间
+     * 注册验证码有效时间
      * 单位毫秒
      */
-    public static final long AUTH_CODE_REGISTER_OUT_TIME = 600000;
+    public static final long EFFECTIVE_TIME_AUTH_CODE_REGISTER = 1000*60*60;
+    public static final long EFFECTIVE_TIME_AUTH_CODE_RESET_PASSWORD = 1000*60*10;
+    public static final long EFFECTIVE_TIME_USER_TOKEN = 1000*60*60*8;
     /**
-     * 验证码来源-用户注册
+     * 渠道编码
+     * REGISTER：用户注册
+     * RESET_PASSWORD：重置密码
      */
-    public static final String AUTH_CODE_CHANNEL_REGISTER = "01";
+    public static final String CHANNEL_AUTH_CODE_REGISTER = "01";
+    public static final String CHANNEL_AUTH_CODE_RESET_PASSWORD = "02";
+
 
     /**
      * 接口响应报告状态码
