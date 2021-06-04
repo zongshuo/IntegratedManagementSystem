@@ -1,7 +1,11 @@
 package com.zongshuo.security;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zongshuo.Contains;
 import com.zongshuo.model.UserModel;
+import com.zongshuo.util.JwtUtil;
+import com.zongshuo.util.ResponseJsonMsg;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 
 /**
  * @Author: zongShuo
@@ -66,7 +71,13 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
-        super.successfulAuthentication(request, response, chain, authResult);
+        String userToken = JwtUtil.buildToken(userDetails.getUsername(), Contains.JWT_SLOT, Contains.TOKEN_EFFECTIVE_TIME);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        PrintWriter writer = response.getWriter();
+        writer.write(JSONObject.toJSONString(
+                ResponseJsonMsg.ok("登录成功！").put("access_token", userToken).put("token_type", JwtUtil.TOKEN_TYPE)));
+        writer.flush();
+//        super.successfulAuthentication(request, response, chain, authResult);
     }
 
     @Override

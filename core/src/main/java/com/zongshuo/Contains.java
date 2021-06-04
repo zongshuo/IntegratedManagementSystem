@@ -14,7 +14,17 @@ public final class Contains {
     /**
      * JWT token slot
      */
-    public static final String JWT_SLOT = "0ZW?&PmZ";
+    public static final String JWT_SLOT = "MFpXPyZQbVpf5b2p6Imy5pi+56S65ZmoLXNlY3JldF9zbG90";//0ZW?&PmZ_彩色显示器-secret_slot
+    /**
+     * JWT token expire time
+     * 单位毫秒
+     */
+    public static final long TOKEN_EFFECTIVE_TIME = 1000*60*60*8;
+    /**
+     * token提前刷新时间
+     * 单位分钟
+     */
+    public static final int TOKEN_WILL_EXPIRE = 30;
 
     /**
      * 验证码长度

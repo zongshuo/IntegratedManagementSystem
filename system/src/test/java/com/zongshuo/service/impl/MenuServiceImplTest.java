@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Base64;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -35,5 +37,12 @@ class MenuServiceImplTest {
     public void save(){
 //        Menu menu = new Menu();
 //        menuService.save(menu);
+
+
+    }
+
+    public static void main(String[] args) {
+        String encode = new String(Base64.getEncoder().encode("0ZW?&PmZ_彩色显示器-secret_slot".getBytes()));
+        System.out.println(encode);
     }
 }
