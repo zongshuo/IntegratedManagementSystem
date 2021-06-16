@@ -2,7 +2,6 @@ package com.zongshuo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zongshuo.model.UserModel;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: zongShuo
@@ -12,5 +11,5 @@ import org.apache.ibatis.annotations.Param;
  * @Description:
  */
 public interface UserModelMapper extends BaseMapper<UserModel> {
-    UserModel selectUserAndRoles(@Param("username") String username);
+
 }

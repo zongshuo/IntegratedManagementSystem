@@ -58,7 +58,16 @@ public final class Contains {
     public static final String RET_CODE_FAILED_AUTH_EXPIRE = "AUTH_E03"; //登录已过期
     public static final String RET_CODE_FAILED_PARAM = "PARM_E01"; //参数错误
     public static final String RET_CODE_FAILED_DATA_STATE = "DATA_E01"; //数据状态错误
+    public static final String RET_CODE_FAILED_DATA_NOT_FOUND = "DATA_E02";  //数据未发现缺失
 
 
+    /**
+     * 系统管理员名称
+     */
+    public static final String SYS_ADMIN_NAME = "admin";
+    /**
+     * 菜单-系统管理
+     */
+    public static final String MENU_SYS_ADMIN_NAME = "系统管理";
 
 }

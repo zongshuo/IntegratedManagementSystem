@@ -3,8 +3,6 @@ package com.zongshuo.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -71,6 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * 我们想要自定义基于JWT拦截的过滤器，可以通过以下方式实现
          */
         http.addFilterBefore(jwtLoginFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        //处理请求中携带token的请求
+        http.addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -132,5 +132,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public JwtLoginFilter jwtLoginFilter() throws Exception{
         return new JwtLoginFilter(authenticationManagerBean());
+    }
+
+    @Bean
+    public JwtRequestFilter jwtRequestFilter(){
+        return new JwtRequestFilter(myUserDetailsService());
     }
 }

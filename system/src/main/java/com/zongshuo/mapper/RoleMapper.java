@@ -2,6 +2,10 @@ package com.zongshuo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zongshuo.entity.Role;
+import com.zongshuo.model.RoleModel;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Author: zongShuo
@@ -11,4 +15,10 @@ import com.zongshuo.entity.Role;
  * @Description:
  */
 public interface RoleMapper extends BaseMapper<Role> {
+    /**
+     * 根据用户id关联用户角色表获取系统角色信息
+     * @param id
+     * @return
+     */
+    List<RoleModel> selectUserRoles(@Param("userId") Integer id);
 }

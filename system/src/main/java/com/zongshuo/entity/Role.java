@@ -1,13 +1,6 @@
 package com.zongshuo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
@@ -20,33 +13,20 @@ import javax.persistence.*;
  */
 @Entity
 @Data
-@ToString
 @Table(name = "SYS_ROLE")
-@TableName("SYS_ROLE")
-@ApiModel(value = "Role对象", description = "系统角色表")
-public class Role implements GrantedAuthority {
+public class Role{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    @ApiModelProperty(value = "主键", name = "id")
-    @TableId(type = IdType.AUTO)
     private Integer id ;
 
     @Column(name = "role_key", unique = true, nullable = false, length = 50)
-    @ApiModelProperty(value = "角色标识", name = "roleKey")
     private String roleKey ;
 
     @Column(name = "role_name", unique = true, nullable = false, length = 50)
-    @ApiModelProperty(value = "角色名称", name = "roleName")
     private String roleName ;
 
     @Column(name = "descriptions", length = 200)
-    @ApiModelProperty(value = "角色说明", name = "descriptions")
     private String descriptions ;
-
-    @Override
-    public String getAuthority() {
-        return null;
-    }
 }

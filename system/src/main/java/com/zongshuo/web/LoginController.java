@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zongshuo.Contains;
-import com.zongshuo.entity.AuthCodeCache;
 import com.zongshuo.model.AuthCodeCacheModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.AuthCodeCacheService;

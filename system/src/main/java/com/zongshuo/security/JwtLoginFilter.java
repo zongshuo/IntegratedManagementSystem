@@ -72,7 +72,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
-        String userToken = JwtUtil.buildToken(userDetails.getUsername(), Contains.JWT_SLOT, Contains.EFFECTIVE_TIME_USER_TOKEN);
+            String userToken = JwtUtil.buildToken(userDetails.getUsername(), Contains.JWT_SLOT, Contains.EFFECTIVE_TIME_USER_TOKEN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter writer = response.getWriter();
         writer.write(JSONObject.toJSONString(

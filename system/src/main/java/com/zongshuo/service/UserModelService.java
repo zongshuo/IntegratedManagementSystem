@@ -12,6 +12,13 @@ import com.zongshuo.model.UserModel;
  * @Description:
  */
 public interface UserModelService extends IService<UserModel> {
+    /**
+     * 根据用户名查询用户信息
+     * 包括用户基本信息、用户角色信息、用户菜单信息
+     * @param username
+     * @return
+     */
+    UserModel getUserInfo(String username) throws IllegalAccessException;
 
     /**
      *

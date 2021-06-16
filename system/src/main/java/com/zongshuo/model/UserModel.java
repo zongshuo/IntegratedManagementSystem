@@ -8,7 +8,6 @@ import com.zongshuo.annotations.ValidateAuchCode;
 import com.zongshuo.annotations.ValidateEmail;
 import com.zongshuo.annotations.ValidatePassword;
 import com.zongshuo.annotations.ValidateUsername;
-import com.zongshuo.entity.Role;
 import com.zongshuo.annotations.validators.Insert;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,10 +15,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: zongShuo
@@ -69,7 +65,11 @@ public class UserModel implements UserDetails {
 
     @TableField(exist = false)
     @ApiModelProperty(value = "用户角色列表", name = "roles")
-    private Set<Role> roles = new HashSet<>(0);
+    private List<RoleModel> roles = new ArrayList<>(0);
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "用户菜单列表", name = "menus")
+    private List<MenuModel> menus = new ArrayList<>(0);
 
     @ValidateAuchCode(groups = Insert.class)
     @ApiModelProperty(value = "验证码", name = "authCode")

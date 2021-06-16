@@ -1,7 +1,6 @@
 package com.zongshuo.service.impl;
 
-import com.zongshuo.entity.Menu;
-import com.zongshuo.service.MenuService;
+import com.zongshuo.service.MenuModelService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class MenuServiceImplTest {
     @Autowired
-    private MenuService menuService;
+    private MenuModelService menuService;
 
     @BeforeEach
     void setUp() {

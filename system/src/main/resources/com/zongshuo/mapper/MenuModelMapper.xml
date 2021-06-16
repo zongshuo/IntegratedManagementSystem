@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zongshuo.mapper.MenuModelMapper">
+    <!--根据角色列表获取拥有的所有菜单-->
+    <select id="getMenusByRoleIds" parameterType="java.util.List" resultType="com.zongshuo.model.MenuModel">
+        select a.*
+        from sys_menu a
+        left join sys_role_menu b on a.menu_id = b.menu_id
+        <where>
+            b.role_id in
+            <foreach collection="roles" open="(" close=")" separator="," item="role">
+               #{role.id}
+            </foreach>
+        </where>
+    </select>
+
+</mapper>
