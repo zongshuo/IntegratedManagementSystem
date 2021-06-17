@@ -42,7 +42,7 @@ public class UserModelServiceImpl extends ServiceImpl<UserModelMapper, UserModel
         userModel.setRoles(roleModelList);
 
         List<MenuModel> menuModelList = menuModelService.getMenuListByRole(roleModelList);
-        userModel.setMenus(menuModelList);
+        userModel.setMenus(menuModelService.toMenuTree(menuModelList, 0));
 
         return userModel;
     }

@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleModel> implements RoleService {
     @Autowired(required = false)
     private RoleMapper roleMapper;
 

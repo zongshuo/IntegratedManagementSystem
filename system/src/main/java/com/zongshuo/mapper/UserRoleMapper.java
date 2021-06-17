@@ -2,6 +2,7 @@ package com.zongshuo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zongshuo.entity.UserRole;
+import com.zongshuo.model.UserRoleModel;
 
 /**
  * @Author: zongShuo
@@ -10,5 +11,5 @@ import com.zongshuo.entity.UserRole;
  * @Time: 11:25
  * @Description:
  */
-public interface UserRoleMapper extends BaseMapper<UserRole> {
+public interface UserRoleMapper extends BaseMapper<UserRoleModel> {
 }

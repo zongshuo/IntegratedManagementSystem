@@ -3,6 +3,7 @@ package com.zongshuo.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.entity.UserRole;
 import com.zongshuo.mapper.UserRoleMapper;
+import com.zongshuo.model.UserRoleModel;
 import com.zongshuo.service.UserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService {
+public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleModel> implements UserRoleService {
 }

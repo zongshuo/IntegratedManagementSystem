@@ -65,6 +65,7 @@ public final class Contains {
      * 系统管理员名称
      */
     public static final String SYS_ADMIN_NAME = "admin";
+    public static final String SYS_ADMIN_PASSWORD = "P@ssw0rd";
     /**
      * 菜单-系统管理
      */

@@ -57,4 +57,16 @@ public class MenuModelServiceImpl extends ServiceImpl<MenuModelMapper, MenuModel
 
         return menuModels;
     }
+
+    @Override
+    public List<MenuModel> toMenuTree(List<MenuModel> menuModels, Integer parentId) {
+        List<MenuModel> childes = new ArrayList<>();
+        for (MenuModel menu : menuModels){
+            if (menu.getParentId().equals(parentId)){
+                menu.setChildes(toMenuTree(menuModels, menu.getMenuId()));
+                childes.add(menu);
+            }
+        }
+        return childes;
+    }
 }

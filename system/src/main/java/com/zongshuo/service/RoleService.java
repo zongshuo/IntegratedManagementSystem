@@ -1,7 +1,6 @@
 package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zongshuo.entity.Role;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.model.UserModel;
 
@@ -15,7 +14,7 @@ import java.util.List;
  * @Description:
  * 系统角色服务类
  */
-public interface RoleService extends IService<Role> {
+public interface RoleService extends IService<RoleModel> {
     /**
      * 根据用户获取用户角色列表
      * @param userModel

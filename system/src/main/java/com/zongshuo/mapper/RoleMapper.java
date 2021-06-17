@@ -14,7 +14,7 @@ import java.util.List;
  * @Time: 11:24
  * @Description:
  */
-public interface RoleMapper extends BaseMapper<Role> {
+public interface RoleMapper extends BaseMapper<RoleModel> {
     /**
      * 根据用户id关联用户角色表获取系统角色信息
      * @param id

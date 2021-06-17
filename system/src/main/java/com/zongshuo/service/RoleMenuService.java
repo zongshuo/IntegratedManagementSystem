@@ -1,14 +1,14 @@
 package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zongshuo.model.UserRoleModel;
+import com.zongshuo.model.RoleMenuModel;
 
 /**
  * @Author: zongShuo
  * @Version: 1.0
- * @Date: 2021-5-22
- * @Time: 11:25
+ * @Date: 2021-6-16
+ * @Time: 15:07
  * @Description:
  */
-public interface UserRoleService extends IService<UserRoleModel> {
+public interface RoleMenuService extends IService<RoleMenuModel> {
 }

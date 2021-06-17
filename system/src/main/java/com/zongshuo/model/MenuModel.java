@@ -1,6 +1,7 @@
 package com.zongshuo.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -11,6 +12,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: zongShuo
@@ -71,4 +73,8 @@ public class MenuModel implements Serializable {
 
     @ApiModelProperty(value = "更新时间", name = "updateTime")
     private Date updateTime ;
+
+    @ApiModelProperty(value = "子菜单", name = "childes")
+    @TableField(exist = false)
+    private List<MenuModel> childes ;
 }
