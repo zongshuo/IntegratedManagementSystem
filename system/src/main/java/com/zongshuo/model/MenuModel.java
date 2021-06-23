@@ -74,7 +74,7 @@ public class MenuModel implements Serializable {
     @ApiModelProperty(value = "更新时间", name = "updateTime")
     private Date updateTime ;
 
-    @ApiModelProperty(value = "子菜单", name = "childes")
+    @ApiModelProperty(value = "子菜单", name = "children")
     @TableField(exist = false)
-    private List<MenuModel> childes ;
+    private List<MenuModel> children;
 }

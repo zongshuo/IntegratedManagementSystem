@@ -45,6 +45,12 @@ public interface MenuService extends IService<MenuModel> {
     List<MenuModel> getMenusByUserId(Integer userId);
 
     /**
+     * 查询所有系统菜单
+     * @return
+     */
+    List<MenuModel> getAllMenu();
+
+    /**
      * 将菜单列表生成树状结构
      * 可以根据选择的父类作为根目录
      * @param menuModels

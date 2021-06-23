@@ -67,11 +67,20 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
     }
 
     @Override
+    public List<MenuModel> getAllMenu() {
+        List<MenuModel> menuModels = menuMapper.selectList(new QueryWrapper<>());
+        if (menuModels == null){
+            menuModels = new ArrayList<>(0);
+        }
+        return menuModels;
+    }
+
+    @Override
     public List<MenuModel> toMenuTree(List<MenuModel> menuModels, Integer parentId) {
         List<MenuModel> childes = new ArrayList<>();
         for (MenuModel menu : menuModels){
             if (menu.getParentId().equals(parentId)){
-                menu.setChildes(toMenuTree(menuModels, menu.getMenuId()));
+                menu.setChildren(toMenuTree(menuModels, menu.getMenuId()));
                 childes.add(menu);
             }
         }
