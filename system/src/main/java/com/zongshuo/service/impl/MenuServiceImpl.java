@@ -24,9 +24,9 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class MenuModelServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implements MenuService {
+public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implements MenuService {
     @Autowired(required = false)
-    private MenuMapper menuModelMapper;
+    private MenuMapper menuMapper;
 
 
     @Override
@@ -51,9 +51,18 @@ public class MenuModelServiceImpl extends ServiceImpl<MenuMapper, MenuModel> imp
     @Override
     public List<MenuModel> getMenuListByRole(List<RoleModel> roleModels) {
         if (roleModels == null || roleModels.size() < 1) return new ArrayList<>(0);
-        List<MenuModel> menuModels = menuModelMapper.getMenusByRoleIds(roleModels);
+        List<MenuModel> menuModels = menuMapper.getMenusByRoleIds(roleModels);
         if (menuModels == null) return new ArrayList<>(0);
 
+        return menuModels;
+    }
+
+    @Override
+    public List<MenuModel> getMenusByUserId(Integer userId) {
+        List<MenuModel> menuModels = menuMapper.getMenusByUserId(userId);
+        if (menuModels == null){
+            menuModels = new ArrayList<>(0);
+        }
         return menuModels;
     }
 

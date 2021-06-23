@@ -14,8 +14,9 @@ import java.util.List;
  * @Time: 10:22
  * @Description:
  */
-public interface MenuModelMapper extends BaseMapper<MenuModel> {
+public interface MenuMapper extends BaseMapper<MenuModel> {
 
     List<MenuModel> getMenusByRoleIds(@Param("roles") List<RoleModel> roles);
 
+    List<MenuModel> getMenusByUserId(@Param("userId")Integer userId);
 }

@@ -7,7 +7,7 @@ import com.zongshuo.Contains;
 import com.zongshuo.model.AuthCodeCacheModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.AuthCodeCacheService;
-import com.zongshuo.service.UserModelService;
+import com.zongshuo.service.UserService;
 import com.zongshuo.util.FormatCheckUtil;
 import com.zongshuo.util.IdentifyingCode;
 import com.zongshuo.util.ResponseJsonMsg;
@@ -46,7 +46,7 @@ public class LoginController {
     @Autowired
     private AuthCodeCacheService authCodeCacheService;
     @Autowired
-    private UserModelService userModelService;
+    private UserService userModelService;
 
     @ApiOperation("注册用户")
     @ApiImplicitParams({

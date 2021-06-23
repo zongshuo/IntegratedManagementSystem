@@ -1,7 +1,7 @@
 package com.zongshuo.security;
 
 import com.zongshuo.model.UserModel;
-import com.zongshuo.service.UserModelService;
+import com.zongshuo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserModelService userService;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

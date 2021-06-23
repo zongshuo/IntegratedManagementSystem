@@ -2,13 +2,14 @@ package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zongshuo.mapper.UserModelMapper;
+import com.zongshuo.Contains;
+import com.zongshuo.mapper.UserMapper;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.model.UserModel;
-import com.zongshuo.service.MenuModelService;
+import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleService;
-import com.zongshuo.service.UserModelService;
+import com.zongshuo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,13 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class UserModelServiceImpl extends ServiceImpl<UserModelMapper, UserModel> implements UserModelService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implements UserService {
     @Autowired(required = false)
-    private UserModelMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
     private RoleService roleService;
     @Autowired
-    private MenuModelService menuModelService;
+    private MenuService menuService;
 
 
     @Override
@@ -41,9 +42,6 @@ public class UserModelServiceImpl extends ServiceImpl<UserModelMapper, UserModel
         List<RoleModel> roleModelList = roleService.getUserRoles(userModel);
         userModel.setRoles(roleModelList);
 
-        List<MenuModel> menuModelList = menuModelService.getMenuListByRole(roleModelList);
-        userModel.setMenus(menuModelService.toMenuTree(menuModelList, 0));
-
         return userModel;
     }
 
@@ -51,5 +49,12 @@ public class UserModelServiceImpl extends ServiceImpl<UserModelMapper, UserModel
     public UserModel getUserAndRoles(String username) {
         UserModel userModel = getOne(new QueryWrapper<UserModel>().eq("username", username));
         return userModel;
+    }
+
+    @Override
+    public List<MenuModel> getUserMenuTree(UserModel user) {
+        List<MenuModel> menuModels = menuService.getMenusByUserId(user.getId());
+        menuModels = menuService.toMenuTree(menuModels, 0);
+        return menuModels;
     }
 }

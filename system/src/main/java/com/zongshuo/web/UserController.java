@@ -2,10 +2,9 @@ package com.zongshuo.web;
 
 import com.zongshuo.Contains;
 import com.zongshuo.model.UserModel;
-import com.zongshuo.service.UserModelService;
+import com.zongshuo.service.UserService;
 import com.zongshuo.util.ResponseJsonMsg;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "系统功能-用户操作")
 public class UserController extends BaseController{
     @Autowired
-    private UserModelService userModelService;
+    private UserService userModelService;
 
     @ApiOperation("查询用户信息")
     @GetMapping("/userInfo")

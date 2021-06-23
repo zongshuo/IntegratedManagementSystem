@@ -2,7 +2,10 @@ package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zongshuo.entity.User;
+import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.UserModel;
+
+import java.util.List;
 
 /**
  * @Author: zongShuo
@@ -11,7 +14,7 @@ import com.zongshuo.model.UserModel;
  * @Time: 10:05
  * @Description:
  */
-public interface UserModelService extends IService<UserModel> {
+public interface UserService extends IService<UserModel> {
     /**
      * 根据用户名查询用户信息
      * 包括用户基本信息、用户角色信息、用户菜单信息
@@ -26,4 +29,11 @@ public interface UserModelService extends IService<UserModel> {
      * @return
      */
     UserModel getUserAndRoles(String username);
+
+    /**
+     * 获取用户的树状菜单列表
+     * @param user
+     * @return
+     */
+    List<MenuModel> getUserMenuTree(UserModel user);
 }

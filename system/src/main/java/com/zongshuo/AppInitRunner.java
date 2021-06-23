@@ -3,7 +3,6 @@ package com.zongshuo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.model.*;
 import com.zongshuo.service.*;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -26,9 +25,9 @@ import java.util.List;
 @Component
 public class AppInitRunner implements ApplicationRunner {
     @Autowired
-    private UserModelService userModelService;
+    private UserService userModelService;
     @Autowired
-    private MenuModelService menuModelService;
+    private MenuService menuModelService;
     @Autowired
     private RoleService roleService;
     @Autowired

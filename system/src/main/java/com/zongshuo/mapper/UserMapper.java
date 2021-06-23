@@ -10,6 +10,6 @@ import com.zongshuo.model.UserModel;
  * @Time: 10:25
  * @Description:
  */
-public interface UserModelMapper extends BaseMapper<UserModel> {
+public interface UserMapper extends BaseMapper<UserModel> {
 
 }
