@@ -14,7 +14,7 @@ import java.util.List;
  * @Time: 20:11
  * @Description: 系统菜单操作服务类
  */
-public interface MenuModelService extends IService<MenuModel> {
+public interface MenuService extends IService<MenuModel> {
 
     /**
      * 新增系统菜单

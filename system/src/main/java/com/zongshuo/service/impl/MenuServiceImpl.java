@@ -2,11 +2,10 @@ package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zongshuo.entity.Role;
-import com.zongshuo.mapper.MenuModelMapper;
+import com.zongshuo.mapper.MenuMapper;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
-import com.zongshuo.service.MenuModelService;
+import com.zongshuo.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,9 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class MenuModelServiceImpl extends ServiceImpl<MenuModelMapper, MenuModel> implements MenuModelService {
+public class MenuModelServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implements MenuService {
     @Autowired(required = false)
-    private MenuModelMapper menuModelMapper;
+    private MenuMapper menuModelMapper;
 
 
     @Override
