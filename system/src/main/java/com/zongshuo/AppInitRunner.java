@@ -98,7 +98,16 @@ public class AppInitRunner implements ApplicationRunner {
         menuModel.setSortNumber(1);
         menuModel.setPath("/system/menu");
         menuModel.setComponent("/system/menu");
-        menuModel.setParentId(menuModel.getMenuId());
+        menuModel.setParentId(menuIds.get(0));
+        menuModel.setMenuId(null);
+        menuModelService.addMenu(menuModel);
+        menuIds.add(menuModel.getMenuId());
+
+        menuModel.setTitle("角色管理");
+        menuModel.setSortNumber(2);
+        menuModel.setPath("/system/role");
+        menuModel.setComponent("/system/role");
+        menuModel.setParentId(menuIds.get(0));
         menuModel.setMenuId(null);
         menuModelService.addMenu(menuModel);
         menuIds.add(menuModel.getMenuId());

@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +34,7 @@ public class MenuModel implements Serializable {
     @ApiModelProperty(value = "上级菜单id，0是顶级菜单", name = "parentId")
     private Integer parentId;
 
+    @NotEmpty(message = "菜单名称不能为空！")
     @ApiModelProperty(value = "菜单名称", name = "title")
     private String title ;
 
@@ -47,6 +50,7 @@ public class MenuModel implements Serializable {
     @ApiModelProperty(value = "菜单类型：0-菜单、1-按钮", name = "menuType")
     private Byte menuType ;
 
+    @NotNull(message = "排序号不能为空！")
     @ApiModelProperty(value = "排序号", name = "sortNumber")
     private Integer sortNumber ;
 
