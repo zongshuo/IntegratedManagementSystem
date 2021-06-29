@@ -42,6 +42,7 @@ public class AppInitRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         try{
+            // todo 此处转成投产sql脚本
             initUser();
             initMenu();
             initRole();

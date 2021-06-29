@@ -48,6 +48,7 @@ spring:
       #update       加载hibernate自动更新数据库结构
       ddl-auto: update
     show-sql: true
+    database-platform: com.zongshuo.config.MySqlConfig
   jackson:
     date-format: yyyy-mm-dd
     time-zone: GMT+8

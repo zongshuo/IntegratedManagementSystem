@@ -57,4 +57,11 @@ public interface MenuService extends IService<MenuModel> {
      * @return
      */
     List<MenuModel> toMenuTree(List<MenuModel> menuModels, Integer parentId);
+
+    /**
+     * 删除菜单及其子菜单
+     * 删除被删除菜单关联的角色映射
+     * @param menuId
+     */
+    void removeMenu(Integer menuId);
 }

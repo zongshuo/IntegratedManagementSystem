@@ -1,5 +1,6 @@
 package com.zongshuo.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.Contains;
 import com.zongshuo.model.MenuModel;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,16 +37,11 @@ public class MenuController extends BaseController{
     @Autowired
     private MenuService menuService;
 
-    @ApiOperation("分页查询系统菜单")
-    @GetMapping("/page")
-    public void getList(){
-    }
-
     @ApiOperation("获取用户的树状菜单列表")
     @ApiImplicitParam(name = "userId", value = "用户编号", dataType = "Integer", paramType ="query")
     @GetMapping("/menuTree")
     public ResponseJsonMsg getMenuTree(Integer userId){
-        log.info("查询菜单:{}", userId);
+        log.info("查询树状菜单:{}", userId);
         List<MenuModel> menuModelList ;
         if (userId == null){
             menuModelList = menuService.getAllMenu();
@@ -52,6 +49,25 @@ public class MenuController extends BaseController{
             menuModelList = menuService.getMenusByUserId(userId);
         }
         return ResponseJsonMsg.ok().setData(menuService.toMenuTree(menuModelList, 0)) ;
+    }
+
+    @ApiOperation("获取角色菜单列表")
+    @ApiImplicitParam(name = "roleId", value="角色编号", dataType = "Integer", paramType = "query")
+    @GetMapping("/role")
+    public ResponseJsonMsg getMenus(Integer roleId){
+        log.info("查询菜单列表:{}", roleId);
+
+        List<MenuModel> menuModels ;
+        if (roleId == null){
+            menuModels = menuService.getAllMenu();
+        }else {
+            menuModels = menuService.getMenusByUserId(roleId);
+        }
+
+        if (menuModels == null){
+            menuModels = new ArrayList<>(0);
+        }
+        return ResponseJsonMsg.ok().setData(menuModels);
     }
 
     @ApiOperation("新增菜单")
@@ -70,6 +86,20 @@ public class MenuController extends BaseController{
         if (! menuService.save(menu)){
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_SYS, "保存菜单失败！");
         }
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("删除菜单")
+    @ApiImplicitParam(name = "menuId", value = "菜单id", dataType = "Integer", paramType = "query")
+    @DeleteMapping()
+    public ResponseJsonMsg removeMenu(@RequestBody JSONObject request){
+        log.info("删除菜单:{}", request);
+        Integer menuId = request.getInteger("menuId");
+        if (menuId == null){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "菜单编号不能为空！");
+        }
+
+        menuService.removeMenu(menuId);
         return ResponseJsonMsg.ok();
     }
 }
