@@ -16,7 +16,7 @@ import javax.validation.ConstraintValidatorContext;
 public class PasswordValidator implements ConstraintValidator<ValidatePassword, String> {
     @Override
     public void initialize(ValidatePassword constraintAnnotation) {
-
+        //该方法未使用
     }
 
     @Override

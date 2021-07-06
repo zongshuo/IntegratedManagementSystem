@@ -3,6 +3,7 @@ package com.zongshuo.util;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
  * @Description: 列表分页、排序、搜索通用接收参数封装
  */
 @Data
+@Slf4j
 public class PageParam<T> extends Page<T> {
     private static final String FIELD_PAGE = "page";    //页码
     private static final String FIELD_LIMIT = "pageSize";  //每页记录数
@@ -30,7 +32,7 @@ public class PageParam<T> extends Page<T> {
     private static final Pattern HUMP_PATTERN = Pattern.compile("[A-Z]");   //驼峰转下划线正则匹配
 
     //搜索条件
-    private Map<String, Object> params;
+    private transient Map<String, Object> params;
 
     //是否把字段名称从驼峰转下划线
     private boolean needToLine = true;
@@ -56,8 +58,11 @@ public class PageParam<T> extends Page<T> {
      */
     private PageParam<T> init(HttpServletRequest request) {
         Enumeration<String> paramNames = request.getParameterNames();
-        String name, value, sortValue = null, orderValue = null;
-        Map<String, Object> params = new HashMap<>();
+        String name;
+        String value;
+        String sortValue = null ;
+        String orderValue = null;
+        Map<String, Object> tmpParams = new HashMap<>();
         while (paramNames.hasMoreElements()) {
             name = paramNames.nextElement();
             value = request.getParameter(name);
@@ -80,7 +85,7 @@ public class PageParam<T> extends Page<T> {
                     orderValue = value;
                     break;
                 default:
-                    params.put(name, value.trim());
+                    tmpParams.put(name, value.trim());
             }
 
             // 同步排序方式到MyBatisPlus中
@@ -92,7 +97,7 @@ public class PageParam<T> extends Page<T> {
                 }
             }
         }
-        setParams(params);
+        setParams(tmpParams);
         return this;
     }
 
@@ -120,7 +125,7 @@ public class PageParam<T> extends Page<T> {
      * @param str
      * @return
      */
-    private String lineToHump(String str) {
+    public String lineToHump(String str) {
         if (StringUtils.isBlank(str)) return "";
         StringBuilder builder = new StringBuilder();
         String[] keys = str.split("_");
@@ -238,8 +243,8 @@ public class PageParam<T> extends Page<T> {
             Iterator<OrderItem> itemIterator = items.iterator();
             while (itemIterator.hasNext()) {
                 OrderItem item = itemIterator.next();
-                if (isAsc == null || isAsc == item.isAsc()) {
-                    if (fieldName.equals(item.getColumn())) itemIterator.remove();
+                if ((isAsc == null || isAsc == item.isAsc()) && fieldName.equals(item.getColumn())) {
+                    itemIterator.remove();
                 }
             }
         }
@@ -279,7 +284,7 @@ public class PageParam<T> extends Page<T> {
             field.setAccessible(true);
             return field.get(obj);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         return null;

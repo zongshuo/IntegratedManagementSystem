@@ -16,7 +16,7 @@ import javax.validation.ConstraintValidatorContext;
 public class EmailValidator implements ConstraintValidator<ValidateEmail, String> {
     @Override
     public void initialize(ValidateEmail constraintAnnotation) {
-
+        //该方法未使用
     }
 
     @Override

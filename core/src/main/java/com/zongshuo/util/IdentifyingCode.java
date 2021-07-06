@@ -1,6 +1,8 @@
 package com.zongshuo.util;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,8 +14,19 @@ import java.util.Random;
  * @Time: 19:32
  * @Description:
  */
-public class IdentifyingCode {
-    public static enum  CodeType{
+public final class IdentifyingCode {
+    private static Random random;
+
+    static {
+        try {
+            random = SecureRandom.getInstance("SHA1PRNG");
+        } catch (NoSuchAlgorithmException e) {
+            random = new Random();
+        }
+    }
+    private IdentifyingCode(){}
+
+    public  enum  CodeType{
         NUMBER(0, "NUMBER"),
         UPPER_CASE_LETTER(1, "UPPER_CASE_LETTER"),
         LOWER_CASE_LATTER(2, "LOWER_CASE_LATTER"),
@@ -33,7 +46,7 @@ public class IdentifyingCode {
             return key;
         }
 
-        public void setKey(int key) {
+        protected void setKey(int key) {
             this.key = key;
         }
 
@@ -41,7 +54,7 @@ public class IdentifyingCode {
             return value;
         }
 
-        public void setValue(String value) {
+        protected void setValue(String value) {
             this.value = value;
         }
     }
@@ -57,7 +70,6 @@ public class IdentifyingCode {
         List<Integer> integers = new ArrayList<>(size);
         if (size <=0 || scope <=0) return integers;
 
-        Random random = new Random();
         for (int i=0 ; i<size ; i++){
             integers.add(random.nextInt(scope));
         }
@@ -103,6 +115,7 @@ public class IdentifyingCode {
             case NUMBER_AND_LETTER:
                 code = getNumberAndLatterCode(integers, 0);
                 break;
+            default: code = "" ;
         }
         return code;
     }
@@ -128,7 +141,6 @@ public class IdentifyingCode {
      */
     private static String getLatterCode(List<Integer> integers){
         StringBuilder builder = new StringBuilder();
-        Random random = new Random();
         for (Integer integer : integers){
             builder.append((char)((random.nextInt() & 1) == 1 ? integer.intValue() + 65 : integer.intValue() + 97));
         }
@@ -144,7 +156,6 @@ public class IdentifyingCode {
      */
     private static String getNumberAndLatterCode(List<Integer> integers, int type){
         StringBuilder builder = new StringBuilder();
-        Random random = new Random();
         for (Integer integer : integers){
             if ((random.nextInt() & 1) == 1){
                 builder.append(integer.intValue()/10);
@@ -167,20 +178,5 @@ public class IdentifyingCode {
         image.setFontSize(30);
         image.setFontName("黑体");
         image.generateImage(code, stream);
-    }
-
-    public static void main(String[] args) {
-        String code = getCode(8, CodeType.NUMBER_AND_LETTER);
-        File file = new File("D:\\hehe.jpg");
-        try {
-            OutputStream stream = new FileOutputStream(file);
-            getCodeImage(code, 120, 45, stream);
-            stream.flush();
-            stream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

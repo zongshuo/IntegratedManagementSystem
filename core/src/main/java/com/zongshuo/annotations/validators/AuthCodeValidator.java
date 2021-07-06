@@ -16,7 +16,7 @@ import javax.validation.ConstraintValidatorContext;
 public class AuthCodeValidator implements ConstraintValidator<ValidateAuchCode, String> {
     @Override
     public void initialize(ValidateAuchCode constraintAnnotation) {
-
+        //该方法未使用
     }
 
     @Override

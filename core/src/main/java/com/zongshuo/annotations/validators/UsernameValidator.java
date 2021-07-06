@@ -18,6 +18,7 @@ import javax.validation.ConstraintValidatorContext;
 public class UsernameValidator implements ConstraintValidator<ValidateUsername, String> {
     @Override
     public void initialize(ValidateUsername constraintAnnotation) {
+        //该方法未使用
     }
 
     @Override

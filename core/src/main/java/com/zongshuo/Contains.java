@@ -19,7 +19,7 @@ public final class Contains {
      * JWT token expire time
      * 单位毫秒
      */
-    public static final long TOKEN_EFFECTIVE_TIME = 1000*60*60*8;
+    public static final long TOKEN_EFFECTIVE_TIME = 1000*60*60*8L;
     /**
      * token提前刷新时间
      * 单位分钟
@@ -34,16 +34,16 @@ public final class Contains {
      * 注册验证码有效时间
      * 单位毫秒
      */
-    public static final long EFFECTIVE_TIME_AUTH_CODE_REGISTER = 1000*60*60;
-    public static final long EFFECTIVE_TIME_AUTH_CODE_RESET_PASSWORD = 1000*60*10;
-    public static final long EFFECTIVE_TIME_USER_TOKEN = 1000*60*60*8;
+    public static final long EFFECTIVE_TIME_AUTH_CODE_REGISTER = 1000*60*60L;
+    public static final long EFFECTIVE_TIME_AUTH_CODE_RESET_PASSWORD = 1000*60*10L;
+    public static final long EFFECTIVE_TIME_USER_TOKEN = 1000*60*60*8L;
     /**
      * 渠道编码
      * REGISTER：用户注册
      * RESET_PASSWORD：重置密码
      */
     public static final String CHANNEL_AUTH_CODE_REGISTER = "01";
-    public static final String CHANNEL_AUTH_CODE_RESET_PASSWORD = "02";
+    public static final String CHANNEL_AUTH_CODE_RESET_PASSWD = "02";
 
 
     /**
@@ -65,7 +65,7 @@ public final class Contains {
      * 系统管理员名称
      */
     public static final String SYS_ADMIN_NAME = "admin";
-    public static final String SYS_ADMIN_PASSWORD = "P@ssw0rd";
+    public static final String SYS_ADMIN_PASSWD = "P@ssw0rd";
     /**
      * 菜单-系统管理
      */

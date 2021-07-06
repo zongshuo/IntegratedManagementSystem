@@ -23,7 +23,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     platform: mysql
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/integratedManagementSystem?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+      url: jdbc:mysql://112.126.60.228:3306/integratedManagementSystem?useUnicode=true&characterEncoding=utf8&AllowPublicKeyRetrieval=True
       username: root
       password: 0ZW?&PmZ
       initial-size: 5

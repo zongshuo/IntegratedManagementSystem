@@ -4,9 +4,7 @@ import com.zongshuo.util.email.SendMail;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -33,12 +31,12 @@ public class EmailConfig {
     public SendMail sendMail(){
         SendMail sendMail = null;
         try {
-            for (String key : mails.keySet()){
-                sendMail = SendMail.getInstance(key
-                        , mails.get(key).get("host")
-                        , mails.get(key).get("username")
-                        , mails.get(key).get("password")
-                        , Boolean.valueOf(mails.get(key).get("SLLEnable")));
+            for (Map.Entry<String, Map<String, String>> mail: mails.entrySet()){
+                sendMail = SendMail.getInstance(mail.getKey()
+                        , mail.getValue().get("host")
+                        , mail.getValue().get("username")
+                        , mail.getValue().get("password")
+                        , Boolean.valueOf(mail.getValue().get("SLLEnable")));
             }
         } catch (GeneralSecurityException e) {
             log.error("邮件模块初始化异常：", e);

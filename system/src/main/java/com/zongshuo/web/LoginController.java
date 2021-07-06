@@ -161,7 +161,7 @@ public class LoginController {
 
         int count = authCodeCacheService.count(
                 new QueryWrapper<AuthCodeCacheModel>()
-                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD)
+                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWD)
                         .eq("user_join", userModel.getUsername())
                         .gt("expire_time", Instant.now().toEpochMilli()));
         if (count < 1){
@@ -177,7 +177,7 @@ public class LoginController {
         authCodeCacheService.remove(
                 new UpdateWrapper<AuthCodeCacheModel>()
                         .eq("auth_code", userModel.getAuthCode())
-                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD)
+                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWD)
                         .eq("user_join", userModel.getUsername()));
 
         return ResponseJsonMsg.ok();
@@ -196,7 +196,7 @@ public class LoginController {
         int count = authCodeCacheService.count(
                 new QueryWrapper<AuthCodeCacheModel>()
                         .eq("user_join", username)
-                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD)
+                        .eq("channel_no", Contains.CHANNEL_AUTH_CODE_RESET_PASSWD)
                         .gt("expire_time", Instant.now().toEpochMilli()));
         if (count > 0){
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "验证码未过期，请查看邮件！");
@@ -225,7 +225,7 @@ public class LoginController {
         }
 
         AuthCodeCacheModel authCodeCache = new AuthCodeCacheModel();
-        authCodeCache.setChannelNo(Contains.CHANNEL_AUTH_CODE_RESET_PASSWORD);
+        authCodeCache.setChannelNo(Contains.CHANNEL_AUTH_CODE_RESET_PASSWD);
         authCodeCache.setUserJoin(userModel.getUsername());
         authCodeCache.setAuthCode(authCode);
         authCodeCache.setExpireTime(Instant.now().toEpochMilli() + Contains.EFFECTIVE_TIME_AUTH_CODE_RESET_PASSWORD);

@@ -54,7 +54,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
 
     @Override
     public List<MenuModel> getMenuListByRole(List<RoleModel> roleModels) {
-        if (roleModels == null || roleModels.size() < 1) return new ArrayList<>(0);
+        if (roleModels == null || roleModels.isEmpty()) return new ArrayList<>(0);
         List<MenuModel> menuModels = menuMapper.getMenusByRoleIds(roleModels);
         if (menuModels == null) return new ArrayList<>(0);
 
@@ -95,7 +95,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
     @Transactional
     public void removeMenu(Integer menuId) {
         List<MenuModel> menuModels = getAllMenu();
-        if (menuModels.size() > 0) {
+        if (!menuModels.isEmpty()) {
             List<Integer> delIds = new ArrayList<>();
             delIds.add(menuId);
             menuModels = toMenuTree(menuModels, menuId);
