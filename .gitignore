@@ -18,7 +18,7 @@ _book
 *.pdf
 
 .gitignore
-*.log.*.gz
+*.log.*
 *.log
 *.iml
 /.idea/*
