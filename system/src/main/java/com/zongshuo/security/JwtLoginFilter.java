@@ -41,28 +41,29 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     /**
      * spring security不能解析json格式的请求参数
      * 需要通过此方法将参数取出后重新组装后UserDetailsService才能接受到用户名
+     *
      * @param request
      * @param response
      * @return
      * @throws AuthenticationException
      */
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         //此处需要前端请求是将content-type设置成：application/json
         if (MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())) {
             ObjectMapper objectMapper = new ObjectMapper();
             UsernamePasswordAuthenticationToken token = null;
-            try(InputStream inputStream = request.getInputStream()) {
+            try (InputStream inputStream = request.getInputStream()) {
                 UserModel userModel = objectMapper.readValue(inputStream, UserModel.class);
                 token = new UsernamePasswordAuthenticationToken(userModel.getUsername(), userModel.getPassword());
             } catch (IOException e) {
                 token = new UsernamePasswordAuthenticationToken("", "");
-            }finally {
+            } finally {
                 setDetails(request, token);
-                return this.getAuthenticationManager().authenticate(token);
             }
-
-        } else {
+            return this.getAuthenticationManager().authenticate(token);
+        }
+        else {
             return super.attemptAuthentication(request, response);
         }
     }
@@ -70,7 +71,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
-            String userToken = JwtUtil.buildToken(userDetails.getUsername(), Contains.JWT_SLOT, Contains.EFFECTIVE_TIME_USER_TOKEN);
+        String userToken = JwtUtil.buildToken(userDetails.getUsername(), Contains.JWT_SLOT, Contains.EFFECTIVE_TIME_USER_TOKEN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter writer = response.getWriter();
         writer.write(JSONObject.toJSONString(
@@ -85,22 +86,17 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         ResponseJsonMsg responseJsonMsg = null;
         //AbstractUserDetailsAuthenticationProvider类的hideUserNotFoundExceptions字段默认为true
         // 需要设置为false才会在捕获UsernameNotFoundException异常时直接抛出，否则只会抛出BadCredentialsException异常
-        if (failed instanceof BadCredentialsException){
+        if (failed instanceof BadCredentialsException) {
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号或密码不正确！");
-        }
-        else if (failed instanceof DisabledException){
+        } else if (failed instanceof DisabledException) {
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号已禁用！");
-        }
-        else if (failed instanceof AccountExpiredException){
+        } else if (failed instanceof AccountExpiredException) {
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号已过期！");
-        }
-        else if (failed instanceof CredentialsExpiredException){
+        } else if (failed instanceof CredentialsExpiredException) {
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号凭据已过期！");
-        }
-        else if (failed instanceof LockedException){
+        } else if (failed instanceof LockedException) {
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号已锁定！");
-        }
-        else {
+        } else {
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_UNKNOWN, failed.getMessage());
         }
 
