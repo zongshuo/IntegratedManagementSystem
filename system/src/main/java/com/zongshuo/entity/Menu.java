@@ -28,10 +28,10 @@ public class Menu{
     @Column(name = "menu_id", unique = true, nullable = false)
     private Integer menuId;
 
-    @Column(name = "parent_id")
+    @Column(name = "parent_id", nullable = false)
     private Integer parentId;
 
-    @Column(name = "title", length = 100)
+    @Column(name = "title", length = 100, nullable = false)
     private String title ;
 
     @Column(name = "icon", length = 100)
@@ -46,7 +46,7 @@ public class Menu{
     @Column(name = "menu_type")
     private Byte menuType ;
 
-    @Column(name = "sort_number")
+    @Column(name = "sort_number", nullable = false)
     private Integer sortNumber ;
 
     @Column(name = "authority", length = 100)

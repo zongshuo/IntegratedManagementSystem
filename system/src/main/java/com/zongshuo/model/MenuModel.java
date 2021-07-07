@@ -31,6 +31,7 @@ public class MenuModel implements Serializable {
     @ApiModelProperty(value = "菜单id", name = "menuId")
     private Integer menuId;
 
+    @NotNull(message = "上级目录不能为空！")
     @ApiModelProperty(value = "上级菜单id，0是顶级菜单", name = "parentId")
     private Integer parentId;
 

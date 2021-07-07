@@ -59,6 +59,7 @@ public final class Contains {
     public static final String RET_CODE_FAILED_PARAM = "PARM_E01"; //参数错误
     public static final String RET_CODE_FAILED_DATA_STATE = "DATA_E01"; //数据状态错误
     public static final String RET_CODE_FAILED_DATA_NOT_FOUND = "DATA_E02";  //数据未发现缺失
+    public static final String RET_CODE_FAILED_DATA_UPDATE = "DATA_E03"; //数据更新
 
 
     /**

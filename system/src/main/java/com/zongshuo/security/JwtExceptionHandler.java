@@ -83,7 +83,7 @@ public class JwtExceptionHandler implements AccessDeniedHandler, AuthenticationE
         }else if (e instanceof UsernameNotFoundException){
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "没有用户");
         }else{
-            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_UNKNOWN, "未登录或登录已过期");
+            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "未登录或登录已过期");
         }
 
         writer.write(JSON.toJSONString(responseJsonMsg));

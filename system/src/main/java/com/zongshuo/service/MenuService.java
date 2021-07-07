@@ -24,6 +24,15 @@ public interface MenuService extends IService<MenuModel> {
     void addMenu(MenuModel menuModel) throws IllegalAccessException;
 
     /**
+     * 编辑菜单
+     * 验证菜单是否存在
+     * 更新除menuId外的所有字段
+     * @param menu
+     * @throws IllegalAccessException
+     */
+    void updateMenu(MenuModel menu) throws IllegalAccessException;
+
+    /**
      * 根据角色获取角色拥有的菜单
      * @param role
      * @return
@@ -45,10 +54,21 @@ public interface MenuService extends IService<MenuModel> {
     List<MenuModel> getMenusByUserId(Integer userId);
 
     /**
-     * 查询所有系统菜单
+     * 查询系统所有菜单
+     * 所有条件为空，返回所有菜单
      * @return
      */
     List<MenuModel> getAllMenu();
+
+    /**
+     * 根据条件查询系统菜单
+     * 根据菜单名称模糊查询
+     * 根据菜单路径模糊查询
+     * @param title
+     * @param path
+     * @return
+     */
+    List<MenuModel> searchMenu(String title, String path);
 
     /**
      * 将菜单列表生成树状结构
