@@ -7,9 +7,7 @@ import com.zongshuo.model.UserModel;
 import com.zongshuo.util.JwtUtil;
 import com.zongshuo.util.ResponseJsonMsg;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -89,7 +87,20 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         // 需要设置为false才会在捕获UsernameNotFoundException异常时直接抛出，否则只会抛出BadCredentialsException异常
         if (failed instanceof BadCredentialsException){
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号或密码不正确！");
-        } else {
+        }
+        else if (failed instanceof DisabledException){
+            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号已禁用！");
+        }
+        else if (failed instanceof AccountExpiredException){
+            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号已过期！");
+        }
+        else if (failed instanceof CredentialsExpiredException){
+            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号凭据已过期！");
+        }
+        else if (failed instanceof LockedException){
+            responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_AUTH_LOGIN, "账号已锁定！");
+        }
+        else {
             responseJsonMsg = ResponseJsonMsg.error(Contains.RET_CODE_FAILED_UNKNOWN, failed.getMessage());
         }
 
