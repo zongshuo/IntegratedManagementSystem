@@ -8,13 +8,13 @@
             1=1
             <if test="page != null and page.params != null">
                 <if test="page.params.descriptions != null and page.params.descriptions != ''">
-                    and a.descriptions = #{params.descriptions}
+                    and a.descriptions = #{page.params.descriptions}
                 </if>
                 <if test="page.params.roleKey != null and page.params.roleKey != ''">
-                    and a.role_key = #{params.roleKey}
+                    and a.role_key = #{page.params.roleKey}
                 </if>
                 <if test="page.params.roleName != null and page.params.roleName != ''">
-                    and a.role_name like CONCAT('%', #{params.roleName}, '%')
+                    and a.role_name like CONCAT('%', #{page.params.roleName}, '%')
                 </if>
             </if>
         </where>

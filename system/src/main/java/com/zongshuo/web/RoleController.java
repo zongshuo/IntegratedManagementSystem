@@ -46,8 +46,7 @@ public class RoleController extends BaseController {
             @ApiImplicitParam(name = "page", value = "页码", dataType = "Long", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "每页条数", dataType = "Long", paramType = "query"),
             @ApiImplicitParam(name = "roleName", value = "角色名称", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "roleKey", value = "角色标识", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "descriptions", value = "备注", dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "roleKey", value = "角色标识", dataType = "String", paramType = "query")
     })
     @GetMapping("/page")
     public PageResult<RoleModel> getPage(HttpServletRequest request) {
