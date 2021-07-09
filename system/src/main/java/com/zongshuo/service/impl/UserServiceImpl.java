@@ -10,10 +10,13 @@ import com.zongshuo.model.UserModel;
 import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleService;
 import com.zongshuo.service.UserService;
+import com.zongshuo.util.PageParam;
+import com.zongshuo.util.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +36,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
     @Autowired
     private MenuService menuService;
 
+
+    @Override
+    public PageResult<UserModel> getPage(PageParam<UserModel> pageParam) {
+        List<UserModel> userModelList = userMapper.selectPage(pageParam);
+        if (userModelList == null){
+            userModelList = new ArrayList<>(0);
+        }
+        return new PageResult<>(userModelList, pageParam.getTotal());
+    }
 
     @Override
     public UserModel getUserInfo(String username) throws IllegalAccessException{

@@ -50,7 +50,7 @@ spring:
     show-sql: true
     database-platform: com.zongshuo.config.MySqlConfig
   jackson:
-    date-format: yyyy-mm-dd
+    date-format: yyyy-MM-dd
     time-zone: GMT+8
 
 #mybatisPlus

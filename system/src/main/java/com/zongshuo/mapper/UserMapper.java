@@ -2,6 +2,10 @@ package com.zongshuo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zongshuo.model.UserModel;
+import com.zongshuo.util.PageParam;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Author: zongShuo
@@ -11,5 +15,10 @@ import com.zongshuo.model.UserModel;
  * @Description:
  */
 public interface UserMapper extends BaseMapper<UserModel> {
-
+    /**
+     * 分页查询用户列表
+     * @param pageParam
+     * @return
+     */
+    List<UserModel> selectPage(@Param("page")PageParam<UserModel> pageParam);
 }

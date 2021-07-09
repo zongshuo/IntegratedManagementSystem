@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zongshuo.entity.User;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.UserModel;
+import com.zongshuo.util.PageParam;
+import com.zongshuo.util.PageResult;
 
 import java.util.List;
 
@@ -15,6 +17,15 @@ import java.util.List;
  * @Description:
  */
 public interface UserService extends IService<UserModel> {
+
+    /**
+     * 分页查询用户列表
+     * 按条件查询用户列表
+     * @param pageParam
+     * @return
+     */
+    PageResult<UserModel> getPage(PageParam<UserModel> pageParam);
+
     /**
      * 根据用户名查询用户信息
      * 包括用户基本信息、用户角色信息、用户菜单信息

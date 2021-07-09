@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zongshuo.annotations.ValidateAuchCode;
 import com.zongshuo.annotations.ValidateEmail;
 import com.zongshuo.annotations.ValidatePassword;
@@ -27,6 +28,7 @@ import java.util.*;
 @Data
 @TableName("SYS_USER")
 @ApiModel(value = "UserModel对象", description = "系统用户模型")
+@JsonIgnoreProperties({"password"})
 public class UserModel implements UserDetails {
 
     @TableId(type = IdType.AUTO)
