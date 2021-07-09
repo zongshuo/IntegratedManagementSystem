@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zongshuo.annotations.ValidateAuchCode;
 import com.zongshuo.annotations.ValidateEmail;
@@ -28,7 +30,6 @@ import java.util.*;
 @Data
 @TableName("SYS_USER")
 @ApiModel(value = "UserModel对象", description = "系统用户模型")
-@JsonIgnoreProperties({"password"})
 public class UserModel implements UserDetails {
 
     @TableId(type = IdType.AUTO)
@@ -39,6 +40,7 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "用户名", name = "username")
     private String username ;
 
+    // TODO 不向前端返回密码等敏感信息
     @ValidatePassword(groups = Insert.class)
     @ApiModelProperty(value = "密码", name = "password")
     private String password ;
