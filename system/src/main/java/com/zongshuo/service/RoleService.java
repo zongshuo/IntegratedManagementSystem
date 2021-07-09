@@ -47,4 +47,12 @@ public interface RoleService extends IService<RoleModel> {
      */
     void updateRoleMenus(Integer roleId, Integer [] menus);
 
+    /**
+     * 编辑角色
+     * 不做字段校验
+     * 只关注业务操作
+     * @param role
+     */
+    void editRole(RoleModel role) throws IllegalStateException;
+
 }

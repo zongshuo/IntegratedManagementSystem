@@ -1,6 +1,8 @@
 package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.conditions.update.UpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.mapper.RoleMapper;
 import com.zongshuo.model.MenuModel;
@@ -76,5 +78,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleModel> implemen
             }
             roleMenuService.saveBatch(roleMenus);
         }
+    }
+
+    @Override
+    public void editRole(RoleModel role) throws IllegalStateException{
+        int count = roleMapper.update(role, new UpdateWrapper<RoleModel>().lambda().eq(RoleModel::getId, role.getId()));
+        if (count == 0) throw new IllegalStateException("更新失败！");
     }
 }

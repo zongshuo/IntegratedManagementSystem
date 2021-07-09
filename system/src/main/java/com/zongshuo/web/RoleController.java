@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.validators.Update;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.service.MenuService;
@@ -17,9 +18,11 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -92,6 +95,18 @@ public class RoleController extends BaseController {
         }
 
         return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_SYS, "保存角色失败！");
+    }
+
+    @ApiOperation("编辑角色")
+    @PutMapping("/edit")
+    public ResponseJsonMsg editMenu(@RequestBody @Validated(Update.class) RoleModel role){
+        log.info("编辑角色:{}", role);
+        try {
+            roleService.editRole(role);
+        }catch (IllegalStateException e){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
+        }
+        return ResponseJsonMsg.ok();
     }
 
     @ApiOperation("新增角色权限")
