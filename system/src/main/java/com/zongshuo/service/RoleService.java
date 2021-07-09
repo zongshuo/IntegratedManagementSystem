@@ -55,4 +55,12 @@ public interface RoleService extends IService<RoleModel> {
      */
     void editRole(RoleModel role) throws IllegalStateException;
 
+    /**
+     * 删除角色
+     * 可以批量删除
+     * 同时删除角色相关的资源
+     * @param roleIds
+     */
+    void removeRole(Integer [] roleIds) throws IllegalAccessException;
+
 }

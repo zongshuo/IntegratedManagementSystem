@@ -1,16 +1,17 @@
 package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.UpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zongshuo.entity.UserRole;
 import com.zongshuo.mapper.RoleMapper;
-import com.zongshuo.model.MenuModel;
-import com.zongshuo.model.RoleMenuModel;
-import com.zongshuo.model.RoleModel;
-import com.zongshuo.model.UserModel;
+import com.zongshuo.mapper.UserRoleMapper;
+import com.zongshuo.model.*;
 import com.zongshuo.service.RoleMenuService;
 import com.zongshuo.service.RoleService;
+import com.zongshuo.service.UserRoleService;
 import com.zongshuo.util.PageParam;
 import com.zongshuo.util.PageResult;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -35,6 +37,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleModel> implemen
     private RoleMapper roleMapper;
     @Autowired
     private RoleMenuService roleMenuService;
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Override
     public PageResult<RoleModel> getPage(PageParam<RoleModel> pageParam) {
@@ -84,5 +88,37 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleModel> implemen
     public void editRole(RoleModel role) throws IllegalStateException{
         int count = roleMapper.update(role, new UpdateWrapper<RoleModel>().lambda().eq(RoleModel::getId, role.getId()));
         if (count == 0) throw new IllegalStateException("更新失败！");
+    }
+
+    @Override
+    @Transactional(rollbackFor = {IllegalAccessException.class, Exception.class})
+    public void removeRole(Integer[] roleIds) throws IllegalAccessException{
+        int count = roleMapper.selectCount(
+                new QueryWrapper<RoleModel>()
+                        .lambda().in(RoleModel::getId, roleIds));
+        if (count != roleIds.length){
+            throw new IllegalAccessException("数据异常，请刷新页面后重新选择！");
+        }
+
+        roleMenuService.remove(new UpdateWrapper<RoleMenuModel>()
+                .lambda()
+                .in(RoleMenuModel::getRoleId, roleIds));
+        count = roleMenuService.count(new QueryWrapper<RoleMenuModel>().lambda().in(RoleMenuModel::getRoleId, roleIds));
+        if (count > 0){
+            throw new IllegalAccessException("删除角色菜单失败，请重试！");
+        }
+
+        userRoleService.remove(new UpdateWrapper<UserRoleModel>()
+                .lambda()
+                .in(UserRoleModel::getRoleId, roleIds));
+        count = userRoleService.count(new QueryWrapper<UserRoleModel>().lambda().in(UserRoleModel::getRoleId, roleIds));
+        if (count > 0){
+            throw new IllegalAccessException("删除用户角色失败，请重试！");
+        }
+
+        count = roleMapper.deleteBatchIds(Arrays.asList(roleIds));
+        if (count != roleIds.length){
+            throw new IllegalAccessException("删除角色失败！");
+        }
     }
 }

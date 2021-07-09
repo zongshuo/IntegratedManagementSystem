@@ -107,6 +107,22 @@ public class RoleController extends BaseController {
         return ResponseJsonMsg.ok();
     }
 
+    @ApiOperation("删除角色")
+    @ApiImplicitParam(name = "roleIds", value = "角色逐渐数组", dataType = "Array", paramType = "query")
+    @DeleteMapping
+    public ResponseJsonMsg removeRole(@RequestBody Integer [] roleIds){
+        log.info("删除角色:{}", roleIds);
+        if (roleIds == null || roleIds.length == 0){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "请选择要删除的角色！");
+        }
+        try {
+            roleService.removeRole(roleIds);
+        } catch (IllegalAccessException e){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
+        }
+        return ResponseJsonMsg.ok();
+    }
+
     @ApiOperation("新增角色权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色编号", dataType = "Integer", paramType = "body"),
