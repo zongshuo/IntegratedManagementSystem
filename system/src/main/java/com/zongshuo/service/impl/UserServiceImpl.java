@@ -40,14 +40,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
     @Override
     public PageResult<UserModel> getPage(PageParam<UserModel> pageParam) {
         List<UserModel> userModelList = userMapper.selectPage(pageParam);
-        if (userModelList == null){
+        if (userModelList == null) {
             userModelList = new ArrayList<>(0);
         }
+
+        List<RoleModel> roleModels ;
+        for (UserModel user : userModelList) {
+            //查询用户角色
+            roleModels = roleService.getUserRoles(user);
+            user.setRoles(roleModels);
+        }
+
         return new PageResult<>(userModelList, pageParam.getTotal());
     }
 
     @Override
-    public UserModel getUserInfo(String username) throws IllegalAccessException{
+    public UserModel getUserInfo(String username) throws IllegalAccessException {
         UserModel userModel = userMapper.selectOne(new QueryWrapper<UserModel>().lambda().eq(UserModel::getUsername, username));
         if (userModel == null) throw new IllegalAccessException("用户不存在！");
 

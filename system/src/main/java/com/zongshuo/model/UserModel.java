@@ -46,9 +46,15 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "昵称", name = "nickName")
     private String nickName ;
 
+    @ApiModelProperty(value = "性别", name = "gender")
+    private String gender ;
+
     @ValidateEmail(groups = Insert.class)
     @ApiModelProperty(value = "邮箱", name = "email")
     private String email ;
+
+    @ApiModelProperty(value = "手机号", name = "phone")
+    private Integer phone;
 
     @ApiModelProperty(value = "账号是否过期", name = "isAccountNonExpired")
     private boolean isAccountNonExpired ;

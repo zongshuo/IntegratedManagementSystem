@@ -33,8 +33,14 @@ public class User{
     @Column(name = "nick_name", length = 30)
     private String nickName ;
 
+    @Column(name = "gender")
+    private Short gender;
+
     @Column(name = "email", nullable = false, length = 200)
     private String email ;
+
+    @Column(name = "phone")
+    private Integer phone;
 
     @Column(name = "is_account_non_expired")
     private boolean isAccountNonExpired ;
