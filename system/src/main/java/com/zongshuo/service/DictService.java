@@ -13,4 +13,12 @@ public interface DictService extends IService<DictModel> {
      */
     List<DictModel> getAllDict();
 
+    /**
+     * 新增字典
+     * 检查是否重复
+     * 设置创建时间
+     * @param dict
+     */
+    void saveDict(DictModel dict) throws IllegalAccessException;
+
 }
