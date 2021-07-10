@@ -1,5 +1,7 @@
 package com.zongshuo.annotations.validators;
 
+import javax.validation.groups.Default;
+
 /**
  * @Author: zongShuo
  * @Version: 1.0
@@ -7,5 +9,5 @@ package com.zongshuo.annotations.validators;
  * @Time: 11:18
  * @Description:
  */
-public interface Select {
+public interface Select extends Default {
 }

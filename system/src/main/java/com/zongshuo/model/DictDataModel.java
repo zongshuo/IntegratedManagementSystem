@@ -1,44 +1,53 @@
-package com.zongshuo.entity;
+package com.zongshuo.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.zongshuo.annotations.validators.Select;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @Author: zongShuo
  * @Version: 1.0
- * @Date: 2021-6-29
- * @Time: 10:49
+ * @Date: 2021-7-10
+ * @Time: 11:12
  * @Description:
  */
 @Data
-@Entity
-@Table(name = "SYS_DICT_DATA")
-public class DictData {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+@TableName("SYS_DICT_DATA")
+@ApiModel(value = "DictDataModel对象", description = "字典项字典值对象")
+public class DictDataModel implements Serializable {
+
+    @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "主键", name = "id")
     private Integer id ;
 
-    @Column(name = "dict_id", nullable = false)
+    @ApiModelProperty(value = "字典项主键", name = "dictId")
     private Integer dictId ;
 
-    @Column(name = "code", nullable = false, length = 100)
+    @ApiModelProperty(value = "字典值", name = "code")
     private String code ;
 
-    @Column(name = "name", nullable = false, length = 200)
+    @ApiModelProperty(value = "字典值名称", name = "name")
     private String name ;
 
-    @Column(name = "sort")
+    @ApiModelProperty(value = "排序号", name = "sort")
     private Short sort ;
 
-    @Column(name = "comments", length = 400)
+    @ApiModelProperty(value = "备注", name = "comments")
     private String comments ;
 
-    @Column(name = "create_time")
+    @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime ;
 
-    @Column(name = "update_time")
+    @ApiModelProperty(value = "更新时间", name = "updateTime")
     private Date updateTime ;
 }

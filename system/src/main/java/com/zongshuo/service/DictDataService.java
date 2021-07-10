@@ -1,5 +1,11 @@
 package com.zongshuo.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.zongshuo.model.DictDataModel;
+import com.zongshuo.model.DictModel;
+import com.zongshuo.util.PageParam;
+import com.zongshuo.util.PageResult;
+
 /**
  * @Author: zongShuo
  * @Version: 1.0
@@ -7,5 +13,11 @@ package com.zongshuo.service;
  * @Time: 11:28
  * @Description:
  */
-public interface DictDataService {
+public interface DictDataService extends IService<DictDataModel> {
+    /**
+     * 分页查询字典项的字典值
+     * @param pageParam
+     * @return
+     */
+    PageResult<DictDataModel> getDictDataPage(PageParam<DictDataModel> pageParam);
 }

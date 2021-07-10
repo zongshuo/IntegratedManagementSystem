@@ -1,7 +1,9 @@
 package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zongshuo.model.DictDataModel;
 import com.zongshuo.model.DictModel;
+import com.zongshuo.util.PageResult;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ public interface DictService extends IService<DictModel> {
      * @return
      */
     List<DictModel> getAllDict();
+
 
     /**
      * 新增字典
