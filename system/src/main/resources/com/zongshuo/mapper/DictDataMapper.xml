@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zongshuo.mapper.RoleMapper">
+    <!--分页查询角色信息-->
+    <select id="selectPage" parameterType="com.zongshuo.util.PageParam" resultType="com.zongshuo.model.RoleModel">
+        select a.* from sys_role a
+        <where>
+            1=1
+            <if test="page != null and page.params != null">
+                <if test="page.params.descriptions != null and page.params.descriptions != ''">
+                    and a.descriptions = #{page.params.descriptions}
+                </if>
+                <if test="page.params.roleKey != null and page.params.roleKey != ''">
+                    and a.role_key = #{page.params.roleKey}
+                </if>
+                <if test="page.params.roleName != null and page.params.roleName != ''">
+                    and a.role_name like CONCAT('%', #{page.params.roleName}, '%')
+                </if>
+            </if>
+        </where>
+    </select>
+    <!--根据用户主键查询用户拥有的角色-->
+    <select id="selectUserRoles" parameterType="java.lang.Integer" resultType="com.zongshuo.model.RoleModel">
+        select a.*
+        from sys_role a
+        left join sys_user_role b on a.id = b.role_id
+        where b.user_id = #{userId}
+    </select>
+
+    <!--根据角色主键查找角色菜单-->
+    <select id="selectRoleMenus" parameterType="java.lang.Integer" resultType="com.zongshuo.model.MenuModel">
+        select a.* from sys_menu a left join sys_role_menu b on a.menu_id = b.menu_id where b.role_id = #{id}
+    </select>
+</mapper>
