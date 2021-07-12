@@ -12,6 +12,7 @@ import com.zongshuo.util.PageParam;
 import com.zongshuo.util.PageResult;
 import com.zongshuo.util.ResponseJsonMsg;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,14 @@ public class DictController extends BaseController{
         log.info("分页查询字典值:{}", request);
         PageParam<DictDataModel> pageParam = new PageParam<>(request);
         return dictDataService.getDictDataPage(pageParam);
+    }
+
+    @ApiOperation("根据字典项值加载所有字典值")
+    @ApiImplicitParam(name = "dictCode", value = "字典项值", dataType = "String", paramType = "query")
+    @GetMapping("/data/all")
+    public ResponseJsonMsg dictDataAll(@RequestBody String dictCode){
+        log.info("查询字典项的字典值:{}", dictCode);
+        return ResponseJsonMsg.ok().setData(dictDataService.getDictDataList(dictCode));
     }
 
     @ApiOperation("添加字典")

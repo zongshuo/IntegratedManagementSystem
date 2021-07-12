@@ -6,6 +6,8 @@ import com.zongshuo.model.DictModel;
 import com.zongshuo.util.PageParam;
 import com.zongshuo.util.PageResult;
 
+import java.util.List;
+
 /**
  * @Author: zongShuo
  * @Version: 1.0
@@ -20,6 +22,14 @@ public interface DictDataService extends IService<DictDataModel> {
      * @return
      */
     PageResult<DictDataModel> getDictDataPage(PageParam<DictDataModel> pageParam);
+
+    /**
+     * 查询所有字典值
+     * 根据字典项值获取
+     * @param dictCode
+     * @return
+     */
+    List<DictDataModel> getDictDataList(String dictCode);
 
     /**
      * 删除字典项的字典值

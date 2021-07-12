@@ -42,6 +42,24 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataMod
     }
 
     @Override
+    public List<DictDataModel> getDictDataList(String dictCode){
+        DictModel dict = dictService.getOne(new QueryWrapper<DictModel>()
+                .lambda()
+                .eq(DictModel::getCode, dictCode));
+
+        if (dict == null){
+            return new ArrayList<DictDataModel>(0) ;
+        }
+
+        List<DictDataModel> dictDataModelList = dictDataMapper.selectList(
+                new QueryWrapper<DictDataModel>().lambda().eq(DictDataModel::getDictId, dict.getId()));
+        if (dictDataModelList == null){
+            dictDataModelList = new ArrayList<>(0);
+        }
+        return dictDataModelList;
+    }
+
+    @Override
     public void removeDictData(DictModel dict) {
         dictDataMapper.delete(
                 new QueryWrapper<DictDataModel>()
