@@ -2,6 +2,7 @@ package com.zongshuo.web;
 
 import com.zongshuo.Contains;
 import com.zongshuo.annotations.validators.Delete;
+import com.zongshuo.annotations.validators.Insert;
 import com.zongshuo.annotations.validators.Update;
 import com.zongshuo.entity.DictData;
 import com.zongshuo.model.DictDataModel;
@@ -60,6 +61,13 @@ public class DictController extends BaseController{
         return ResponseJsonMsg.ok();
     }
 
+    @ApiOperation("添加字典值")
+    @PutMapping("/data/add")
+    public ResponseJsonMsg addDictData(@RequestBody @Validated(Insert.class) DictDataModel dictData){
+        log.info("新增字典值:", dictData);
+        return ResponseJsonMsg.ok();
+    }
+
     @ApiOperation("编辑字典项")
     @PutMapping("/edit")
     public ResponseJsonMsg editDict(@RequestBody @Validated(Update.class) DictModel dict){
@@ -70,6 +78,13 @@ public class DictController extends BaseController{
             log.error("更新字典项异常:{}", e);
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
         }
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("编辑字典值")
+    @PutMapping("/data/edit")
+    public ResponseJsonMsg editDictData(@RequestBody @Validated(Update.class) DictDataModel dictData){
+        log.info("编辑字典值:", dictData);
         return ResponseJsonMsg.ok();
     }
 
