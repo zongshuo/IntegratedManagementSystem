@@ -20,4 +20,11 @@ public interface DictDataService extends IService<DictDataModel> {
      * @return
      */
     PageResult<DictDataModel> getDictDataPage(PageParam<DictDataModel> pageParam);
+
+    /**
+     * 删除字典项的字典值
+     * 根据字典项id进行删除
+     * @param dict
+     */
+    void removeDictData(DictModel dict) ;
 }

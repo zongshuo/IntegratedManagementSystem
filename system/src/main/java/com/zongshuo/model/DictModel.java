@@ -3,11 +3,15 @@ package com.zongshuo.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zongshuo.annotations.validators.Delete;
+import com.zongshuo.annotations.validators.Insert;
+import com.zongshuo.annotations.validators.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,13 +29,14 @@ public class DictModel implements Serializable {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "字典项ID", name = "id")
+    @NotNull(message = "主键不能为空！", groups = {Update.class, Delete.class})
     private Integer id ;
 
-    @NotEmpty(message = "字典值不能为空！")
+    @NotEmpty(message = "字典值不能为空！", groups = {Insert.class, Update.class})
     @ApiModelProperty(value = "字典值", name = "code")
     private String code ;
 
-    @NotEmpty(message = "字典名称不能为空！")
+    @NotEmpty(message = "字典名称不能为空！", groups = {Insert.class, Update.class})
     @ApiModelProperty(value = "字典名称", name = "name")
     private String name ;
 

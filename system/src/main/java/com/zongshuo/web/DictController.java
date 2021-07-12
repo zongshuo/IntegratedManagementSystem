@@ -1,6 +1,8 @@
 package com.zongshuo.web;
 
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.validators.Delete;
+import com.zongshuo.annotations.validators.Update;
 import com.zongshuo.entity.DictData;
 import com.zongshuo.model.DictDataModel;
 import com.zongshuo.model.DictModel;
@@ -13,6 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +57,32 @@ public class DictController extends BaseController{
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
         }
 
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("编辑字典项")
+    @PutMapping("/edit")
+    public ResponseJsonMsg editDict(@RequestBody @Validated(Update.class) DictModel dict){
+        log.info("编辑字典:{}", dict);
+        try {
+            dictService.editDict(dict);
+        } catch (IllegalAccessException e) {
+            log.error("更新字典项异常:{}", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
+        }
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("删除字典项")
+    @DeleteMapping
+    public ResponseJsonMsg deleteDict(@RequestBody @Validated(Delete.class) DictModel dict){
+        log.info("删除字典项:{}", dict);
+        try {
+            dictService.removeDict(dict);
+        } catch (IllegalAccessException e) {
+            log.error("删除字典异常:", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "删除字典及字典项失败！");
+        }
         return ResponseJsonMsg.ok();
     }
 }

@@ -1,8 +1,10 @@
 package com.zongshuo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.mapper.DictDataMapper;
 import com.zongshuo.model.DictDataModel;
+import com.zongshuo.model.DictModel;
 import com.zongshuo.service.DictDataService;
 import com.zongshuo.util.PageParam;
 import com.zongshuo.util.PageResult;
@@ -32,5 +34,13 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataMod
         }
 
         return new PageResult<>(dictDataModelList, pageParam.getTotal());
+    }
+
+    @Override
+    public void removeDictData(DictModel dict) {
+        dictDataMapper.delete(
+                new QueryWrapper<DictDataModel>()
+                        .lambda()
+                        .eq(DictDataModel::getDictId, dict.getId()));
     }
 }
