@@ -3,11 +3,13 @@ package com.zongshuo.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zongshuo.annotations.validators.Delete;
 import com.zongshuo.annotations.validators.Select;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.omg.CORBA.portable.Delegate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,6 +30,7 @@ public class DictDataModel implements Serializable {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", name = "id")
+    @NotNull(message = "主键不能为空！", groups = {Delete.class})
     private Integer id ;
 
     @ApiModelProperty(value = "字典项主键", name = "dictId")

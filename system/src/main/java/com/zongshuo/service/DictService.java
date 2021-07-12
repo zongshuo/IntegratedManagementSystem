@@ -1,9 +1,7 @@
 package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zongshuo.model.DictDataModel;
 import com.zongshuo.model.DictModel;
-import com.zongshuo.util.PageResult;
 
 import java.util.List;
 
@@ -40,5 +38,13 @@ public interface DictService extends IService<DictModel> {
      * @throws IllegalAccessException
      */
     void removeDict(DictModel dict) throws IllegalAccessException;
+
+    /**
+     * 判断字典项是否存在
+     * 根据主键、字典名称、字典值三个字段分别判断
+     * @param dict
+     * @return
+     */
+    boolean dictExisted(DictModel dict);
 
 }

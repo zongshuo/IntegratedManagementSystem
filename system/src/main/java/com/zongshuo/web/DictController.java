@@ -4,7 +4,6 @@ import com.zongshuo.Contains;
 import com.zongshuo.annotations.validators.Delete;
 import com.zongshuo.annotations.validators.Insert;
 import com.zongshuo.annotations.validators.Update;
-import com.zongshuo.entity.DictData;
 import com.zongshuo.model.DictDataModel;
 import com.zongshuo.model.DictModel;
 import com.zongshuo.service.DictDataService;
@@ -65,6 +64,12 @@ public class DictController extends BaseController{
     @PutMapping("/data/add")
     public ResponseJsonMsg addDictData(@RequestBody @Validated(Insert.class) DictDataModel dictData){
         log.info("新增字典值:", dictData);
+        try {
+            dictDataService.addDictData(dictData);
+        } catch (IllegalAccessException e) {
+            log.error("新增字典值异常:", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, e.getMessage());
+        }
         return ResponseJsonMsg.ok();
     }
 
@@ -97,6 +102,19 @@ public class DictController extends BaseController{
         } catch (IllegalAccessException e) {
             log.error("删除字典异常:", e);
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "删除字典及字典项失败！");
+        }
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("删除字典值")
+    @DeleteMapping("/data")
+    public ResponseJsonMsg deleteDictData(@RequestBody @Validated(Delete.class) DictDataModel dictData){
+        log.info("删除字典值:{}", dictData);
+        try {
+            dictDataService.deleteDictData(dictData);
+        } catch (IllegalAccessException e) {
+            log.error("删除字典值失败:", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, e.getMessage());
         }
         return ResponseJsonMsg.ok();
     }

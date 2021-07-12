@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class PageParam<T> extends Page<T> {
     private static final String FIELD_PAGE = "page";    //页码
     private static final String FIELD_LIMIT = "pageSize";  //每页记录数
-    private static final String FIELD_SORT = "sort";    //排序字段参数名称
+    private static final String FIELD_SORT = "sortFields";    //排序字段参数名称
     private static final String FIELD_ORDER = "ORDER";  //排序方式
     private static final String VALUE_ORDER_ASC = "asc";    //升序排序
     private static final String VALUE_ORDER_DESC = "desc";    //降序排序

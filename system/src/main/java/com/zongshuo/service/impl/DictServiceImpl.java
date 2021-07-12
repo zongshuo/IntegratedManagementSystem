@@ -1,5 +1,6 @@
 package com.zongshuo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,6 +9,7 @@ import com.zongshuo.model.DictModel;
 import com.zongshuo.service.DictDataService;
 import com.zongshuo.service.DictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictModel> implemen
     @Autowired(required = false)
     private DictMapper dictMapper;
     @Autowired
+    @Lazy
     private DictDataService dictDataService;
 
     @Override
@@ -78,5 +81,16 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictModel> implemen
         }
 
         dictDataService.removeDictData(dict);
+    }
+
+    @Override
+    public boolean dictExisted(DictModel dict) {
+        LambdaQueryWrapper<DictModel> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(DictModel::getId, dict.getId());
+        queryWrapper.or();
+        queryWrapper.eq(DictModel::getCode, dict.getCode());
+        queryWrapper.or();
+        queryWrapper.eq(DictModel::getName, dict.getName());
+        return dictMapper.selectCount(queryWrapper) > 0;
     }
 }

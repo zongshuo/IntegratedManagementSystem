@@ -27,4 +27,21 @@ public interface DictDataService extends IService<DictDataModel> {
      * @param dict
      */
     void removeDictData(DictModel dict) ;
+
+    /**
+     * 新增字典值
+     * 需要指定字典项
+     * 相同字典项下的字典值及名称不能重复
+     * 设置创建时间
+     * @param dictData
+     */
+    void addDictData(DictDataModel dictData) throws IllegalAccessException;
+
+    /**
+     * 删除字典值
+     * 根据字典值主键删除
+     * @param dictData
+     * @throws IllegalAccessException
+     */
+    void deleteDictData(DictDataModel dictData) throws IllegalAccessException;
 }
