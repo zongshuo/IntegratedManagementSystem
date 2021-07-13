@@ -91,6 +91,23 @@ public class UserController extends BaseController{
         return ResponseJsonMsg.ok();
     }
 
+    @ApiOperation("变更用户状态")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户主键", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "enable", value = "状态", dataType = "Boolean", paramType = "query")
+    })
+    @PostMapping("/enable")
+    public ResponseJsonMsg toggleEnable(@RequestBody UserModel user){
+        log.info("变更用户状态:{}", user);
+        try {
+            userService.toggleEnable(user);
+        } catch (IllegalAccessException e) {
+            log.error("更新用户状态异常:", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, e.getMessage());
+        }
+        return ResponseJsonMsg.ok();
+    }
+
     @ApiOperation("删除用户")
     @ApiImplicitParam(name = "userIds", value = "用户主键数组", dataType = "Array", paramType = "query")
     @DeleteMapping

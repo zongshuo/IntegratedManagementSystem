@@ -99,6 +99,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
     }
 
     @Override
+    public void toggleEnable(UserModel user) throws IllegalAccessException {
+        if (!userExisted(user)){
+            throw new IllegalAccessException("用户不存在！");
+        }
+
+        int count = userMapper.selectCount(
+                new QueryWrapper<UserModel>()
+                        .eq("id", user.getId())
+                        .eq("is_enabled", user.isEnabled()));
+        if (count > 0){
+            throw new IllegalAccessException("用户状态不需要变更！");
+        }
+
+        userMapper.update(null,
+                new UpdateWrapper<UserModel>()
+                        .set("is_enabled", user.isEnabled())
+                        .eq("id", user.getId()));
+    }
+
+    @Override
     @Transactional
     public void editUser(UserModel user) throws IllegalAccessException {
         if (!userExisted(user)){
