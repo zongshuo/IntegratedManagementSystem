@@ -49,7 +49,7 @@ public class UserModel implements UserDetails {
     private String nickName ;
 
     @ApiModelProperty(value = "性别", name = "gender")
-    private String gender ;
+    private Short gender ;
 
     @ValidateEmail(groups = Insert.class)
     @ApiModelProperty(value = "邮箱", name = "email")

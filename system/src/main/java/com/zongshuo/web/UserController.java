@@ -1,5 +1,6 @@
 package com.zongshuo.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zongshuo.Contains;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.UserService;
@@ -73,6 +74,19 @@ public class UserController extends BaseController{
             log.error("添加用户异常:", e);
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
         }
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("删除用户")
+    @ApiImplicitParam(name = "userIds", value = "用户主键数组", dataType = "Array", paramType = "query")
+    @DeleteMapping
+    public ResponseJsonMsg removeUser(@RequestBody JSONObject request){
+        log.info("批量删除用户:{}", request);
+        Integer [] userIds = request.getJSONArray("userIds").toArray(new Integer[0]);
+        if (userIds == null || userIds.length == 0){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_PARAM, "请选择需要删除的用户！");
+        }
+        userService.removeUser(userIds);
         return ResponseJsonMsg.ok();
     }
 

@@ -2,6 +2,7 @@ package com.zongshuo.exception;
 
 import com.zongshuo.Contains;
 import com.zongshuo.util.ResponseJsonMsg;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,6 +45,9 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ResponseJsonMsg validateExceptionHandler(Exception e){
+        if (e instanceof HttpRequestMethodNotSupportedException){
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_API_UNKNOWN, "请求的API不支持！");
+        }
         return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_UNKNOWN, e.getMessage());
     }
 }

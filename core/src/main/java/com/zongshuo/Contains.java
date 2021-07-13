@@ -52,6 +52,7 @@ public final class Contains {
     public static final String RET_CODE_SUCCESS = "AAAAAAA"; //成功
 
     public static final String RET_CODE_FAILED_UNKNOWN = "E000001"; //未知错误
+    public static final String RET_CODE_FAILED_API_UNKNOWN = "API_E001"; //未知接口
     public static final String RET_CODE_FAILED_SYS = "SYS_E001"; //系统错误
     public static final String RET_CODE_FAILED_AUTH_NON = "AUTH_E01"; //没有权限
     public static final String RET_CODE_FAILED_AUTH_LOGIN = "AUTH_E02"; //未登录

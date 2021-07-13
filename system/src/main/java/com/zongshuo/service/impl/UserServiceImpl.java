@@ -8,6 +8,7 @@ import com.zongshuo.mapper.UserMapper;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.model.UserModel;
+import com.zongshuo.model.UserRoleModel;
 import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleService;
 import com.zongshuo.service.UserRoleService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -84,6 +86,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
         List<MenuModel> menuModels = menuService.getMenusByUserId(user.getId());
         menuModels = menuService.toMenuTree(menuModels, 0);
         return menuModels;
+    }
+
+    @Override
+    @Transactional
+    public void removeUser(Integer[] userIds) {
+        userRoleService.remove(new QueryWrapper<UserRoleModel>().lambda().in(UserRoleModel::getUserId, userIds));
+
+        userMapper.deleteBatchIds(Arrays.asList(userIds));
     }
 
     @Override
