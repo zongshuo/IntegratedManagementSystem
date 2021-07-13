@@ -30,6 +30,7 @@ import java.util.*;
 @Data
 @TableName("SYS_USER")
 @ApiModel(value = "UserModel对象", description = "系统用户模型")
+@JsonIgnoreProperties(value = {"authorities"})
 public class UserModel implements UserDetails {
 
     @TableId(type = IdType.AUTO)
@@ -73,6 +74,9 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "创建时间")
     private Date createTime ;
 
+    @ApiModelProperty(value = "更新时间")
+    private Date updateTime ;
+
     @TableField(exist = false)
     @ApiModelProperty(value = "用户角色列表", name = "roles")
     private List<RoleModel> roles = new ArrayList<>(0);
@@ -87,6 +91,7 @@ public class UserModel implements UserDetails {
     private String authCode ;
 
     @Override
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }

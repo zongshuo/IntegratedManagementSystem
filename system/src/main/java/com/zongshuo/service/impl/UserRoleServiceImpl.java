@@ -37,7 +37,11 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleMod
     @Transactional
     public void saveUserRole(UserModel user) throws IllegalAccessException {
         if (user.getId() == null) return;
-        if (user.getRoles() == null || user.getRoles().isEmpty()) return;
+
+        userRoleMapper.delete(new QueryWrapper<UserRoleModel>().lambda().eq(UserRoleModel::getUserId, user.getId()));
+        if (user.getRoles() == null || user.getRoles().isEmpty()) {
+            return;
+        }
 
         List<Integer> roleIds = new ArrayList<>(user.getRoles().size());
         user.getRoles().stream().forEach(role -> roleIds.add(role.getId()));
@@ -48,7 +52,6 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleMod
             throw new IllegalAccessException("部分角色不存在！");
         }
 
-        userRoleMapper.delete(new QueryWrapper<UserRoleModel>().lambda().eq(UserRoleModel::getUserId, user.getId()));
 
         for (RoleModel role : user.getRoles()) {
             UserRoleModel userRole = new UserRoleModel();

@@ -59,6 +59,17 @@ public interface UserService extends IService<UserModel> {
     void addUser(UserModel user) throws IllegalAccessException;
 
     /**
+     * 编辑用户
+     * 判断用户是否存在
+     * 更新人员表字段
+     * 更新用户角色
+     * 设置更新时间
+     * @param user
+     * @throws IllegalAccessException
+     */
+    void editUser(UserModel user) throws IllegalAccessException;
+
+    /**
      * 批量删除用户
      * 根据用户主键进行删除
      * 同时删除用户角色

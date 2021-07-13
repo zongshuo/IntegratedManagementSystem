@@ -2,6 +2,8 @@ package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.Contains;
 import com.zongshuo.mapper.UserMapper;
@@ -94,6 +96,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
         userRoleService.remove(new QueryWrapper<UserRoleModel>().lambda().in(UserRoleModel::getUserId, userIds));
 
         userMapper.deleteBatchIds(Arrays.asList(userIds));
+    }
+
+    @Override
+    @Transactional
+    public void editUser(UserModel user) throws IllegalAccessException {
+        if (!userExisted(user)){
+            throw new IllegalAccessException("用户不存在！");
+        }
+
+        user.setUpdateTime(new Date());
+        LambdaUpdateWrapper updateWrapper =
+                new UpdateWrapper<UserModel>()
+                        .lambda()
+                        .set(UserModel::getUsername, user.getUsername())
+                        .set(UserModel::getNickName, user.getNickName())
+                        .set(UserModel::getGender, user.getGender())
+                        .set(UserModel::getEmail, user.getEmail())
+                        .set(UserModel::getPhone, user.getPhone())
+                        .eq(UserModel::getId, user.getId());
+        userMapper.update(null, updateWrapper);
+
+        userRoleService.saveUserRole(user);
     }
 
     @Override

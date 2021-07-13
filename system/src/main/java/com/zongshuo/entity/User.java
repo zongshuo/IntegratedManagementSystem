@@ -56,4 +56,7 @@ public class User{
 
     @Column(name = "create_time")
     private Date createTime;
+
+    @Column(name = "update_time")
+    private Date updateTime ;
 }

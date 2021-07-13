@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Path;
 
 /**
  * @Author: zongShuo
@@ -72,6 +73,19 @@ public class UserController extends BaseController{
             userService.addUser(user);
         } catch (IllegalAccessException e) {
             log.error("添加用户异常:", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
+        }
+        return ResponseJsonMsg.ok();
+    }
+
+    @ApiOperation("编辑用户")
+    @PutMapping("/edit")
+    public ResponseJsonMsg editUser(@RequestBody UserModel user){
+        log.info("编辑用户:{}", user);
+        try {
+            userService.editUser(user);
+        } catch (IllegalAccessException e) {
+            log.error("编辑用户异常:", e);
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
         }
         return ResponseJsonMsg.ok();
