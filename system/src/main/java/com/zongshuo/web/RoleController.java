@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,6 +55,22 @@ public class RoleController extends BaseController {
         log.info("分页查询角色:{}", request);
         PageParam<RoleModel> pageParam = new PageParam<>(request);
         return roleService.getPage(pageParam);
+    }
+
+    @ApiOperation("查询所有角色的列表")
+    @GetMapping("/list")
+    public ResponseJsonMsg getList(){
+        log.info("查询角色列表");
+        List<RoleModel> roles = roleService.list(
+                new QueryWrapper<RoleModel>()
+                        .lambda()
+                        .orderByAsc(RoleModel::getRoleName)
+                        .orderByAsc(RoleModel::getId));
+        if (roles == null){
+            roles = new ArrayList<>(0);
+        }
+
+        return ResponseJsonMsg.ok().setData(roles);
     }
 
     @ApiOperation("获取角色的树状菜单列表")

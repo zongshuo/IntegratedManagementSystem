@@ -121,7 +121,7 @@ public class AppInitRunner implements ApplicationRunner {
         if (adminUser == null) {
             adminUser = new UserModel();
             adminUser.setUsername(Contains.SYS_ADMIN_NAME);
-            adminUser.setPassword(new BCryptPasswordEncoder().encode(Contains.SYS_ADMIN_PASSWD));
+            adminUser.setPassword(Contains.SYS_ADMIN_PASSWD);
             adminUser.setNickName("系统管理员");
             adminUser.setEmail("1737290510@qq.com");
             adminUser.setCreateTime(new Date());

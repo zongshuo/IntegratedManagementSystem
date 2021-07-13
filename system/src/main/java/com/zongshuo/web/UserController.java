@@ -13,9 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,4 +62,18 @@ public class UserController extends BaseController{
 
         return ResponseJsonMsg.ok().setData(userModel);
     }
+
+    @ApiOperation("新增用户")
+    @PutMapping
+    public ResponseJsonMsg addUser(@RequestBody UserModel user){
+        log.info("新增用户:", user);
+        try {
+            userService.addUser(user);
+        } catch (IllegalAccessException e) {
+            log.error("添加用户异常:", e);
+            return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_UPDATE, e.getMessage());
+        }
+        return ResponseJsonMsg.ok();
+    }
+
 }

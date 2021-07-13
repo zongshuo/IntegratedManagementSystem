@@ -66,7 +66,8 @@ public final class Contains {
      * 系统管理员名称
      */
     public static final String SYS_ADMIN_NAME = "admin";
-    public static final String SYS_ADMIN_PASSWD = "P@ssw0rd";
+    public static final String SYS_ADMIN_PASSWD = "$2a$10$Mx8oEwEnDrJZfuPys2TEH.hlC08jGrdqwL9UMSPatu6sBkxyrZhXu";
+    public static final String DEFAULT_PASSWD = "$2a$10$1tUOD8IowKFXgoLYkJ.fzOWyXErWrJCpp8PFwjlHCSRjL53p5YK9q";
     /**
      * 菜单-系统管理
      */

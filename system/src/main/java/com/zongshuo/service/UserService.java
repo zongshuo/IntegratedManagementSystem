@@ -47,4 +47,25 @@ public interface UserService extends IService<UserModel> {
      * @return
      */
     List<MenuModel> getUserMenuTree(UserModel user);
+
+    /**
+     * 添加用户
+     * 保存用户权限
+     * 设置用户默认密码
+     * 设置创建时间
+     * 设置用户状态
+     * @param user
+     */
+    void addUser(UserModel user) throws IllegalAccessException;
+
+    /**
+     * 判断用户是否存在
+     * 根据用户主键
+     * 根据用户账号
+     * 根据用户名称
+     * 三者任意字段存在即表示用户存在
+     * @param user
+     * @return
+     */
+    boolean userExisted(UserModel user);
 }

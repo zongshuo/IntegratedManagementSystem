@@ -56,7 +56,7 @@ public class UserModel implements UserDetails {
     private String email ;
 
     @ApiModelProperty(value = "手机号", name = "phone")
-    private Integer phone;
+    private String phone;
 
     @ApiModelProperty(value = "账号是否过期", name = "isAccountNonExpired")
     private boolean isAccountNonExpired ;

@@ -39,8 +39,8 @@ public class User{
     @Column(name = "email", nullable = false, length = 200)
     private String email ;
 
-    @Column(name = "phone")
-    private Integer phone;
+    @Column(name = "phone", length = 12)
+    private String phone;
 
     @Column(name = "is_account_non_expired")
     private boolean isAccountNonExpired ;
