@@ -25,7 +25,7 @@ public interface DictDataService extends IService<DictDataModel> {
 
     /**
      * 查询所有字典值
-     * 根据字典项值获取
+     * 根据字典项值获取所有字典项
      * @param dictCode
      * @return
      */

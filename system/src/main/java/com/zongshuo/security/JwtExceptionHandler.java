@@ -62,7 +62,6 @@ public class JwtExceptionHandler implements AccessDeniedHandler, AuthenticationE
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-
         doHandler(request, response, accessDeniedException);
     }
 

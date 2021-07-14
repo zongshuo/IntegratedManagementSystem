@@ -22,20 +22,20 @@ public class Organization {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id ;
 
-    @Column(name = "parent_code", nullable = false, length = 100)
-    private String parentCode ;
+    @Column(name = "parent_id", nullable = false)
+    private Integer parentId ;
 
-    @Column(name = "org_code", nullable = false, length = 100)
-    private String orgCode ;
+    @Column(name = "code", length = 100)
+    private String code ;
 
-    @Column(name = "org_name", nullable = false, length = 200)
-    private String orgName ;
+    @Column(name = "name", nullable = false, length = 200)
+    private String name ;
 
-    @Column(name = "org_full_name", nullable = false, length = 200)
-    private String orgFullName ;
+    @Column(name = "full_name", length = 200)
+    private String fullName ;
 
-    @Column(name = "org_type", nullable = false)
-    private Byte orgType ;
+    @Column(name = "type", nullable = false)
+    private Byte type ;
 
     @Column(name = "sort")
     private Short sort ;
