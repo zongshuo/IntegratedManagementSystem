@@ -11,10 +11,7 @@ import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.model.UserRoleModel;
-import com.zongshuo.service.MenuService;
-import com.zongshuo.service.RoleService;
-import com.zongshuo.service.UserRoleService;
-import com.zongshuo.service.UserService;
+import com.zongshuo.service.*;
 import com.zongshuo.util.PageParam;
 import com.zongshuo.util.PageResult;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +42,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
     private MenuService menuService;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private OrganizationPersonService personService;
 
 
     @Override
@@ -138,6 +137,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
         userMapper.update(null, updateWrapper);
 
         userRoleService.saveUserRole(user);
+
+        personService.addOrgPerson(user.getOrgId(), user.getId());
     }
 
     @Override

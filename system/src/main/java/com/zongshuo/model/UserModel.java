@@ -71,10 +71,10 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "账号是否可用", name = "isEnabled")
     private boolean isEnabled ;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime ;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "更新时间", name = "updateTime")
     private Date updateTime ;
 
     @TableField(exist = false)
@@ -84,6 +84,10 @@ public class UserModel implements UserDetails {
     @TableField(exist = false)
     @ApiModelProperty(value = "用户菜单列表", name = "menus")
     private List<MenuModel> menus = new ArrayList<>(0);
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "用户组织机构", name = "orgId")
+    private Integer orgId ;
 
     @ValidateAuchCode(groups = Insert.class)
     @ApiModelProperty(value = "验证码", name = "authCode")
