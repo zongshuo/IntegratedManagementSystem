@@ -1,7 +1,6 @@
 package com.zongshuo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zongshuo.entity.User;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.util.PageParam;
