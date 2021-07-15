@@ -69,10 +69,10 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
             if (parentOrgId.equals(org.getParentId())){
                 childrenOrgies.add(org);
                 iterator.remove();
-                orgList.remove(org);
 
                 //  递归获取下级机构的下级机构
                 org.setChildren(getOrgTree(orgList, org.getId()));
+                iterator = orgList.iterator();
             }
         }
         return childrenOrgies;
