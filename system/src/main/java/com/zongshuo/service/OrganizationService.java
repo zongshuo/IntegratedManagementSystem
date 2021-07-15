@@ -26,4 +26,24 @@ public interface OrganizationService extends IService<OrganizationModel> {
      * @param org
      */
     void addOrg(OrganizationModel org) throws IllegalAccessException;
+
+    /**
+     * 编辑组织
+     * 判断组织是否存在
+     * 根据判断上级组织是否存在同名不同主键数据
+     * 设置更新时间
+     * 更新字段
+     * @param org
+     * @throws IllegalAccessException
+     */
+    void editOrg(OrganizationModel org) throws IllegalAccessException;
+
+    /**
+     * 删除组织
+     * 删除下级组织
+     * 删除该组织与人员的关联关系
+     * @param org
+     * @throws IllegalAccessException
+     */
+    void removeOrg(OrganizationModel org) throws IllegalAccessException;
 }

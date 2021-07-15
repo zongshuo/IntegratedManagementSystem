@@ -1,6 +1,8 @@
 package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.mapper.OrganizationMapper;
 import com.zongshuo.model.OrganizationModel;
@@ -21,21 +23,7 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
 
     @Override
     public void addOrg(OrganizationModel org) throws IllegalAccessException{
-        int count = 0;
-        if (StringUtils.isNotBlank(org.getCode())){
-            count = orgMapper.selectCount(
-                    new QueryWrapper<OrganizationModel>()
-                            .lambda()
-                            .eq(OrganizationModel::getCode, org.getCode()));
-            if (count > 0) throw new IllegalAccessException("机构编号已存在！");
-        }
-
-        count = orgMapper.selectCount(
-                new QueryWrapper<OrganizationModel>()
-                        .lambda()
-                        .eq(OrganizationModel::getParentId, org.getParentId())
-                        .eq(OrganizationModel::getName, org.getName()));
-        if (count > 0) throw new IllegalAccessException("同级别中机构名称已存在！");
+        checkRepeat(org);
 
        org.setCreateTime(new Date());
        orgMapper.insert(org);
@@ -50,6 +38,77 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
 
         orgList = getOrgTree(orgList, orgId);
         return orgList;
+    }
+
+    @Override
+    public void removeOrg(OrganizationModel org) throws IllegalAccessException {
+        List<OrganizationModel> children = getOrgTree(org.getId());
+        if ( ! children.isEmpty()){
+            for (OrganizationModel model : children){
+                this.removeOrg(model);
+            }
+        }
+
+        orgMapper.delete(
+                new QueryWrapper<OrganizationModel>()
+                        .lambda()
+                        .eq(OrganizationModel::getId, org.getId()));
+    }
+
+    @Override
+    public void editOrg(OrganizationModel org) throws IllegalAccessException {
+        checkRepeat(org);
+
+        LambdaUpdateWrapper<OrganizationModel> updateWrapper =
+                new UpdateWrapper<OrganizationModel>()
+                        .lambda()
+                        .set(OrganizationModel::getParentId, org.getParentId())
+                        .set(OrganizationModel::getName, org.getName())
+                        .set(OrganizationModel::getFullName, org.getFullName())
+                        .set(OrganizationModel::getCode, org.getCode())
+                        .set(OrganizationModel::getType, org.getType())
+                        .set(OrganizationModel::getSort, org.getSort())
+                        .set(OrganizationModel::getComments, org.getComments())
+                        .set(OrganizationModel::getUpdateTime, new Date())
+                        .eq(OrganizationModel::getId, org.getId());
+        orgMapper.update(null, updateWrapper);
+    }
+
+    /**
+     * 判断组织是否存在
+     * 判断上级组织是否存在
+     * 判断组织编码是否重复
+     * 判断同级是否存在同名组织
+     * @param org
+     * @throws IllegalAccessException
+     */
+    private void checkRepeat(OrganizationModel org) throws IllegalAccessException{
+        int count = 0;
+        if (0 != org.getParentId().intValue()){
+            count = orgMapper.selectCount(
+                    new QueryWrapper<OrganizationModel>()
+                            .lambda()
+                            .eq(OrganizationModel::getId, org.getParentId()));
+            if (count < 1) throw new IllegalAccessException("上级组织不存在！");
+        }
+
+        // todo 增加判断上级机构非本机构的子机构
+        if (StringUtils.isNotBlank(org.getCode())){
+            count = orgMapper.selectCount(
+                    new QueryWrapper<OrganizationModel>()
+                            .lambda()
+                            .eq(OrganizationModel::getCode, org.getCode())
+                            .ne(org.getId() != null, OrganizationModel::getId, org.getId()));
+            if (count > 0) throw new IllegalAccessException("机构编号已存在！");
+        }
+
+        count = orgMapper.selectCount(
+                new QueryWrapper<OrganizationModel>()
+                        .lambda()
+                        .eq(OrganizationModel::getParentId, org.getParentId())
+                        .eq(OrganizationModel::getName, org.getName())
+                        .ne(org.getId() != null, OrganizationModel::getId, org.getId()));
+        if (count > 0) throw new IllegalAccessException("同级别中机构名称已存在！");
     }
 
     /**
