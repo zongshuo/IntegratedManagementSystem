@@ -25,14 +25,20 @@ public class Menu{
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "menu_id", unique = true, nullable = false)
-    private Integer menuId;
+    @Column(name = "id", unique = true, nullable = false)
+    private Integer id;
 
-    @Column(name = "parent_id", nullable = false)
-    private Integer parentId;
+    @Column(name = "parent", nullable = false)
+    private Integer parent;
 
-    @Column(name = "title", length = 100, nullable = false)
+    @Column(name = "name", length = 50, nullable = false)
+    private String name ;
+
+    @Column(name = "title", length = 100)
     private String title ;
+
+    @Column(name = "authority", length = 100)
+    private String authority ;
 
     @Column(name = "icon", length = 100)
     private String icon ;
@@ -43,14 +49,12 @@ public class Menu{
     @Column(name = "component", length = 100)
     private String component ;
 
-    @Column(name = "menu_type")
-    private Byte menuType ;
+    @Column(name = "type")
+    private Byte type ;
 
     @Column(name = "sort_number", nullable = false)
     private Integer sortNumber ;
 
-    @Column(name = "authority", length = 100)
-    private String authority ;
 
     @Column(name = "target", length = 100)
     private String target ;

@@ -88,30 +88,30 @@ public class AppInitRunner implements ApplicationRunner {
     private void initMenu() throws IllegalAccessException {
         //新增系统管理菜单
         MenuModel menuModel = new MenuModel();
-        menuModel.setParentId(0);
+        menuModel.setParent(0);
         menuModel.setTitle(Contains.MENU_SYS_ADMIN_NAME);
         menuModel.setPath("/system");
         menuModel.setSortNumber(1);
         menuModelService.addMenu(menuModel);
-        menuIds.add(menuModel.getMenuId());
+        menuIds.add(menuModel.getId());
 
         menuModel.setTitle("菜单管理");
         menuModel.setSortNumber(1);
         menuModel.setPath("/system/menu");
         menuModel.setComponent("/system/menu");
-        menuModel.setParentId(menuIds.get(0));
-        menuModel.setMenuId(null);
+        menuModel.setParent(menuIds.get(0));
+        menuModel.setId(null);
         menuModelService.addMenu(menuModel);
-        menuIds.add(menuModel.getMenuId());
+        menuIds.add(menuModel.getId());
 
         menuModel.setTitle("角色管理");
         menuModel.setSortNumber(2);
         menuModel.setPath("/system/role");
         menuModel.setComponent("/system/role");
-        menuModel.setParentId(menuIds.get(0));
-        menuModel.setMenuId(null);
+        menuModel.setParent(menuIds.get(0));
+        menuModel.setId(null);
         menuModelService.addMenu(menuModel);
-        menuIds.add(menuModel.getMenuId());
+        menuIds.add(menuModel.getId());
     }
 
     private void initUser() {

@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -28,16 +26,22 @@ import java.util.List;
 @ApiModel(value = "MenuModel对象", description = "系统菜单实体")
 public class MenuModel implements Serializable {
     @TableId(type = IdType.AUTO)
-    @ApiModelProperty(value = "菜单id", name = "menuId")
-    private Integer menuId;
+    @ApiModelProperty(value = "主键", name = "id")
+    private Integer id;
 
     @NotNull(message = "上级目录不能为空！")
-    @ApiModelProperty(value = "上级菜单id，0是顶级菜单", name = "parentId")
-    private Integer parentId;
+    @ApiModelProperty(value = "上级菜单id，0是顶级菜单", name = "parent")
+    private Integer parent;
+
+    @ApiModelProperty(value = "菜单名称", name = "name")
+    private String name ;
 
     @NotEmpty(message = "菜单名称不能为空！")
-    @ApiModelProperty(value = "菜单名称", name = "title")
+    @ApiModelProperty(value = "展示名称", name = "title")
     private String title ;
+
+    @ApiModelProperty(value = "权限标识", name = "authority")
+    private String authority ;
 
     @ApiModelProperty(value = "菜单图标", name = "icon")
     private String icon ;
@@ -48,15 +52,13 @@ public class MenuModel implements Serializable {
     @ApiModelProperty(value = "菜单组件地址", name = "component")
     private String component ;
 
-    @ApiModelProperty(value = "菜单类型：0-菜单、1-按钮", name = "menuType")
-    private Byte menuType ;
+    @ApiModelProperty(value = "菜单类型：0-菜单、1-按钮", name = "type")
+    private Byte type ;
 
     @NotNull(message = "排序号不能为空！")
     @ApiModelProperty(value = "排序号", name = "sortNumber")
     private Integer sortNumber ;
 
-    @ApiModelProperty(value = "权限标识", name = "authority")
-    private String authority ;
 
     @ApiModelProperty(value = "打开位置", name = "target")
     private String target ;

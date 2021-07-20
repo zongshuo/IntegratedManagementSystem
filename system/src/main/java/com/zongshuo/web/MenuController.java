@@ -86,8 +86,8 @@ public class MenuController extends BaseController {
             return ResponseJsonMsg.error(Contains.RET_CODE_FAILED_DATA_STATE, "菜单已存在！");
         }
 
-        if (menu.getParentId() == null) {
-            menu.setParentId(0);
+        if (menu.getParent() == null) {
+            menu.setParent(0);
         }
         menu.setCreateTime(new Date());
         if (!menuService.save(menu)) {

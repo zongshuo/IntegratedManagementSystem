@@ -26,6 +26,6 @@ public class RoleMenu {
     private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id", insertable = false, updatable = false, referencedColumnName = "menu_id")
+    @JoinColumn(name = "menu_id", insertable = false, updatable = false, referencedColumnName = "id")
     private Menu menu;
 }

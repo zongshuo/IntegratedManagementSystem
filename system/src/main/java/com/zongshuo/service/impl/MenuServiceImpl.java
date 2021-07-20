@@ -40,7 +40,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
         QueryWrapper<MenuModel> wrapper = new QueryWrapper<>();
         wrapper.lambda()
                 .eq(MenuModel::getTitle, menuModel.getTitle())
-                .eq(MenuModel::getParentId, menuModel.getParentId());
+                .eq(MenuModel::getParent, menuModel.getParent());
         if (baseMapper.selectCount(wrapper) > 0) {
             throw new IllegalAccessException("同级目录下菜单已存在！");
         }
@@ -53,9 +53,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
         int count = menuMapper.selectCount(
                 new QueryWrapper<MenuModel>()
                         .lambda()
-                        .eq(MenuModel::getParentId, menu.getParentId())
+                        .eq(MenuModel::getParent, menu.getParent())
                         .eq(MenuModel::getTitle, menu.getTitle())
-                        .ne(MenuModel::getMenuId, menu.getMenuId()));
+                        .ne(MenuModel::getId, menu.getId()));
         if (count > 0){
             throw new IllegalAccessException("同级目录菜单名已存在！");
         }
@@ -63,17 +63,17 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
         count = menuMapper.update(null,
                 new UpdateWrapper<MenuModel>()
                         .lambda()
-                        .set(MenuModel::getParentId, menu.getParentId())
+                        .set(MenuModel::getParent, menu.getParent())
                         .set(MenuModel::getAuthority, menu.getAuthority())
                         .set(MenuModel::getTitle, menu.getTitle())
                         .set(MenuModel::getSortNumber, menu.getSortNumber())
                         .set(MenuModel::getIcon, menu.getIcon())
-                        .set(MenuModel::getMenuType, menu.getMenuType())
+                        .set(MenuModel::getType, menu.getType())
                         .set(MenuModel::getPath, menu.getPath())
                         .set(MenuModel::getHide, menu.getHide())
                         .set(MenuModel::getComponent, menu.getComponent())
                         .set(MenuModel::getUpdateTime, new Date())
-                        .eq(MenuModel::getMenuId, menu.getMenuId()));
+                        .eq(MenuModel::getId, menu.getId()));
     }
 
     @Override
@@ -124,8 +124,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
     public List<MenuModel> toMenuTree(List<MenuModel> menuModels, Integer parentId) {
         List<MenuModel> childes = new ArrayList<>();
         for (MenuModel menu : menuModels) {
-            if (menu.getParentId().equals(parentId)) {
-                menu.setChildren(toMenuTree(menuModels, menu.getMenuId()));
+            if (menu.getParent().equals(parentId)) {
+                menu.setChildren(toMenuTree(menuModels, menu.getId()));
                 childes.add(menu);
             }
         }
@@ -151,7 +151,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
 
     private void reTree(List<MenuModel> menus, List<Integer> ids){
         for (MenuModel menu : menus){
-            ids.add(menu.getMenuId());
+            ids.add(menu.getId());
             if (! menu.getChildren().isEmpty()){
                 reTree(menu.getChildren(), ids);
             }
