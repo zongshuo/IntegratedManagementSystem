@@ -1,17 +1,28 @@
 package com.zongshuo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zongshuo.annotations.AuthDefinition;
+import com.zongshuo.entity.RoleMenu;
 import com.zongshuo.model.*;
 import com.zongshuo.service.*;
+import com.zongshuo.util.EnumAuthType;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternUtils;
+import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
+import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 
 /**
@@ -19,37 +30,51 @@ import java.util.List;
  * @Version: 1.0
  * @Date: 2021-6-12
  * @Time: 16:54
- * @Description:
- * 用于系统启动后初始化系统参数
+ * @Description: 用于系统启动后初始化系统参数
  */
+@Slf4j
 @Component
-public class AppInitRunner implements ApplicationRunner {
+public class AppInitRunner implements ApplicationRunner, ResourceLoaderAware {
+    private ResourceLoader resourceLoader;
+
+
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
     @Autowired
     private UserService userModelService;
-    @Autowired
-    private MenuService menuModelService;
     @Autowired
     private RoleService roleService;
     @Autowired
     private RoleMenuService roleMenuService;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private SystemInfo systemInfo;
 
     private List<Integer> menuIds = new ArrayList<>();
-    private Integer roleId ;
+    private Integer roleId;
     private Integer userId;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        try{
-            // todo 此处转成投产sql脚本
-            initUser();
-            initMenu();
+        ClassLoader classLoader = AppInitRunner.class.getClassLoader();
+        ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
+        MetadataReaderFactory metadataReader = new CachingMetadataReaderFactory(resourceLoader);
+        try {
+            // 首先初始化管理员角色，添加菜单时默认给管理员添加
             initRole();
-            intiRoleMenu();
-            initUserRole();
-        }catch (Exception e){
-            //TODO 处理异常
+            systemInfo.handleRootMenu(classLoader, resolver, metadataReader, this.roleId);
+            systemInfo.handleSubMenu(classLoader, resolver, metadataReader, this.roleId);
+            // todo 此处转成投产sql脚本
+//            initUser();
+//            initMenu();
+//            intiRoleMenu();
+//            initUserRole();
+        } catch (Exception e) {
+            log.error("系统初始化异常:", e);
         }
     }
 
@@ -65,7 +90,7 @@ public class AppInitRunner implements ApplicationRunner {
     private boolean intiRoleMenu() {
         if (roleId == null) return true;
         List<RoleMenuModel> roleMenuModels = new ArrayList<>();
-        for (Integer id : menuIds){
+        for (Integer id : menuIds) {
             RoleMenuModel roleMenuModel = new RoleMenuModel();
             roleMenuModel.setMenuId(id);
             roleMenuModel.setRoleId(roleId);
@@ -76,42 +101,21 @@ public class AppInitRunner implements ApplicationRunner {
     }
 
     private void initRole() {
+        QueryWrapper<RoleModel> query = new QueryWrapper();
+        query.lambda()
+                .select(RoleModel::getId)
+                .eq(RoleModel::getRoleKey, Contains.SYS_ADMIN_NAME);
+        RoleModel role = roleService.getOne(query);
+        if (role != null){
+            this.roleId = role.getId();
+            return;
+        }
         //新增角色
-        RoleModel role = new RoleModel();
+        role = new RoleModel();
         role.setRoleKey(Contains.SYS_ADMIN_NAME);
         role.setRoleName(Contains.SYS_ADMIN_NAME);
         role.setDescriptions("系统超级管理员，拥有系统所有权限");
         roleService.save(role);
-        roleId = role.getId();
-    }
-
-    private void initMenu() throws IllegalAccessException {
-        //新增系统管理菜单
-        MenuModel menuModel = new MenuModel();
-        menuModel.setParent(0);
-        menuModel.setTitle(Contains.MENU_SYS_ADMIN_NAME);
-        menuModel.setPath("/system");
-        menuModel.setSortNumber(1);
-        menuModelService.addMenu(menuModel);
-        menuIds.add(menuModel.getId());
-
-        menuModel.setTitle("菜单管理");
-        menuModel.setSortNumber(1);
-        menuModel.setPath("/system/menu");
-        menuModel.setComponent("/system/menu");
-        menuModel.setParent(menuIds.get(0));
-        menuModel.setId(null);
-        menuModelService.addMenu(menuModel);
-        menuIds.add(menuModel.getId());
-
-        menuModel.setTitle("角色管理");
-        menuModel.setSortNumber(2);
-        menuModel.setPath("/system/role");
-        menuModel.setComponent("/system/role");
-        menuModel.setParent(menuIds.get(0));
-        menuModel.setId(null);
-        menuModelService.addMenu(menuModel);
-        menuIds.add(menuModel.getId());
     }
 
     private void initUser() {

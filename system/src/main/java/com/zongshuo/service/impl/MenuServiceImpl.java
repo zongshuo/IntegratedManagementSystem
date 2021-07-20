@@ -9,7 +9,9 @@ import com.zongshuo.model.RoleMenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleMenuService;
+import com.zongshuo.util.EnumAuthType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,16 +38,32 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
 
 
     @Override
-    public void addMenu(MenuModel menuModel) throws IllegalAccessException {
-        QueryWrapper<MenuModel> wrapper = new QueryWrapper<>();
-        wrapper.lambda()
-                .eq(MenuModel::getTitle, menuModel.getTitle())
-                .eq(MenuModel::getParent, menuModel.getParent());
-        if (baseMapper.selectCount(wrapper) > 0) {
-            throw new IllegalAccessException("同级目录下菜单已存在！");
+    public void addMenu(MenuModel menu) throws IllegalAccessException {
+        QueryWrapper<MenuModel> query = new QueryWrapper<>();
+
+        /**
+         * 必须确保菜单名称和菜单权限标识分别唯一
+         * 菜单名称用于权限赋予时的展示，重复后不能区分
+         * 菜单权限标识用于授权，重复后权限校验不准确
+         * 权限点收集时，以权限标识确认父权限
+         */
+        query.lambda().eq(MenuModel::getName, menu.getName()).or().eq(MenuModel::getAuthority, menu.getAuthority());
+        if (menuMapper.selectCount(query) > 0){
+            throw new IllegalAccessException("菜单名称或菜单权限标识已存在！");
         }
 
-        baseMapper.insert(menuModel);
+        if (StringUtils.isNotBlank(menu.getTitle())
+                && EnumAuthType.MENU.getType().equals(menu.getType())){
+            query = new QueryWrapper<>();
+            query.lambda()
+                    .eq(MenuModel::getTitle, menu.getTitle())
+                    .eq(MenuModel::getParent, menu.getParent());
+            if (menuMapper.selectCount(query) > 0){
+                throw new IllegalAccessException("同级目录下菜单标题重复！");
+            }
+        }
+
+        baseMapper.insert(menu);
     }
 
     @Override

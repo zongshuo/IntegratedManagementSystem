@@ -3,6 +3,7 @@ package com.zongshuo.web;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.service.MenuService;
 import com.zongshuo.util.ResponseJsonMsg;
@@ -26,10 +27,11 @@ import java.util.List;
  * @Time: 20:59
  * @Description: 用于操作系统菜单
  */
-@Api(tags = "系统功能-菜单管理")
+@Slf4j
 @RestController
 @RequestMapping("/sys/menu")
-@Slf4j
+@Api(tags = "系统功能-菜单管理")
+@AuthDefinition(name = "菜单管理", authority = "sys:menu", parentAuth = "sys")
 public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;

@@ -5,7 +5,7 @@
     <select id="getMenusByRoleIds" parameterType="java.util.List" resultType="com.zongshuo.model.MenuModel">
         select a.*
         from sys_menu a
-        left join sys_role_menu b on a.menu_id = b.menu_id
+        left join sys_role_menu b on a.id = b.menu_id
         <where>
             b.role_id in
             <foreach collection="roles" open="(" close=")" separator="," item="role">
@@ -17,7 +17,7 @@
     <!-- 根据用户编号获取用户能访问的菜单-->
     <select id="getMenusByUserId"  parameterType="java.lang.Integer" resultType="com.zongshuo.model.MenuModel">
          select a.* from sys_menu a
-         left join sys_role_menu b on a.menu_id = b.menu_id
+         left join sys_role_menu b on a.id = b.menu_id
          left join sys_user_role c on b.role_id = c.role_id
          where c.user_id = #{userId}
     </select>

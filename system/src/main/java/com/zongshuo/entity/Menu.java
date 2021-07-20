@@ -34,11 +34,11 @@ public class Menu{
     @Column(name = "name", length = 50, nullable = false)
     private String name ;
 
+    @Column(name = "authority", length = 100, nullable = false)
+    private String authority ;
+
     @Column(name = "title", length = 100)
     private String title ;
-
-    @Column(name = "authority", length = 100)
-    private String authority ;
 
     @Column(name = "icon", length = 100)
     private String icon ;
@@ -52,7 +52,7 @@ public class Menu{
     @Column(name = "type")
     private Byte type ;
 
-    @Column(name = "sort_number", nullable = false)
+    @Column(name = "sort_number")
     private Integer sortNumber ;
 
 
@@ -71,7 +71,7 @@ public class Menu{
     @Column(name = "deleted")
     private Byte deleted ;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime ;
 
     @Column(name = "update_time")

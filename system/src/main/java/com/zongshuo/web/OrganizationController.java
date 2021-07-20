@@ -1,6 +1,7 @@
 package com.zongshuo.web;
 
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.annotations.validators.Delete;
 import com.zongshuo.annotations.validators.Insert;
 import com.zongshuo.annotations.validators.Update;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestController
 @RequestMapping("/sys/org")
+@AuthDefinition(name = "组织机构管理", authority = "sys:org", parentAuth = "sys")
 public class OrganizationController extends BaseController{
     @Autowired
     private OrganizationService orgService;

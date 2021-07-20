@@ -74,4 +74,9 @@ public final class Contains {
      */
     public static final String MENU_SYS_ADMIN_NAME = "系统管理";
 
+    /**
+     * 系统包路径
+     */
+    public static final String SYS_PACKAGE_ROOT = "com/zongshuo";
+
 }

@@ -11,4 +11,10 @@ import com.zongshuo.model.RoleMenuModel;
  * @Description:
  */
 public interface RoleMenuService extends IService<RoleMenuModel> {
+    /**
+     * 先删除管理员拥有的已删除的权限点
+     * 再添加管理员为拥有的权限点
+     * @param roleId
+     */
+    public void updateAdminMenu(Integer roleId);
 }

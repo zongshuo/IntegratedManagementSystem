@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.annotations.validators.Update;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
@@ -32,10 +33,11 @@ import java.util.List;
  * @Time: 20:59
  * @Description: 用于操作系统角色
  */
-@Api(tags = "系统功能-角色管理")
+@Slf4j
 @RestController
 @RequestMapping("/sys/role")
-@Slf4j
+@Api(tags = "系统功能-角色管理")
+@AuthDefinition(name = "角色管理", authority = "sys:role", parentAuth = "sys")
 public class RoleController extends BaseController {
 
     @Autowired

@@ -8,13 +8,13 @@
         <groupId>com.zongshuo</groupId>
         <version>1.0</version>
     </parent>
-    <artifactId>system</artifactId>
+    <artifactId>ims-system</artifactId>
     <description>系统后台管理模块</description>
 
     <dependencies>
         <dependency>
             <groupId>com.zongshuo</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>ims-core</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
@@ -22,12 +22,31 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
-<!--    <build>-->
-<!--        <resources>-->
-<!--            <resource>-->
 
-<!--            </resource>-->
-<!--        </resources>-->
-<!--    </build>-->
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.5.RELEASE</version>
+                <configuration>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>com.zongshuo.Application</mainClass>
+                    <layout>ZIP</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.7.0.1746</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

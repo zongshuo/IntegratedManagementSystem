@@ -2,6 +2,7 @@ package com.zongshuo.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.UserService;
 import com.zongshuo.util.PageParam;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Path;
 
 /**
  * @Author: zongShuo
@@ -30,6 +30,7 @@ import javax.validation.Path;
 @RestController
 @RequestMapping("/sys/user")
 @Api(tags = "系统功能-用户操作")
+@AuthDefinition(name = "人员管理", authority = "sys:user", parentAuth = "sys")
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;

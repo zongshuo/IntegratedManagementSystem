@@ -2,6 +2,7 @@ package com.zongshuo.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.annotations.validators.Delete;
 import com.zongshuo.annotations.validators.Insert;
 import com.zongshuo.annotations.validators.Update;
@@ -25,9 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Slf4j
-@Api(tags = "系统功能-字典项控制器")
 @RestController
 @RequestMapping("/sys/dict")
+@Api(tags = "系统功能-字典项管理")
+@AuthDefinition(name = "字典项管理", authority = "sys:dict", parentAuth = "sys")
 public class DictController extends BaseController{
     @Autowired
     private DictService dictService;

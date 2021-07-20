@@ -21,4 +21,10 @@ import org.springframework.stereotype.Service;
 public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuModel> implements RoleMenuService {
     @Autowired(required = false)
     private RoleMenuMapper roleMenuMapper;
+
+    @Override
+    public void updateAdminMenu(Integer roleId) {
+        roleMenuMapper.deleteAdminMenu(roleId);
+        roleMenuMapper.insertAdminMenu(roleId);
+    }
 }
