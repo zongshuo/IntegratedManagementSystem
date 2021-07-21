@@ -29,6 +29,6 @@
 
     <!--根据角色主键查找角色菜单-->
     <select id="selectRoleMenus" parameterType="java.lang.Integer" resultType="com.zongshuo.model.MenuModel">
-        select a.* from sys_menu a left join sys_role_menu b on a.menu_id = b.menu_id where b.role_id = #{id}
+        select a.* from sys_menu a left join sys_role_menu b on a.id = b.menu_id where b.role_id = #{id}
     </select>
 </mapper>

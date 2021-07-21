@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/sys/user")
 @Api(tags = "系统功能-用户操作")
-@AuthDefinition(name = "人员管理", authority = "sys:user", parentAuth = "sys")
+@AuthDefinition(name = "人员管理", authority = "sys:user")
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
@@ -66,8 +66,9 @@ public class UserController extends BaseController{
         return ResponseJsonMsg.ok().setData(userModel);
     }
 
-    @ApiOperation("新增用户")
     @PutMapping
+    @ApiOperation("新增用户")
+    @AuthDefinition(name = "新增用户", authority = "sys:user:add")
     public ResponseJsonMsg addUser(@RequestBody UserModel user){
         log.info("新增用户:", user);
         try {

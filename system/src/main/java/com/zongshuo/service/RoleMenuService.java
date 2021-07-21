@@ -17,4 +17,12 @@ public interface RoleMenuService extends IService<RoleMenuModel> {
      * @param roleId
      */
     public void updateAdminMenu(Integer roleId);
+
+    /**
+     * 给角色添加权限
+     * 以merge方式添加多个权限
+     * @param roleKey
+     * @param menuId
+     */
+    public void addRoleMenus(String roleKey, Integer ... menuId);
 }

@@ -14,4 +14,17 @@
         a.role_id = #{roleId}
         and not exists (select 1 from sys_menu tmp where tmp.id = a.menu_id)
     </delete>
+    <insert id="addMenus">
+         insert into sys_role_menu(menu_id, role_id)
+        select a.id, #{roleId} from sys_menu a
+        where
+        a.id in
+        <foreach collection="menus" open="(" separator="," close=")" item="menu">
+            #{menu}
+        </foreach>
+        and
+        not exists(
+        select 1 from sys_role_menu tmp
+         where tmp.role_id = #{roleId} and tmp.menu_id = a.id)
+    </insert>
 </mapper>

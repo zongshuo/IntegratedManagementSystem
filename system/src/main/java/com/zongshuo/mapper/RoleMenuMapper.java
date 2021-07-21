@@ -20,6 +20,13 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenuModel> {
     public void insertAdminMenu(@Param("roleId") Integer roleId);
 
     /**
+     * 给角色添加指定权限
+     * @param roleId
+     * @param menus
+     */
+    public void addMenus(@Param("roleId")Integer roleId, @Param("menus") Integer [] menus);
+
+    /**
      * 删除管理员拥有的已经删除的权限点
      * @param roleId
      */

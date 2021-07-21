@@ -58,8 +58,9 @@ public class AppInitRunner implements ApplicationRunner, ResourceLoaderAware {
         try {
             // 首先初始化管理员角色，添加菜单时默认给管理员添加
             Integer roleId = systemInfo.initRole();
-            systemInfo.handleRootMenu(classLoader, resolver, metadataReader, roleId);
-            systemInfo.handleSubMenu(classLoader, resolver, metadataReader, roleId);
+            systemInfo.handleRootMenu(classLoader, resolver, metadataReader);
+            systemInfo.handleSubMenu(classLoader, resolver, metadataReader);
+            systemInfo.handleMenuApi(classLoader, resolver, metadataReader);
             // 同时增加用户角色
             systemInfo.initUser(roleId);
         } catch (Exception e) {

@@ -10,7 +10,8 @@ package com.zongshuo.util;
  */
 public enum EnumAuthType {
     MENU("菜单", Byte.parseByte("0")),
-    BUTTON("按钮", Byte.parseByte("1"));
+    BUTTON("按钮", Byte.parseByte("1")),
+    API("接口", Byte.parseByte("2"));
 
 
     private String name ;

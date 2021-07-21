@@ -3,12 +3,14 @@ package com.zongshuo.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zongshuo.Contains;
 import com.zongshuo.mapper.MenuMapper;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleMenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleMenuService;
+import com.zongshuo.service.RoleService;
 import com.zongshuo.util.EnumAuthType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -34,10 +36,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
     @Autowired(required = false)
     private MenuMapper menuMapper;
     @Autowired
+    private RoleService roleService;
+    @Autowired
     private RoleMenuService roleMenuService;
 
 
     @Override
+    @Transactional
     public void addMenu(MenuModel menu) throws IllegalAccessException {
         QueryWrapper<MenuModel> query = new QueryWrapper<>();
 
@@ -52,8 +57,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
             throw new IllegalAccessException("菜单名称或菜单权限标识已存在！");
         }
 
-        if (StringUtils.isNotBlank(menu.getTitle())
-                && EnumAuthType.MENU.getType().equals(menu.getType())){
+        if (EnumAuthType.MENU.getType().equals(menu.getType()) && StringUtils.isNotBlank(menu.getTitle())){
             query = new QueryWrapper<>();
             query.lambda()
                     .eq(MenuModel::getTitle, menu.getTitle())
@@ -64,6 +68,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
         }
 
         baseMapper.insert(menu);
+        roleMenuService.addRoleMenus(Contains.SYS_ADMIN_NAME, menu.getId());
     }
 
     @Override
