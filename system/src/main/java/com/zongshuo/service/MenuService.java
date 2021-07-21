@@ -54,6 +54,13 @@ public interface MenuService extends IService<MenuModel> {
     List<MenuModel> getMenusByUserId(Integer userId);
 
     /**
+     * 获取用户所有权限
+     * @param userId
+     * @return
+     */
+    List<MenuModel> getAuthsByUserId(Integer userId);
+
+    /**
      * 查询系统所有菜单
      * 所有条件为空，返回所有菜单
      * @return

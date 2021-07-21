@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,6 +69,7 @@ public class UserController extends BaseController{
 
     @PutMapping
     @ApiOperation("新增用户")
+//    @PreAuthorize("hasAuthority('sys:user:add')")
     @AuthDefinition(name = "新增用户", authority = "sys:user:add", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg addUser(@RequestBody UserModel user){
         log.info("新增用户:", user);
@@ -82,6 +84,8 @@ public class UserController extends BaseController{
 
     @ApiOperation("编辑用户")
     @PutMapping("/edit")
+    @PreAuthorize("hasAuthority('sys:user:edit')")
+    @AuthDefinition(name = "编辑用户", authority = "sys:user:edit", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg editUser(@RequestBody UserModel user){
         log.info("编辑用户:{}", user);
         try {

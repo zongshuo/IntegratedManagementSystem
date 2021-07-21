@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @Data
 @TableName("SYS_MENU")
 @ApiModel(value = "MenuModel对象", description = "系统菜单实体")
-public class MenuModel implements Serializable {
+public class MenuModel implements GrantedAuthority {
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", name = "id")
     private Integer id;
@@ -84,4 +84,9 @@ public class MenuModel implements Serializable {
     @ApiModelProperty(value = "子菜单", name = "children")
     @TableField(exist = false)
     private List<MenuModel> children;
+
+    @Override
+    public String getAuthority(){
+        return authority;
+    }
 }

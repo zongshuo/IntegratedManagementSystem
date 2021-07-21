@@ -76,12 +76,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
 
     @Override
     public UserModel getUserAndRoles(String username) {
-        UserModel userModel = getOne(new QueryWrapper<UserModel>().eq("username", username));
-        if (userModel == null)
-            userModel = new UserModel();
-        return userModel;
+        UserModel user = getOne(new QueryWrapper<UserModel>().eq("username", username));
+        if (user == null){
+            return new UserModel();
+        }
+
+        user.setRoles(roleService.getUserRoles(user));
+        return user;
     }
 
+    @Override
+    public UserModel getUserAndAuths(String username) {
+        UserModel user = getOne(new QueryWrapper<UserModel>().eq("username", username));
+        if (user == null){
+            return new UserModel();
+        }
+
+        user.setAuths(menuService.getAuthsByUserId(user.getId()));
+        return user;
+    }
+
+    // TODO 该方法转移到菜单控制器
     @Override
     public List<MenuModel> getUserMenuTree(UserModel user) {
         List<MenuModel> menuModels = menuService.getMenusByUserId(user.getId());

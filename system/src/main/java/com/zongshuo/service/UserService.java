@@ -34,11 +34,18 @@ public interface UserService extends IService<UserModel> {
     UserModel getUserInfo(String username) throws IllegalAccessException;
 
     /**
-     *
+     * 根据用户账号查询用户拥有的角色
      * @param username
      * @return
      */
     UserModel getUserAndRoles(String username);
+
+    /**
+     * 根据用户账号查询用户拥有的权限
+     * @param username
+     * @return
+     */
+    UserModel getUserAndAuths(String username);
 
     /**
      * 获取用户的树状菜单列表

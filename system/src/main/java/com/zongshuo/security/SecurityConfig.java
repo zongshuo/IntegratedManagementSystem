@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -118,6 +119,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public MyUserDetailsService myUserDetailsService() {
         return new MyUserDetailsService();
     }
+
+//    @Bean
+//    public DefaultWebSecurityExpressionHandler userSecurityExpressionHandler(){
+//        //自定义权限控制
+//        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+//        handler.setPermissionEvaluator(new UserPermissionEvaluator(myUserDetailsService()));
+//        return handler;
+//    }
 
     @Bean
     public JwtExceptionHandler jwtExceptionHandler() {

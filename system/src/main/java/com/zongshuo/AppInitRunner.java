@@ -1,5 +1,6 @@
 package com.zongshuo;
 
+import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.service.RoleMenuService;
 import com.zongshuo.service.RoleService;
 import com.zongshuo.service.UserRoleService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
@@ -28,6 +30,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppInitRunner implements ApplicationRunner, ResourceLoaderAware {
     private ResourceLoader resourceLoader;
+
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
@@ -50,6 +53,14 @@ public class AppInitRunner implements ApplicationRunner, ResourceLoaderAware {
         ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         MetadataReaderFactory metadataReader = new CachingMetadataReaderFactory(resourceLoader);
         try {
+            Resource[] resources = resolver.getResources("classpath*:com/zongshuo/**/*.class");
+            for (Resource resource : resources){
+                String className = metadataReader.getMetadataReader(resource).getClassMetadata().getClassName();
+                Class clazz = classLoader.loadClass(className);
+                if (clazz.isAnnotationPresent(AuthDefinition.class)) {
+                    log.info("hehe");
+                }
+            }
             // 首先初始化管理员角色，添加菜单时默认给管理员添加
             Integer roleId = systemInfo.initRole();
             systemInfo.handleRootMenu(classLoader, resolver, metadataReader);

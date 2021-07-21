@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @TableName("SYS_ROLE")
 @ApiModel(value = "RoleModel对象", description = "系统角色表")
-public class RoleModel implements GrantedAuthority {
+public class RoleModel {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", name = "id")
@@ -41,9 +41,4 @@ public class RoleModel implements GrantedAuthority {
 
     @ApiModelProperty(value = "角色说明", name = "descriptions")
     private String descriptions ;
-
-    @Override
-    public String getAuthority() {
-        return this.roleKey;
-    }
 }

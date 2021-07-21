@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zongshuo.annotations.ValidateAuchCode;
 import com.zongshuo.annotations.ValidateEmail;
@@ -18,7 +16,10 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: zongShuo
@@ -83,7 +84,7 @@ public class UserModel implements UserDetails {
 
     @TableField(exist = false)
     @ApiModelProperty(value = "用户菜单列表", name = "menus")
-    private List<MenuModel> menus = new ArrayList<>(0);
+    private List<MenuModel> auths = new ArrayList<>(0);
 
     @TableField(exist = false)
     @ApiModelProperty(value = "用户组织机构", name = "orgId")
@@ -95,9 +96,8 @@ public class UserModel implements UserDetails {
     private String authCode ;
 
     @Override
-
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return auths;
     }
 
     @Override
@@ -145,5 +145,9 @@ public class UserModel implements UserDetails {
 
     public void setIsEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public boolean isEmpty(){
+        return id == null;
     }
 }

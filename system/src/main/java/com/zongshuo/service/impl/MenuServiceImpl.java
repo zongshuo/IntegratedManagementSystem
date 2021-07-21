@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.Contains;
+import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.mapper.MenuMapper;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleMenuModel;
@@ -56,7 +57,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
             throw new IllegalAccessException("菜单名称或菜单权限标识已存在！");
         }
 
-        if (EnumAuthType.MENU.getType().equals(menu.getType()) && StringUtils.isNotBlank(menu.getTitle())){
+        if (AuthDefinition.AuthType.MENU.getType().equals(menu.getType()) && StringUtils.isNotBlank(menu.getTitle())){
             query = new QueryWrapper<>();
             query.lambda()
                     .eq(MenuModel::getTitle, menu.getTitle())
@@ -115,6 +116,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
     @Override
     public List<MenuModel> getMenusByUserId(Integer userId) {
         List<MenuModel> menuModels = menuMapper.getMenusByUserId(userId);
+        if (menuModels == null) {
+            menuModels = new ArrayList<>(0);
+        }
+        return menuModels;
+    }
+
+    @Override
+    public List<MenuModel> getAuthsByUserId(Integer userId) {
+        List<MenuModel> menuModels = menuMapper.getAuthsByUserId(userId);
         if (menuModels == null) {
             menuModels = new ArrayList<>(0);
         }

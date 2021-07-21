@@ -22,8 +22,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel user = userService.getUserAndRoles(username);
-        if (user == null) throw new UsernameNotFoundException("用户名不存在");
+        UserModel user = userService.getUserAndAuths(username);
+        if (user.isEmpty()) throw new UsernameNotFoundException("用户不存在");
 
         return user;
     }
