@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestController
 @RequestMapping("/sys/org")
-@AuthDefinition(name = "组织管理", authority = "sys:org")
+@AuthDefinition(name = "组织管理", authority = "sys:org", authType = AuthDefinition.AuthType.MENU)
 public class OrganizationController extends BaseController{
     @Autowired
     private OrganizationService orgService;

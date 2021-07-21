@@ -1,9 +1,5 @@
 package com.zongshuo;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zongshuo.model.RoleModel;
-import com.zongshuo.model.UserModel;
-import com.zongshuo.model.UserRoleModel;
 import com.zongshuo.service.RoleMenuService;
 import com.zongshuo.service.RoleService;
 import com.zongshuo.service.UserRoleService;
@@ -19,8 +15,6 @@ import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 
 /**

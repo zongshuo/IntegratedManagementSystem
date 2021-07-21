@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/role")
 @Api(tags = "系统功能-角色管理")
-@AuthDefinition(name = "角色管理", authority = "sys:role")
+@AuthDefinition(name = "角色管理", authority = "sys:role", authType = AuthDefinition.AuthType.MENU)
 public class RoleController extends BaseController {
 
     @Autowired

@@ -31,7 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/menu")
 @Api(tags = "系统功能-菜单管理")
-@AuthDefinition(name = "菜单管理", authority = "sys:menu", path = "/system/menu")
+@AuthDefinition(name = "菜单管理", authority = "sys:menu", authType = AuthDefinition.AuthType.MENU, path = "/system/menu")
 public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;

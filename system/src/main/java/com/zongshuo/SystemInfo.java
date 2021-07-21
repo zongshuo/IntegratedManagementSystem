@@ -10,7 +10,6 @@ import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleService;
 import com.zongshuo.service.UserRoleService;
 import com.zongshuo.service.UserService;
-import com.zongshuo.util.EnumAuthType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-@AuthDefinition(name = "系统管理", authority = "sys", path = "/system")
+@AuthDefinition(name = "系统管理", authority = "sys", authType = AuthDefinition.AuthType.MENU, path = "/system")
 public class SystemInfo {
     private static final String CLASS_PATH_PRE = "classpath*:";
 
@@ -68,7 +67,7 @@ public class SystemInfo {
                 menu.setPath(authDefinition.path());
                 menu.setComponent(authDefinition.path());
                 menu.setParent(0);
-                menu.setType(EnumAuthType.MENU.getType());
+                menu.setType(AuthDefinition.AuthType.MENU.getType());
                 menu.setHide(Contains.DEFAULT_NO);
                 menu.setCreateTime(new Date());
                 try {
@@ -104,7 +103,7 @@ public class SystemInfo {
                 menu.setParent(subMenu.get(parentAuth));
                 menu.setPath(authDefinition.path());
                 menu.setComponent(authDefinition.path());
-                menu.setType(EnumAuthType.MENU.getType());
+                menu.setType(AuthDefinition.AuthType.MENU.getType());
                 menu.setHide(Contains.DEFAULT_NO);
                 menu.setCreateTime(new Date());
                 try {
@@ -138,7 +137,7 @@ public class SystemInfo {
                     menu.setName(authDefinition.name());
                     menu.setAuthority(authDefinition.authority());
                     menu.setParent(parentMap.get(parentAuth));
-                    menu.setType(EnumAuthType.API.getType());
+                    menu.setType(AuthDefinition.AuthType.API.getType());
                     menu.setHide(Contains.DEFAULT_YES);
                     menu.setCreateTime(new Date());
                     try {

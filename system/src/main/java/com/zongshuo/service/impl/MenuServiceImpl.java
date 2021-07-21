@@ -11,7 +11,6 @@ import com.zongshuo.model.RoleModel;
 import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleMenuService;
 import com.zongshuo.service.RoleService;
-import com.zongshuo.util.EnumAuthType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

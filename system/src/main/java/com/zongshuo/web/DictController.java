@@ -29,7 +29,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/sys/dict")
 @Api(tags = "系统功能-字典项管理")
-@AuthDefinition(name = "字典项管理", authority = "sys:dict")
+@AuthDefinition(name = "字典项管理", authority = "sys:dict", authType = AuthDefinition.AuthType.MENU)
 public class DictController extends BaseController{
     @Autowired
     private DictService dictService;
