@@ -21,4 +21,10 @@ public @interface AuthDefinition {
 
     // 父权限标识
     String parentAuth() default "";
+
+    // 路由地址
+    String path() default "" ;
+
+    // 组件地址
+    String component() default "" ;
 }

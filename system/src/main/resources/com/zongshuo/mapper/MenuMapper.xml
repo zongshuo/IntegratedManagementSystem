@@ -20,6 +20,7 @@
          left join sys_role_menu b on a.id = b.menu_id
          left join sys_user_role c on b.role_id = c.role_id
          where c.user_id = #{userId}
+         order by a.parent, a.sort_number
     </select>
 
 </mapper>

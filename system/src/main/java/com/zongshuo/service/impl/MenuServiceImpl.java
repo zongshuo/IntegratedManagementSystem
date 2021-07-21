@@ -82,7 +82,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
                 new UpdateWrapper<MenuModel>()
                         .lambda()
                         .set(MenuModel::getParent, menu.getParent())
-                        .set(MenuModel::getAuthority, menu.getAuthority())
                         .set(MenuModel::getTitle, menu.getTitle())
                         .set(MenuModel::getSortNumber, menu.getSortNumber())
                         .set(MenuModel::getIcon, menu.getIcon())
@@ -120,7 +119,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
 
     @Override
     public List<MenuModel> getAllMenu() {
-        List<MenuModel> menuModels = menuMapper.selectList(new QueryWrapper<>());
+        List<MenuModel> menuModels =
+                menuMapper.selectList(
+                        new QueryWrapper<MenuModel>()
+                                .lambda()
+                                .orderByAsc(MenuModel::getParent, MenuModel::getSortNumber));
         if (menuModels == null) {
             menuModels = new ArrayList<>(0);
         }

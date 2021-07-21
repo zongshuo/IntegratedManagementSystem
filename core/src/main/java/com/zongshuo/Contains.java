@@ -12,6 +12,12 @@ public final class Contains {
     private Contains(){}
 
     /**
+     * 系统默认是否字典项
+     */
+    public static final Byte DEFAULT_YES = 0;
+    public static final Byte DEFAULT_NO = 1;
+
+    /**
      * JWT token slot
      */
     public static final String JWT_SLOT = "MFpXPyZQbVpf5b2p6Imy5pi+56S65ZmoLXNlY3JldF9zbG90";//0ZW?&PmZ_彩色显示器-secret_slot
