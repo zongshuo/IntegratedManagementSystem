@@ -40,7 +40,7 @@ import java.util.Map;
  * Description: 自定义授权控制，判断当前用户是否有资源访问权限
  */
 @Slf4j
-//@Component
+@Component
 public class UserPermissionEvaluator{
 //    @Autowired
 //    private ResourceLoader resourceLoader;

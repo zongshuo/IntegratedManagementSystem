@@ -1,6 +1,8 @@
 package com.zongshuo;
 
 import com.zongshuo.annotations.AuthDefinition;
+import com.zongshuo.util.AnnotationInvocationHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +17,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * @Author: zongShuo
@@ -24,6 +26,7 @@ import java.util.Map;
  * @Time: 10:42
  * @Description:
  */
+@Slf4j
 @MapperScan("com.zongshuo.mapper")
 @SpringBootApplication
 public class Application {
@@ -37,21 +40,25 @@ public class Application {
                 String className = metadataReader.getMetadataReader(resource).getClassMetadata().getClassName();
                 Class clazz = classLoader.loadClass(className);
                 if (clazz.isAnnotationPresent(AuthDefinition.class)) {
+//                    AnnotationDescription.AnnotationInvocationHandler
                     AuthDefinition authDefinition = (AuthDefinition) clazz.getDeclaredAnnotation(AuthDefinition.class);
-//                    InvocationHandler authHandler = Proxy.getInvocationHandler(authDefinition);
-//                    PreAuthorize tempPre = authHandler.getClass().getDeclaredAnnotation(PreAuthorize.class);
                     PreAuthorize preAuthorize = authDefinition.annotationType().getDeclaredAnnotation(PreAuthorize.class);
-                    Method method = preAuthorize.getClass().getMethod("value");
                     InvocationHandler invocationHandler = Proxy.getInvocationHandler(preAuthorize);
-                    method.invoke(invocationHandler, "hasAuthority('" + authDefinition.authority() + "')");
-//                    Field field = invocationHandler.getClass().getDeclaredField("memberValues");
-//                    field.setAccessible(true);
+                    Field field = invocationHandler.getClass().getDeclaredField("memberValues");
+                    field.setAccessible(true);
 //                    Map<String, String> memberValues = (Map<String, String>) field.get(invocationHandler);
-//                    memberValues.put("value", "hasAuthority('" + authDefinition.authority() + "')");
+                    LinkedHashMap<Method, Object> memberValues = new LinkedHashMap<>();
+                    Method method = preAuthorize.getClass().getMethod("value");
+                    memberValues.put(method, "hasAuthority('" + authDefinition.authority() + "')");
+                   Object newProxyInstance = Proxy.newProxyInstance(
+                            classLoader,
+                            new Class[]{preAuthorize.annotationType()},
+                            new AnnotationInvocationHandler(preAuthorize.annotationType(), memberValues));
+                   log.info("新实例：{}",newProxyInstance);
                 }
             }
         } catch (Exception e) {
-
+            log.error("异常", e);
         }
         SpringApplication.run(Application.class, args);
     }
