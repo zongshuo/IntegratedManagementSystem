@@ -47,7 +47,8 @@ public interface MenuService extends IService<MenuModel> {
     List<MenuModel> getMenuListByRole(List<RoleModel> roles);
 
     /**
-     * 根据用户id获取用户菜单列表
+     * 根据用户id获取用户拥有的菜单
+     * 不是树形结构
      * @param userId
      * @return
      */

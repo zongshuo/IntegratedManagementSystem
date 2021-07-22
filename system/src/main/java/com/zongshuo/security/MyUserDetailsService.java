@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel user = userService.getUserAndAuths(username);
+        UserModel user = userService.getUserWithAuthsAndRoles(username);
         if (user.isEmpty()) throw new UsernameNotFoundException("用户不存在");
 
         return user;

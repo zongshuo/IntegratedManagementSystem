@@ -86,13 +86,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
     }
 
     @Override
-    public UserModel getUserAndAuths(String username) {
+    public UserModel getUserWithAuthsAndRoles(String username) {
         UserModel user = getOne(new QueryWrapper<UserModel>().eq("username", username));
         if (user == null){
             return new UserModel();
         }
 
+        // 权限信息，用于授权
         user.setAuths(menuService.getAuthsByUserId(user.getId()));
+        user.setRoles(roleService.getUserRoles(user));
         return user;
     }
 

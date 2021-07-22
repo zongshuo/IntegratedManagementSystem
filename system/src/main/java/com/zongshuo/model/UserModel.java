@@ -83,8 +83,12 @@ public class UserModel implements UserDetails {
     private List<RoleModel> roles = new ArrayList<>(0);
 
     @TableField(exist = false)
-    @ApiModelProperty(value = "用户菜单列表", name = "menus")
+    @ApiModelProperty(value = "用户权限列表", name = "auths")
     private List<MenuModel> auths = new ArrayList<>(0);
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "用户菜单列表", name = "menus")
+    private List<MenuModel> menus = new ArrayList<>(0);
 
     @TableField(exist = false)
     @ApiModelProperty(value = "用户组织机构", name = "orgId")

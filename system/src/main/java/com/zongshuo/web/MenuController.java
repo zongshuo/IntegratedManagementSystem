@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.Contains;
 import com.zongshuo.annotations.AuthDefinition;
 import com.zongshuo.model.MenuModel;
+import com.zongshuo.model.UserModel;
 import com.zongshuo.service.MenuService;
 import com.zongshuo.util.ResponseJsonMsg;
 import io.swagger.annotations.Api;
@@ -36,9 +37,17 @@ public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;
 
+    @ApiOperation("获取当前登录用户拥有的菜单树")
+    @GetMapping("/menuTree")
+    public ResponseJsonMsg getMenuTree(){
+        UserModel user = getLoginUser();
+        log.info("查询用户登录用户菜单：{}", user);
+        return ResponseJsonMsg.ok().setData(menuService.toMenuTree(menuService.getMenusByUserId(user.getId()), 0));
+    }
+
     @ApiOperation("获取用户的树状菜单列表")
     @ApiImplicitParam(name = "path", value = "菜单地址", dataType = "String", paramType = "query")
-    @GetMapping("/menuTree")
+    @PostMapping("/menuTree")
     public ResponseJsonMsg getMenuTree(Integer userId) {
         log.info("查询树状菜单:userId-{}", userId);
         List<MenuModel> menuModelList;

@@ -45,7 +45,7 @@ public interface UserService extends IService<UserModel> {
      * @param username
      * @return
      */
-    UserModel getUserAndAuths(String username);
+    UserModel getUserWithAuthsAndRoles(String username);
 
     /**
      * 获取用户的树状菜单列表
