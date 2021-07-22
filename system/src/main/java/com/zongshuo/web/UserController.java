@@ -84,7 +84,7 @@ public class UserController extends BaseController{
 
     @ApiOperation("编辑用户")
     @PutMapping("/edit")
-    @PreAuthorize("hasAuthority('sys:user:edit')")
+//    @PreAuthorize("hasAuthority('sys:user:edit')")
     @AuthDefinition(name = "编辑用户", authority = "sys:user:edit", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg editUser(@RequestBody UserModel user){
         log.info("编辑用户:{}", user);

@@ -15,9 +15,8 @@ import java.lang.annotation.*;
 @Target(value={ElementType.TYPE, ElementType.METHOD, ElementType.PACKAGE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@PreAuthorize("hasAuthority('sys:user:add')")
+@PreAuthorize("isAuthenticated")
 public @interface AuthDefinition {
-    String value() ;
     // 权限名称
     String name() ;
 
