@@ -1,4 +1,6 @@
-package com.zongshuo.annotation.handler;
+package com.zongshuo.annotation.util;
+
+import com.zongshuo.annotation.handler.AnnotationData;
 
 import java.lang.annotation.*;
 import java.lang.reflect.*;
@@ -101,14 +103,9 @@ public final class AnnotationUtil {
     /**
      * 递归获取当前类的所有注解
      * 包括被合并的注解
-     * @param targetClass
+     * @param element
      * @return
      */
-//    public static Map<Class<? extends Annotation>, List<Annotation>> getTypeAnnotations(Class targetClass){
-//        Map<Class<? extends Annotation>, List<Annotation>> baseMap = new HashMap<>();
-//        recurrenceAnnotations(targetClass.getAnnotations(), baseMap);
-//        return baseMap;
-//    }
     public static Map<Class<? extends Annotation>, List<Annotation>> getAnnotations(AnnotatedElement element){
         Map<Class<? extends Annotation>, List<Annotation>> result = new HashMap<>();
         recurrenceAnnotations(element.getAnnotations(), result);

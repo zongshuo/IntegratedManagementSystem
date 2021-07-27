@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.handler;
+package com.zongshuo.annotation.util;
 
 import sun.reflect.annotation.ExceptionProxy;
 

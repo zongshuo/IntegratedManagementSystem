@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.handler;
+package com.zongshuo.annotation.util;
 
 import sun.misc.Unsafe;
 import sun.reflect.annotation.AnnotationType;
