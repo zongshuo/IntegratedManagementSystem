@@ -3,6 +3,7 @@ package com.zongshuo.annotation.handler;
 import com.zongshuo.annotation.util.Convert;
 import com.zongshuo.annotation.util.ReflectUtil;
 
+import javax.management.modelmbean.InvalidTargetObjectTypeException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -126,7 +127,7 @@ public interface AnnotationService {
      *
      * @param annotation 注解
      */
-    <A extends Annotation> void addAnnotation(A annotation) ;
+    <A extends Annotation> void addAnnotation(A annotation) throws InvalidTargetObjectTypeException;
 
     /**
      * 删除注解

@@ -20,7 +20,7 @@ import java.lang.annotation.*;
 @NotBlank(message = "验证码不能为空！")
 @Constraint(validatedBy = AuthCodeValidator.class)
 @Documented
-public @interface ValidateAuchCode {
+public @interface ValidateAuthCode {
     public String message() default "验证码格式不正确！";
 
     Class<?> [] groups() default {};

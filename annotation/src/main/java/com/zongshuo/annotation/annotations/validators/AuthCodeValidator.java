@@ -1,6 +1,6 @@
 package com.zongshuo.annotation.annotations.validators;
 
-import com.zongshuo.annotation.annotations.ValidateAuchCode;
+import com.zongshuo.annotation.annotations.ValidateAuthCode;
 import com.zongshuo.annotation.util.FormatCheckUtil;
 
 import javax.validation.ConstraintValidator;
@@ -13,9 +13,9 @@ import javax.validation.ConstraintValidatorContext;
  * @Time: 19:45
  * @Description:
  */
-public class AuthCodeValidator implements ConstraintValidator<ValidateAuchCode, String> {
+public class AuthCodeValidator implements ConstraintValidator<ValidateAuthCode, String> {
     @Override
-    public void initialize(ValidateAuchCode constraintAnnotation) {
+    public void initialize(ValidateAuthCode constraintAnnotation) {
         //该方法未使用
     }
 

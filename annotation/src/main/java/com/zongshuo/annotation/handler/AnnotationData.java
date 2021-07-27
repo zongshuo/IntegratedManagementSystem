@@ -1,10 +1,7 @@
 package com.zongshuo.annotation.handler;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.Map;
 
 /**
@@ -44,6 +41,15 @@ public class AnnotationData {
         declaredAnnotationsField.setAccessible(true);
         this.declaredAnnotations = (Map<Class<? extends Annotation>, Annotation>) declaredAnnotationsField.get(annotationDataFromClass);
     }
+    private AnnotationData(Map<Class<? extends Annotation>, Annotation> annotations){
+        // 当对象为方法时，方法存储拥有注解的方式与Class不同。
+        // 存储在Executable抽象类中的declaredAnnotations属性中。
+        // 使用同名函数可以获取该对象。
+        this.annotations = annotations;
+        this.declaredAnnotations = annotations;
+        this.redefinedCountField = null;
+        this.annotationDataFromClass = annotations;
+    }
     public static AnnotationData getInstance(final AnnotatedElement element) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
         // annotationData是Class的，只能通过Class反射获取该方法
         // 调用该方法后可以获取对象的annotationData对象
@@ -51,12 +57,12 @@ public class AnnotationData {
         method.setAccessible(true);
         return new AnnotationData(method.invoke(element));
     }
-    private static Method getMethod(Method method) throws NoSuchMethodException {
-        return method.getClass().getDeclaredMethod("annotationData");
+    public static AnnotationData getInstance(final Method method) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method target = Executable.class.getDeclaredMethod("declaredAnnotations");
+        target.setAccessible(true);
+        return new AnnotationData((Map<Class<? extends Annotation>, Annotation>) target.invoke(method));
     }
-    private static Method getMethod(Class clzz) throws NoSuchMethodException {
-        return Class.class.getDeclaredMethod("annotationData");
-    }
+
     public Map<Class<? extends Annotation>, Annotation> getAnnotations() {
         return annotations;
     }

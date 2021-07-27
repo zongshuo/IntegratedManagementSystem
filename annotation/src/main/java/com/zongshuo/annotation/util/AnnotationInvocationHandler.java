@@ -14,10 +14,7 @@ import java.lang.annotation.IncompleteAnnotationException;
 import java.lang.reflect.*;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * ClassName: AnnotationInvocationHandler
@@ -45,6 +42,7 @@ import java.util.Set;
         if (!type.isAnnotation() || arrayOfClass.length != 1 || arrayOfClass[0] != Annotation.class)
             throw new AnnotationFormatError("Attempt to create proxy for a non-annotation type.");
         this.type = type;
+        if (memberValues == null) memberValues = Collections.emptyMap();
         this.memberValues = memberValues;
     }
 
