@@ -1,18 +1,18 @@
 package com.zongshuo.web;
 
 import com.zongshuo.Contains;
-import com.zongshuo.annotations.AuthDefinition;
-import com.zongshuo.annotations.validators.Delete;
-import com.zongshuo.annotations.validators.Insert;
-import com.zongshuo.annotations.validators.Update;
+import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.annotations.validators.Delete;
+import com.zongshuo.annotation.annotations.validators.Insert;
+import com.zongshuo.annotation.annotations.validators.Update;
 import com.zongshuo.model.OrganizationModel;
 import com.zongshuo.model.OrganizationPersonModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.OrganizationPersonService;
 import com.zongshuo.service.OrganizationService;
-import com.zongshuo.util.PageParam;
-import com.zongshuo.util.PageResult;
-import com.zongshuo.util.ResponseJsonMsg;
+import com.zongshuo.annotation.util.PageParam;
+import com.zongshuo.annotation.util.PageResult;
+import com.zongshuo.annotation.util.ResponseJsonMsg;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;

@@ -3,14 +3,11 @@ package com.zongshuo.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zongshuo.annotations.validators.Update;
+import com.zongshuo.annotation.annotations.validators.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 

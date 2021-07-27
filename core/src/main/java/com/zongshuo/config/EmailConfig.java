@@ -1,6 +1,6 @@
 package com.zongshuo.config;
 
-import com.zongshuo.util.email.SendMail;
+import com.zongshuo.annotation.util.email.SendMail;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;

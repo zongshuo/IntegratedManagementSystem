@@ -1,19 +1,15 @@
 package com.zongshuo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.conditions.update.UpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zongshuo.entity.UserRole;
 import com.zongshuo.mapper.RoleMapper;
-import com.zongshuo.mapper.UserRoleMapper;
 import com.zongshuo.model.*;
 import com.zongshuo.service.RoleMenuService;
 import com.zongshuo.service.RoleService;
 import com.zongshuo.service.UserRoleService;
-import com.zongshuo.util.PageParam;
-import com.zongshuo.util.PageResult;
+import com.zongshuo.annotation.util.PageParam;
+import com.zongshuo.annotation.util.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

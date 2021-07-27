@@ -1,10 +1,9 @@
 package com.zongshuo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zongshuo.entity.Role;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
-import com.zongshuo.util.PageParam;
+import com.zongshuo.annotation.util.PageParam;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

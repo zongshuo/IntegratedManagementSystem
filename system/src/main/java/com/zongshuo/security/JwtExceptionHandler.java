@@ -2,7 +2,7 @@ package com.zongshuo.security;
 
 import com.alibaba.fastjson.JSON;
 import com.zongshuo.Contains;
-import com.zongshuo.util.ResponseJsonMsg;
+import com.zongshuo.annotation.util.ResponseJsonMsg;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;

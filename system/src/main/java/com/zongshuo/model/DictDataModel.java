@@ -3,15 +3,11 @@ package com.zongshuo.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zongshuo.annotations.validators.Delete;
-import com.zongshuo.annotations.validators.Select;
-import io.swagger.annotations.ApiImplicitParam;
+import com.zongshuo.annotation.annotations.validators.Delete;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.omg.CORBA.portable.Delegate;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;

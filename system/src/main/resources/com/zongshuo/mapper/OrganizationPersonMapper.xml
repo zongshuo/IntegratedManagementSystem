@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zongshuo.mapper.OrganizationPersonMapper">
     <!--分页查询组织人员列表-->
-    <select id="selectPage" parameterType="com.zongshuo.util.PageParam" resultType="com.zongshuo.model.UserModel">
+    <select id="selectPage" parameterType="com.zongshuo.annotation.util.PageParam" resultType="com.zongshuo.model.UserModel">
         select a.id, a.nick_name, a.username, b.create_time
         from sys_user a right join sys_org_person b on a.id = b.user_id
         <if test="page != null and page.params != null">

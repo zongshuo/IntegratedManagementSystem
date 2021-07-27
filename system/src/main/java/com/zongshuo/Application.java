@@ -1,8 +1,8 @@
 package com.zongshuo;
 
-import com.zongshuo.annotations.AuthDefinition;
-import com.zongshuo.util.annotation.AnnotationService;
-import com.zongshuo.util.annotation.AnnotationUtil;
+import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.util.annotation.AnnotationService;
+import com.zongshuo.annotation.util.annotation.AnnotationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -14,10 +14,7 @@ import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -49,6 +46,18 @@ public class Application {
                     PreAuthorize proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
                     AnnotationService service = AnnotationService.from(clazz);
                     service.addAnnotation(proxyPreAuthorize);
+
+                    Method [] methods = clazz.getDeclaredMethods();
+                    for (Method method : methods){
+                        if (method.isAnnotationPresent(AuthDefinition.class)){
+                            authDefinition = method.getAnnotation(AuthDefinition.class);
+                            memberValues.put("value", "hasAuthority('"+authDefinition.authority()+"')");
+                            proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
+                            service = AnnotationService.from(method);
+                            service.addAnnotation(proxyPreAuthorize);
+                        }
+                    }
+
                 }
             }
         } catch (Exception e) {

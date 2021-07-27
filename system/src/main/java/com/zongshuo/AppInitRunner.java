@@ -1,28 +1,16 @@
 package com.zongshuo;
 
-import com.zongshuo.annotations.AuthDefinition;
-import com.zongshuo.service.RoleMenuService;
-import com.zongshuo.service.RoleService;
-import com.zongshuo.service.UserRoleService;
-import com.zongshuo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
-import java.util.Map;
 
 
 /**
