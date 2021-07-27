@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.util;
+package com.zongshuo.util;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

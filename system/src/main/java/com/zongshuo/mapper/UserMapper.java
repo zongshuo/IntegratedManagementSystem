@@ -2,7 +2,7 @@ package com.zongshuo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zongshuo.model.UserModel;
-import com.zongshuo.annotation.util.PageParam;
+import com.zongshuo.util.PageParam;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

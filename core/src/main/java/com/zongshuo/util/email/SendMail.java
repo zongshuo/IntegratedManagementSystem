@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.util.email;
+package com.zongshuo.util.email;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 

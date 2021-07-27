@@ -1,7 +1,7 @@
 package com.zongshuo.exception;
 
 import com.zongshuo.Contains;
-import com.zongshuo.annotation.util.ResponseJsonMsg;
+import com.zongshuo.util.ResponseJsonMsg;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

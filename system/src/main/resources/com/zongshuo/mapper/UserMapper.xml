@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zongshuo.mapper.UserMapper">
-    <select id="selectPage" parameterType="com.zongshuo.annotation.util.PageParam" resultType="com.zongshuo.model.UserModel">
+    <select id="selectPage" parameterType="com.zongshuo.util.PageParam" resultType="com.zongshuo.model.UserModel">
         select a.*, b.org_id orgId from sys_user a left join sys_org_person b on a.id = b.user_id
         <where>
             1=1

@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.model.UserModel;
-import com.zongshuo.annotation.util.PageParam;
-import com.zongshuo.annotation.util.PageResult;
+import com.zongshuo.util.PageParam;
+import com.zongshuo.util.PageResult;
 
 import java.util.List;
 

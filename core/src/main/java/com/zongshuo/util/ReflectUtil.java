@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.util;
+package com.zongshuo.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

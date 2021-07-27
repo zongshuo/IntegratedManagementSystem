@@ -1,7 +1,7 @@
 package com.zongshuo.security;
 
 import com.zongshuo.Contains;
-import com.zongshuo.annotation.util.JwtUtil;
+import com.zongshuo.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.util.annotation;
+package com.zongshuo.annotation.handler;
 
 import com.zongshuo.annotation.annotations.AuthDefinition;
 import org.apiguardian.api.API;
@@ -26,7 +26,7 @@ class AnnotationServiceBaseTest {
     private AnnotationService service;
     private Class clazz ;
     private Method method ;
-    private Annotation annotation;
+    private BeforeEach annotation;
 
     @BeforeEach
     void setUp() throws NoSuchMethodException {
@@ -36,7 +36,7 @@ class AnnotationServiceBaseTest {
             method.setAccessible(true);
         }
         if (annotation == null){
-            annotation = AnnotationServiceBaseTest.class.getDeclaredAnnotation(SpringBootTest.class);
+            annotation = method.getAnnotation(BeforeEach.class);
         }
     }
 
@@ -55,6 +55,12 @@ class AnnotationServiceBaseTest {
         assertNotNull(annotations);
         assertEquals(2, annotations.size());
         assertTrue(annotations.containsKey(BeforeEach.class));
+        assertTrue(annotations.containsKey(API.class));
+
+        service = new AnnotationServiceBase(annotation.annotationType()) {};
+        annotations = service.annotations();
+        assertNotNull(annotations);
+        assertEquals(1, annotations.size());
         assertTrue(annotations.containsKey(API.class));
     }
 }

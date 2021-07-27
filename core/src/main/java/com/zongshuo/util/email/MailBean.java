@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.util.email;
+package com.zongshuo.util.email;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;

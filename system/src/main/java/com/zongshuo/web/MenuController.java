@@ -7,7 +7,7 @@ import com.zongshuo.annotation.annotations.AuthDefinition;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.MenuService;
-import com.zongshuo.annotation.util.ResponseJsonMsg;
+import com.zongshuo.util.ResponseJsonMsg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

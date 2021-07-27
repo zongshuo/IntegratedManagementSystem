@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.util;
+package com.zongshuo.util;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

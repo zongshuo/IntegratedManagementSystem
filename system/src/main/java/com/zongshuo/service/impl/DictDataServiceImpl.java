@@ -8,8 +8,8 @@ import com.zongshuo.model.DictDataModel;
 import com.zongshuo.model.DictModel;
 import com.zongshuo.service.DictDataService;
 import com.zongshuo.service.DictService;
-import com.zongshuo.annotation.util.PageParam;
-import com.zongshuo.annotation.util.PageResult;
+import com.zongshuo.util.PageParam;
+import com.zongshuo.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
