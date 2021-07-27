@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.util.List;
 
 /**
  * ClassName: AnnotationServiceImpl
@@ -21,30 +20,6 @@ class AnnotationServiceType extends AnnotationServiceBase {
         super(element);
     }
 
-    @Override
-    public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-        return null;
-    }
-
-    @Override
-    public <A extends Annotation> A getAnnotation(Class<A> annotationType, int index) {
-        return null;
-    }
-
-    @Override
-    public <A extends Annotation> List<A> getAnnotations(Class<A> annotationType) {
-        return AnnotationUtil.getAnnotations(element.getClass(), annotationType);
-    }
-
-    @Override
-    public boolean notAnnotation(Class<? extends Annotation> annotationType) {
-        return false;
-    }
-
-    @Override
-    public boolean hasMultiAnnotation(Class<? extends Annotation> annotationType) {
-        return false;
-    }
 
     @Override
     public <A extends Annotation> void addAnnotation(A annotation) {

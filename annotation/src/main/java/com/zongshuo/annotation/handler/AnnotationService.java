@@ -126,22 +126,14 @@ public interface AnnotationService {
      *
      * @param annotation 注解
      */
-    default <A extends Annotation> void addAnnotation(A annotation) {
-        throw new UnsupportedOperationException(
-                "Unsupported remove annotation to merge annotation"
-        );
-    }
+    <A extends Annotation> void addAnnotation(A annotation) ;
 
     /**
      * 删除注解
      *
      * @param annotationType 注解类型
      */
-    default void removeAnnotation(Class<? extends Annotation> annotationType) {
-        throw new UnsupportedOperationException(
-                "Unsupported remove annotation to merge annotation"
-        );
-    }
+    void removeAnnotation(Class<? extends Annotation> annotationType) ;
 
     /**
      * 删除注解
@@ -149,14 +141,7 @@ public interface AnnotationService {
      * @param annotationType 注解类型
      * @param index          索引
      */
-    default void removeAnnotation(
-            Class<? extends Annotation> annotationType,
-            int index
-    ) {
-        throw new UnsupportedOperationException(
-                "Unsupported add annotation to merge annotation"
-        );
-    }
+    void removeAnnotation(Class<? extends Annotation> annotationType, int index) ;
 
     /**
      * 获取注解值
@@ -242,8 +227,11 @@ public interface AnnotationService {
     static AnnotationService from(Class<? extends AnnotatedElement> element) {
         return new AnnotationServiceType(element);
     }
-    static AnnotationService from(Method method){
-        return new AnnotationServiceMethod(method);
+    static AnnotationService from(Method element){
+        return new AnnotationServiceMethod(element);
+    }
+    static AnnotationService from(Annotation annotation){
+        return new AnnotationServiceAnnotation(annotation.annotationType());
     }
 
     static boolean has(
