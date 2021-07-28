@@ -1,8 +1,8 @@
 package com.zongshuo;
 
 import com.zongshuo.annotation.annotations.AuthDefinition;
-import com.zongshuo.util.annotation.AnnotationService;
-import com.zongshuo.util.annotation.AnnotationUtil;
+import com.zongshuo.annotation.handler.AnnotationService;
+import com.zongshuo.annotation.util.AnnotationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

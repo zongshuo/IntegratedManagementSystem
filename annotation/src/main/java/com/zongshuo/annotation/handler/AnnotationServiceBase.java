@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.management.modelmbean.InvalidTargetObjectTypeException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +70,9 @@ abstract class AnnotationServiceBase implements AnnotationService {
         }
 
         // TODO 判断是否允许重复添加
-        // TODO 判断无默认值字典是否提供了值
+        // TODO 判断无默认值字段是否提供了值
     }
+
+    // TODO 最终实现注解的增删改查
+    // TODO 针对ElementType系统性测试
 }

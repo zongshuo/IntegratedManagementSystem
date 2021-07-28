@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zongshuo.annotation.annotations.ValidateAuchCode;
+import com.zongshuo.annotation.annotations.ValidateAuthCode;
 import com.zongshuo.annotation.annotations.ValidateEmail;
 import com.zongshuo.annotation.annotations.ValidatePassword;
 import com.zongshuo.annotation.annotations.ValidateUsername;
@@ -94,7 +94,7 @@ public class UserModel implements UserDetails {
     @ApiModelProperty(value = "用户组织机构", name = "orgId")
     private Integer orgId ;
 
-    @ValidateAuchCode(groups = Insert.class)
+    @ValidateAuthCode(groups = Insert.class)
     @ApiModelProperty(value = "验证码", name = "authCode")
     @TableField(exist = false)
     private String authCode ;
