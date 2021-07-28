@@ -39,25 +39,30 @@ public class Application {
             for (Resource resource : resources) {
                 String className = metadataReader.getMetadataReader(resource).getClassMetadata().getClassName();
                 Class clazz = classLoader.loadClass(className);
+                AuthDefinition authDefinition;
+                Map<String, Object> memberValues;
+                PreAuthorize proxyPreAuthorize;
+                AnnotationService service;
                 if (clazz.isAnnotationPresent(AuthDefinition.class)) {
-                    AuthDefinition authDefinition = (AuthDefinition) clazz.getAnnotation(AuthDefinition.class);
-                    Map<String, Object> memberValues = new LinkedHashMap<>();
-                    memberValues.put("value", "hasAuthority('"+authDefinition.authority()+"')");
-                    PreAuthorize proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
-                    AnnotationService service = AnnotationService.from(clazz);
+                    authDefinition = (AuthDefinition) clazz.getAnnotation(AuthDefinition.class);
+                    memberValues = new LinkedHashMap<>();
+                    memberValues.put("value", "hasAuthority('" + authDefinition.authority() + "')");
+                    proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
+                    service = AnnotationService.from(clazz);
                     service.addAnnotation(proxyPreAuthorize);
 
-                    Method [] methods = clazz.getDeclaredMethods();
-                    for (Method method : methods){
-                        if (method.isAnnotationPresent(AuthDefinition.class)){
-                            authDefinition = method.getAnnotation(AuthDefinition.class);
-                            memberValues.put("value", "hasAuthority('"+authDefinition.authority()+"')");
-                            proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
-                            service = AnnotationService.from(method);
-                            service.addAnnotation(proxyPreAuthorize);
-                        }
-                    }
 
+                }
+                Method[] methods = clazz.getDeclaredMethods();
+                for (Method method : methods) {
+                    if (method.isAnnotationPresent(AuthDefinition.class)) {
+                        authDefinition = method.getAnnotation(AuthDefinition.class);
+                        memberValues = new LinkedHashMap<>();
+                        memberValues.put("value", "hasAuthority('" + authDefinition.authority() + "')");
+                        proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
+                        service = AnnotationService.from(method);
+                        service.addAnnotation(proxyPreAuthorize);
+                    }
                 }
             }
         } catch (Exception e) {

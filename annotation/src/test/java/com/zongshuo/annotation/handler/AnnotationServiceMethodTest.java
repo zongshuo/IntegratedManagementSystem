@@ -35,6 +35,8 @@ class AnnotationServiceMethodTest {
         AnnotationService service = AnnotationService.from(method);
         service.addAnnotation(authDefinition);
 
+        method = AnnotationServiceMethodTest.class.getDeclaredMethod("addAnnotation");
+        service = AnnotationService.from(method);
         authDefinition = service.getAnnotation(AuthDefinition.class);
         assertNotNull(authDefinition);
         assertEquals(name, authDefinition.name());
