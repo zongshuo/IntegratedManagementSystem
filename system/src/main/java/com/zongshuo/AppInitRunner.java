@@ -39,20 +39,7 @@ public class AppInitRunner implements ApplicationRunner, ResourceLoaderAware {
         ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         MetadataReaderFactory metadataReader = new CachingMetadataReaderFactory(resourceLoader);
         try {
-//            Resource[] resources = resolver.getResources("classpath*:com/zongshuo/**/*.class");
-//            for (Resource resource : resources){
-//                String className = metadataReader.getMetadataReader(resource).getClassMetadata().getClassName();
-//                Class clazz = classLoader.loadClass(className);
-//                if (clazz.isAnnotationPresent(AuthDefinition.class)) {
-//                    AuthDefinition authDefinition = (AuthDefinition) clazz.getDeclaredAnnotation(AuthDefinition.class);
-//                    PreAuthorize preAuthorize = authDefinition.annotationType().getDeclaredAnnotation(PreAuthorize.class);
-//                    InvocationHandler invocationHandler = Proxy.getInvocationHandler(preAuthorize);
-//                    Field field = invocationHandler.getClass().getDeclaredField("memberValues");
-//                    field.setAccessible(true);
-//                    Map<String, String> memberValues = (Map<String, String>) field.get(invocationHandler);
-//                    memberValues.put("value", "hasAuthority('"+authDefinition.authority()+"')");
-//                }
-//            }
+            // TODO 将全权限点收集和权限点设置独立成模块
             // 首先初始化管理员角色，添加菜单时默认给管理员添加
             Integer roleId = systemInfo.initRole();
             systemInfo.handleRootMenu(classLoader, resolver, metadataReader);

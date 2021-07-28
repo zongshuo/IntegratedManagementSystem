@@ -1,0 +1,26 @@
+package com.zongshuo.authorization;
+
+import java.lang.annotation.*;
+
+/**
+ * ClassName: MapToAuth
+ * date: 2021/7/28 14:24
+ *
+ * @author zongshuo
+ * version: 1.0
+ * Description:
+ * 该注解用于标注在权限点注解的属性上
+ * 权限收集时会扫描权限点注解的属性上是否标有该注解
+ * 如果存在会将标注属性的值映射到authAnnotation注解的name属性上
+ *
+ */
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface MapToAuth {
+    // 映射鉴权注解的类型
+    Class<? extends Annotation> authAnnotation() ;
+
+    // 映射注解的属性名称，为空默认与权限点注解属性名相同
+    String name() default "";
+}

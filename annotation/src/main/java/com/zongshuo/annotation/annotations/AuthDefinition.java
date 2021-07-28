@@ -25,7 +25,7 @@ public @interface AuthDefinition {
     // 路由地址
     String path() default "" ;
 
-    public static enum AuthType {
+    enum AuthType {
         MENU("菜单", Byte.parseByte("0")),
         BUTTON("按钮", Byte.parseByte("1")),
         API("接口", Byte.parseByte("2"));

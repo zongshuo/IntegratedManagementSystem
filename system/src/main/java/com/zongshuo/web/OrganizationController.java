@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestController
 @RequestMapping("/sys/org")
-@AuthDefinition(name = "组织管理", authority = "sys:org", authType = AuthDefinition.AuthType.MENU)
+@AuthDefinition(name = "组织管理", path = "/system/org", authority = "sys:org", authType = AuthDefinition.AuthType.MENU)
 public class OrganizationController extends BaseController{
     @Autowired
     private OrganizationService orgService;
@@ -42,7 +42,8 @@ public class OrganizationController extends BaseController{
     }
 
     @ApiOperation("新增组织")
-    @PutMapping()
+    @PutMapping
+    @AuthDefinition(name = "新增组织", authority = "sys:org:add", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg addOrg(@RequestBody @Validated(Insert.class) OrganizationModel org){
         log.info("新增组织:", org);
         try {
@@ -54,8 +55,9 @@ public class OrganizationController extends BaseController{
         return ResponseJsonMsg.ok();
     }
 
-    @ApiOperation("编辑组织信息")
+    @ApiOperation("编辑组织")
     @PutMapping("/edit")
+    @AuthDefinition(name = "编辑组织", authority = "sys:org:edit", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg editOrg(@RequestBody @Validated(Update.class) OrganizationModel org){
         log.info("编辑组织:{}", org);
         try {
@@ -70,6 +72,7 @@ public class OrganizationController extends BaseController{
     @ApiOperation("删除组织")
     @ApiImplicitParam(name = "id", value = "组织主键", dataType = "Integer", paramType = "query")
     @DeleteMapping
+    @AuthDefinition(name = "删除组织", authority = "sys:org:del", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg deleteOrg(@RequestBody @Validated(Delete.class) OrganizationModel org){
         log.info("删除组织:{}", org);
         try {

@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/role")
 @Api(tags = "系统功能-角色管理")
-@AuthDefinition(name = "角色管理", authority = "sys:role", authType = AuthDefinition.AuthType.MENU)
+@AuthDefinition(name = "角色管理", path = "/system/role", authority = "sys:role", authType = AuthDefinition.AuthType.MENU)
 public class RoleController extends BaseController {
 
     @Autowired
@@ -95,6 +95,7 @@ public class RoleController extends BaseController {
 
     @ApiOperation("新增角色")
     @PutMapping("/save")
+    @AuthDefinition(name = "新增角色", authority = "sys:role:add", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg addMenu(@RequestBody RoleModel role) {
         log.info("新增角色:{}", role);
         Integer count = roleService.count(
@@ -116,6 +117,7 @@ public class RoleController extends BaseController {
 
     @ApiOperation("编辑角色")
     @PutMapping("/edit")
+    @AuthDefinition(name = "编辑角色", authority = "sys:role:edit", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg editMenu(@RequestBody @Validated(Update.class) RoleModel role){
         log.info("编辑角色:{}", role);
         try {
@@ -129,6 +131,7 @@ public class RoleController extends BaseController {
     @ApiOperation("删除角色")
     @ApiImplicitParam(name = "roleIds", value = "角色逐渐数组", dataType = "Array", paramType = "query")
     @DeleteMapping
+    @AuthDefinition(name = "删除角色", authority = "sys:role:del", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg removeRole(@RequestBody Integer [] roleIds){
         log.info("删除角色:{}", roleIds);
         if (roleIds == null || roleIds.length == 0){
@@ -142,12 +145,13 @@ public class RoleController extends BaseController {
         return ResponseJsonMsg.ok();
     }
 
-    @ApiOperation("新增角色权限")
+    @ApiOperation("变更角色权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色编号", dataType = "Integer", paramType = "body"),
             @ApiImplicitParam(name = "menus", value = "菜单编号", dataType = "Array", paramType = "body")
     })
     @PutMapping("/menus")
+    @AuthDefinition(name = "变更角色权限", authority = "sys:role:menus", authType = AuthDefinition.AuthType.API)
     public ResponseJsonMsg saveMenus(@RequestBody JSONObject request){
         Integer roleId = request.getInteger("roleId");
         if (roleId == null) {
