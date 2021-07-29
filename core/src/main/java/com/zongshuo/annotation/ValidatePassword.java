@@ -1,6 +1,6 @@
-package com.zongshuo.annotation.annotations;
+package com.zongshuo.annotation;
 
-import com.zongshuo.annotation.annotations.validators.EmailValidator;
+import com.zongshuo.annotation.validators.PasswordValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,18 +11,17 @@ import java.lang.annotation.*;
  * @Author: zongShuo
  * @Version: 1.0
  * @Date: 2021-5-27
- * @Time: 19:20
+ * @Time: 19:34
  * @Description:
- * springboot validate 自定义注解，校验邮箱
+ * spring boot validate 自定义注解，校验密码
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@NotBlank(message = "邮箱不能为空！")
-@Constraint(validatedBy = EmailValidator.class)
+@NotBlank(message = "密码不能为空！")
+@Constraint(validatedBy = PasswordValidator.class)
 @Documented
-public @interface ValidateEmail {
-
-    public String message() default "邮箱格式不正确！";
+public @interface ValidatePassword {
+    public String message() default "密码格式不正确！";
 
     Class<?> [] groups() default {};
 

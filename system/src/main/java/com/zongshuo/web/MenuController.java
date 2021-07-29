@@ -3,7 +3,7 @@ package com.zongshuo.web;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zongshuo.Contains;
-import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.AuthDefinition;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.MenuService;

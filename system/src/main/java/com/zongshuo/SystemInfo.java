@@ -1,7 +1,7 @@
 package com.zongshuo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.AuthDefinition;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleModel;
 import com.zongshuo.model.UserModel;

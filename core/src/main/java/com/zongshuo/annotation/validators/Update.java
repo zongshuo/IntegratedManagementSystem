@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.annotations.validators;
+package com.zongshuo.annotation.validators;
 
 import javax.validation.groups.Default;
 
@@ -6,8 +6,8 @@ import javax.validation.groups.Default;
  * @Author: zongShuo
  * @Version: 1.0
  * @Date: 2021-5-27
- * @Time: 17:22
+ * @Time: 17:23
  * @Description:
  */
-public interface Insert extends Default {
+public interface Update extends Default {
 }

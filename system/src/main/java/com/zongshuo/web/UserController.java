@@ -2,7 +2,7 @@ package com.zongshuo.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zongshuo.Contains;
-import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.AuthDefinition;
 import com.zongshuo.model.UserModel;
 import com.zongshuo.service.UserService;
 import com.zongshuo.util.PageParam;

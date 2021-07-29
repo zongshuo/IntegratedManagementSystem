@@ -21,11 +21,10 @@ public @interface AuthDefinition {
 
     // 权限标识
     @MapToAuth(authAnnotation = PreAuthorize.class, name = "value")
-    @MapToAuth(authAnnotation = PreAuthorize.class, name = "value")
     String authority() ;
 
     // 权限类型
-    AccessType type() ;
+    AccessType type() default AccessType.API;
 
     // 路由地址
     String path() default "" ;

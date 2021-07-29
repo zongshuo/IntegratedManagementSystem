@@ -1,7 +1,7 @@
 package com.zongshuo.security;
 
 import com.zongshuo.AppInitRunner;
-import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.AuthDefinition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.Contains;
-import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.AuthDefinition;
 import com.zongshuo.mapper.MenuMapper;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleMenuModel;

@@ -1,6 +1,5 @@
 package com.zongshuo.annotation.handler;
 
-import com.zongshuo.annotation.annotations.AuthDefinition;
 import com.zongshuo.annotation.util.AnnotationUtil;
 import org.junit.jupiter.api.Test;
 

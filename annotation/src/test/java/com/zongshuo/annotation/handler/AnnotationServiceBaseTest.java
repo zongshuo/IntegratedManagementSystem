@@ -1,7 +1,5 @@
 package com.zongshuo.annotation.handler;
 
-import com.zongshuo.annotation.annotations.AuthDefinition;
-import com.zongshuo.annotation.annotations.ValidateAuthCode;
 import com.zongshuo.annotation.util.AnnotationUtil;
 import org.apiguardian.api.API;
 import org.junit.jupiter.api.BeforeEach;

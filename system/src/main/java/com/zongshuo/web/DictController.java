@@ -2,10 +2,10 @@ package com.zongshuo.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zongshuo.Contains;
-import com.zongshuo.annotation.annotations.AuthDefinition;
-import com.zongshuo.annotation.annotations.validators.Delete;
-import com.zongshuo.annotation.annotations.validators.Insert;
-import com.zongshuo.annotation.annotations.validators.Update;
+import com.zongshuo.annotation.AuthDefinition;
+import com.zongshuo.annotation.validators.Delete;
+import com.zongshuo.annotation.validators.Insert;
+import com.zongshuo.annotation.validators.Update;
 import com.zongshuo.model.DictDataModel;
 import com.zongshuo.model.DictModel;
 import com.zongshuo.service.DictDataService;

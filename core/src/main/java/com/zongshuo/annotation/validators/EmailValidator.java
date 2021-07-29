@@ -1,6 +1,6 @@
-package com.zongshuo.annotation.annotations.validators;
+package com.zongshuo.annotation.validators;
 
-import com.zongshuo.annotation.annotations.ValidateEmail;
+import com.zongshuo.annotation.ValidateEmail;
 import com.zongshuo.annotation.util.FormatCheckUtil;
 
 import javax.validation.ConstraintValidator;

@@ -1,6 +1,6 @@
 package com.zongshuo;
 
-import com.zongshuo.annotation.annotations.AuthDefinition;
+import com.zongshuo.annotation.AuthDefinition;
 import com.zongshuo.annotation.handler.AnnotationService;
 import com.zongshuo.annotation.util.AnnotationUtil;
 import lombok.extern.slf4j.Slf4j;

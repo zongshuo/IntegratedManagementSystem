@@ -1,6 +1,6 @@
-package com.zongshuo.annotation.annotations.validators;
+package com.zongshuo.annotation.validators;
 
-import com.zongshuo.annotation.annotations.ValidatePassword;
+import com.zongshuo.annotation.ValidateUsername;
 import com.zongshuo.annotation.util.FormatCheckUtil;
 
 import javax.validation.ConstraintValidator;
@@ -10,17 +10,19 @@ import javax.validation.ConstraintValidatorContext;
  * @Author: zongShuo
  * @Version: 1.0
  * @Date: 2021-5-27
- * @Time: 19:39
+ * @Time: 17:04
  * @Description:
+ *
+ * 系统登录用户名校验注解实现类
  */
-public class PasswordValidator implements ConstraintValidator<ValidatePassword, String> {
+public class UsernameValidator implements ConstraintValidator<ValidateUsername, String> {
     @Override
-    public void initialize(ValidatePassword constraintAnnotation) {
+    public void initialize(ValidateUsername constraintAnnotation) {
         //该方法未使用
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return FormatCheckUtil.isPassword(value);
+        return FormatCheckUtil.isUsername(value);
     }
 }

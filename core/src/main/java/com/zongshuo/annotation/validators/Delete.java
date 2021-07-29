@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.annotations.validators;
+package com.zongshuo.annotation.validators;
 
 import javax.validation.groups.Default;
 
@@ -9,5 +9,5 @@ import javax.validation.groups.Default;
  * @Time: 17:23
  * @Description:
  */
-public interface Update extends Default {
+public interface Delete extends Default {
 }

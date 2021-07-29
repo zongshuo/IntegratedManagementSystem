@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.annotations.validators;
+package com.zongshuo.annotation.validators;
 
 import javax.validation.groups.Default;
 

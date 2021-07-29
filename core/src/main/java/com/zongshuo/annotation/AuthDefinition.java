@@ -1,4 +1,4 @@
-package com.zongshuo.annotation.annotations;
+package com.zongshuo.annotation;
 
 import java.lang.annotation.*;
 

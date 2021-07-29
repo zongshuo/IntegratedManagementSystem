@@ -1,6 +1,6 @@
-package com.zongshuo.annotation.annotations;
+package com.zongshuo.annotation;
 
-import com.zongshuo.annotation.annotations.validators.AuthCodeValidator;
+import com.zongshuo.annotation.validators.AuthCodeValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
