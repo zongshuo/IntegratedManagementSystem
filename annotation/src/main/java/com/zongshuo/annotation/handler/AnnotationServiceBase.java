@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.management.modelmbean.InvalidTargetObjectTypeException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,12 @@ abstract class AnnotationServiceBase implements AnnotationService {
         } catch (Exception e) {
             log.error("添加注解失败:", e);
         }
+    }
+
+    @Override
+    public void addAnnotation(Class<? extends Annotation> clazz, LinkedHashMap<String, Object> memberValues) throws InvalidTargetObjectTypeException {
+        Annotation annotation = AnnotationUtil.newAnnotation(clazz, memberValues);
+        addAnnotation(annotation);
     }
 
     @Override

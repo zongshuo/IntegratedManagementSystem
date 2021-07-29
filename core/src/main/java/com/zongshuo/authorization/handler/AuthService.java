@@ -29,5 +29,8 @@ public interface AuthService {
     static AuthService fromBase(Class<? extends Annotation> accessPoint){
         return new AuthServiceImplBase(accessPoint);
     }
+    static AuthService fromInitAuth(Class<? extends Annotation> accessPoint){
+        return new AuthServiceImplInitAuth(accessPoint);
+    }
 
 }

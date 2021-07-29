@@ -1,4 +1,7 @@
-package com.zongshuo.authorization;
+package com.zongshuo.authorization.handler;
+
+import com.zongshuo.authorization.handler.FieldFormat;
+import com.zongshuo.authorization.handler.FieldFormatImpl;
 
 import java.lang.annotation.*;
 
@@ -16,6 +19,7 @@ import java.lang.annotation.*;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@Repeatable(value = MapToAuths.class)
 @Documented
 public @interface MapToAuth {
     // 映射鉴权注解的类型
@@ -23,4 +27,7 @@ public @interface MapToAuth {
 
     // 映射注解的属性名称，为空默认与权限点注解属性名相同
     String name() default "";
+
+    // 注解属性映射格式转换实现类
+    Class<? extends FieldFormat> format() default FieldFormatImpl.class;
 }

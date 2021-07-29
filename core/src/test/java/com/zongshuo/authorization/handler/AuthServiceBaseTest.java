@@ -1,16 +1,15 @@
 package com.zongshuo.authorization.handler;
 
-import com.zongshuo.authorization.AuthDefinition;
 import com.zongshuo.authorization.model.AccessPoint;
 import com.zongshuo.authorization.model.AccessType;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * ClassName: AuthServiceBaseTest

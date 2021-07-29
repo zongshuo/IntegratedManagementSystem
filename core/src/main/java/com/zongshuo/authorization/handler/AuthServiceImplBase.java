@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @Slf4j
 class AuthServiceImplBase implements AuthService{
-    private Class<? extends Annotation> accessDefinitionAnnotation ;
+    protected Class<? extends Annotation> accessDefinitionAnnotation ;
     public AuthServiceImplBase(Class<? extends Annotation> accessAnnotation){
         this.accessDefinitionAnnotation = accessAnnotation;
     }
@@ -72,7 +72,7 @@ class AuthServiceImplBase implements AuthService{
         return accessPointMap;
     }
 
-    private void setAccessPoint(Map<AccessType, List<AccessPoint>> accessPointMap, AnnotatedElement element) {
+    protected void setAccessPoint(Map<AccessType, List<AccessPoint>> accessPointMap, AnnotatedElement element) {
         if (element.isAnnotationPresent(accessDefinitionAnnotation)){
             Object annotation = element.getAnnotation(accessDefinitionAnnotation);
             AccessPoint accessPoint = new AccessPoint();

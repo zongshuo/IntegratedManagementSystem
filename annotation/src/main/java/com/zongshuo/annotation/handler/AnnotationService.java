@@ -8,6 +8,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ public interface AnnotationService {
      * 获取所有注解
      * 包括父类的注解
      * 包括被组合的注解
+     *
      * @return 注解 Map
      */
     Map<Class<? extends Annotation>, List<Annotation>> annotations();
@@ -130,11 +132,19 @@ public interface AnnotationService {
     <A extends Annotation> void addAnnotation(A annotation) throws InvalidTargetObjectTypeException;
 
     /**
+     * 添加注解
+     *
+     * @param clazz        注解类型
+     * @param memberValues 注解属性值
+     */
+    void addAnnotation(Class<? extends Annotation> clazz, LinkedHashMap<String, Object> memberValues) throws InvalidTargetObjectTypeException;
+
+    /**
      * 删除注解
      *
      * @param annotationType 注解类型
      */
-    void removeAnnotation(Class<? extends Annotation> annotationType) ;
+    void removeAnnotation(Class<? extends Annotation> annotationType);
 
     /**
      * 删除注解
@@ -142,7 +152,7 @@ public interface AnnotationService {
      * @param annotationType 注解类型
      * @param index          索引
      */
-    void removeAnnotation(Class<? extends Annotation> annotationType, int index) ;
+    void removeAnnotation(Class<? extends Annotation> annotationType, int index);
 
     /**
      * 获取注解值
@@ -225,13 +235,21 @@ public interface AnnotationService {
         );
     }
 
+    static AnnotationService from(AnnotatedElement element) {
+        if (element instanceof Method) return from(Method.class.cast(element));
+        if (element instanceof Annotation) return from(Annotation.class.cast(element));
+        return from((Class<? extends AnnotatedElement>) element);
+    }
+
     static AnnotationService from(Class<? extends AnnotatedElement> element) {
         return new AnnotationServiceType(element);
     }
-    static AnnotationService from(Method element){
+
+    static AnnotationService from(Method element) {
         return new AnnotationServiceMethod(element);
     }
-    static AnnotationService from(Annotation annotation){
+
+    static AnnotationService from(Annotation annotation) {
         return new AnnotationServiceAnnotation(annotation.annotationType());
     }
 
