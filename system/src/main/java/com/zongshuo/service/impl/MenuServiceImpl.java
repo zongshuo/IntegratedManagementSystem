@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zongshuo.Contains;
 import com.zongshuo.annotation.AuthDefinition;
+import com.zongshuo.authorization.model.AccessType;
 import com.zongshuo.mapper.MenuMapper;
 import com.zongshuo.model.MenuModel;
 import com.zongshuo.model.RoleMenuModel;
@@ -57,7 +58,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuModel> implemen
             throw new IllegalAccessException("菜单名称或菜单权限标识已存在！");
         }
 
-        if (AuthDefinition.AuthType.MENU.getType().equals(menu.getType()) && StringUtils.isNotBlank(menu.getTitle())){
+        if (AccessType.MENU.getType().equals(menu.getType()) && StringUtils.isNotBlank(menu.getTitle())){
             query = new QueryWrapper<>();
             query.lambda()
                     .eq(MenuModel::getTitle, menu.getTitle())

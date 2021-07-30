@@ -6,6 +6,7 @@ import com.zongshuo.annotation.AuthDefinition;
 import com.zongshuo.annotation.validators.Delete;
 import com.zongshuo.annotation.validators.Insert;
 import com.zongshuo.annotation.validators.Update;
+import com.zongshuo.authorization.model.AccessType;
 import com.zongshuo.model.DictDataModel;
 import com.zongshuo.model.DictModel;
 import com.zongshuo.service.DictDataService;
@@ -29,7 +30,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/sys/dict")
 @Api(tags = "系统功能-字典项管理")
-@AuthDefinition(name = "字典项管理", path = "/system/dict", authority = "sys:dict", type = AuthDefinition.AuthType.MENU)
+@AuthDefinition(name = "字典项管理", path = "/system/dict", authority = "sys:dict", type = AccessType.MENU)
 public class DictController extends BaseController{
     @Autowired
     private DictService dictService;
@@ -65,7 +66,7 @@ public class DictController extends BaseController{
 
     @ApiOperation("添加字典")
     @PutMapping("/add")
-    @AuthDefinition(name = "添加字典", authority = "sys:dict:add", type = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "添加字典", authority = "sys:dict:add", type = AccessType.API)
     public ResponseJsonMsg addDict(@RequestBody @Valid DictModel dict){
         log.info("新增字典：{}", dict);
         try {
@@ -80,7 +81,7 @@ public class DictController extends BaseController{
 
     @ApiOperation("添加字典值")
     @PutMapping("/data/add")
-    @AuthDefinition(name = "添加字典值", authority = "sys:dict:data:add", type = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "添加字典值", authority = "sys:dict:dataAdd", type = AccessType.API)
     public ResponseJsonMsg addDictData(@RequestBody @Validated(Insert.class) DictDataModel dictData){
         log.info("新增字典值:", dictData);
         try {
@@ -94,7 +95,7 @@ public class DictController extends BaseController{
 
     @ApiOperation("编辑字典项")
     @PutMapping("/edit")
-    @AuthDefinition(name = "编辑字典项", authority = "sys:dict:edit", type = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "编辑字典项", authority = "sys:dict:edit", type = AccessType.API)
     public ResponseJsonMsg editDict(@RequestBody @Validated(Update.class) DictModel dict){
         log.info("编辑字典:{}", dict);
         try {
@@ -108,7 +109,7 @@ public class DictController extends BaseController{
 
     @ApiOperation("编辑字典值")
     @PutMapping("/data/edit")
-    @AuthDefinition(name = "编辑字典值", authority = "sys:dict:data:edit", type = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "编辑字典值", authority = "sys:dict:dataEdit", type = AccessType.API)
     public ResponseJsonMsg editDictData(@RequestBody @Validated(Update.class) DictDataModel dictData){
         log.info("编辑字典值:", dictData);
         return ResponseJsonMsg.ok();
@@ -116,7 +117,7 @@ public class DictController extends BaseController{
 
     @ApiOperation("删除字典项")
     @DeleteMapping
-    @AuthDefinition(name = "删除字典项", authority = "sys:dict:del", type = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "删除字典项", authority = "sys:dict:del", type = AccessType.API)
     public ResponseJsonMsg deleteDict(@RequestBody @Validated(Delete.class) DictModel dict){
         log.info("删除字典项:{}", dict);
         try {
@@ -130,7 +131,7 @@ public class DictController extends BaseController{
 
     @ApiOperation("删除字典值")
     @DeleteMapping("/data")
-    @AuthDefinition(name = "删除字典值", authority = "sys:dict:data:del", type = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "删除字典值", authority = "sys:dict:dataDel", type = AccessType.API)
     public ResponseJsonMsg deleteDictData(@RequestBody @Validated(Delete.class) DictDataModel dictData){
         log.info("删除字典值:{}", dictData);
         try {

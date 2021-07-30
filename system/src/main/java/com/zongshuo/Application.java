@@ -1,22 +1,9 @@
 package com.zongshuo;
 
-import com.zongshuo.annotation.AuthDefinition;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
-import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
-import priv.zongshuo.annotation.handler.AnnotationService;
-import priv.zongshuo.annotation.util.AnnotationUtil;
-
-import java.lang.reflect.Method;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * @Author: zongShuo
@@ -31,43 +18,6 @@ import java.util.Map;
 public class Application {
     public static void main(String[] args) {
 //        System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
-        ClassLoader classLoader = Application.class.getClassLoader();
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        MetadataReaderFactory metadataReader = new CachingMetadataReaderFactory(resolver);
-        try {
-            Resource[] resources = resolver.getResources(ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "com/zongshuo/**/*.class");
-            for (Resource resource : resources) {
-                String className = metadataReader.getMetadataReader(resource).getClassMetadata().getClassName();
-                Class clazz = classLoader.loadClass(className);
-                AuthDefinition authDefinition;
-                Map<String, Object> memberValues;
-                PreAuthorize proxyPreAuthorize;
-                AnnotationService service;
-                if (clazz.isAnnotationPresent(AuthDefinition.class)) {
-                    authDefinition = (AuthDefinition) clazz.getAnnotation(AuthDefinition.class);
-                    memberValues = new LinkedHashMap<>();
-                    memberValues.put("value", "hasAuthority('" + authDefinition.authority() + "')");
-                    proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
-                    service = AnnotationService.from(clazz);
-                    service.addAnnotation(proxyPreAuthorize);
-
-
-                }
-                Method[] methods = clazz.getDeclaredMethods();
-                for (Method method : methods) {
-                    if (method.isAnnotationPresent(AuthDefinition.class)) {
-                        authDefinition = method.getAnnotation(AuthDefinition.class);
-                        memberValues = new LinkedHashMap<>();
-                        memberValues.put("value", "hasAuthority('" + authDefinition.authority() + "')");
-                        proxyPreAuthorize = AnnotationUtil.newAnnotation(PreAuthorize.class, memberValues);
-                        service = AnnotationService.from(method);
-                        service.addAnnotation(proxyPreAuthorize);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            log.error("异常", e);
-        }
         SpringApplication.run(Application.class, args);
     }
 }

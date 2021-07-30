@@ -1,5 +1,7 @@
 package com.zongshuo.annotation;
 
+import com.zongshuo.authorization.model.AccessType;
+
 import java.lang.annotation.*;
 
 /**
@@ -20,30 +22,8 @@ public @interface AuthDefinition {
     // 权限标识
     String authority() ;
 
-    AuthType type() ;
+    AccessType type() ;
 
     // 路由地址
     String path() default "" ;
-
-    enum AuthType {
-        MENU("菜单", Byte.parseByte("0")),
-        BUTTON("按钮", Byte.parseByte("1")),
-        API("接口", Byte.parseByte("2"));
-
-
-        private String name ;
-        private Byte type ;
-
-        public String getName() {
-            return name;
-        }
-        public Byte getType(){
-            return type;
-        }
-
-        AuthType(String name, Byte type){
-            this.name = name;
-            this.type = type;
-        }
-    }
 }
