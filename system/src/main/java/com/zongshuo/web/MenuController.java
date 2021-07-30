@@ -126,7 +126,7 @@ public class MenuController extends BaseController {
     @ApiOperation("删除菜单")
     @ApiImplicitParam(name = "menuId", value = "菜单id", dataType = "Integer", paramType = "query")
     @DeleteMapping
-    @AuthDefinition(name = "删除菜单", authority = "sys:menu:del", type = AccessType.API)
+    @AuthDefinition(name = "删除菜单", authority = "sys:menu:del1", type = AccessType.API)
     public ResponseJsonMsg removeMenu(@RequestBody JSONObject request) {
         log.info("删除菜单:{}", request);
         Integer menuId = request.getInteger("menuId");

@@ -1,6 +1,7 @@
 package com.zongshuo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zongshuo.annotation.AuthDefinition;
 import com.zongshuo.authorization.handler.AuthService;
 import com.zongshuo.authorization.model.AccessPoint;
@@ -13,6 +14,7 @@ import com.zongshuo.service.MenuService;
 import com.zongshuo.service.RoleService;
 import com.zongshuo.service.UserRoleService;
 import com.zongshuo.service.UserService;
+import com.zongshuo.util.MenuSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,20 +51,38 @@ public class AppInitRunner implements ApplicationRunner{
     @Override
     public void run(ApplicationArguments args) throws Exception {
         try {
-            // 收集系统权限并创建鉴权注解
-            AuthService service = AuthService.fromInitAuth(AuthDefinition.class);
-            Map<AccessType, List<AccessPoint>> accessPointMap = service.collectAccessPoint("com/zongshuo/**/");
             // 初始化管理员角色，添加菜单时默认给管理员添加
             RoleModel role = initRole();
             // 同时增加用户角色
             initUser(role.getId());
-            saveAccess(accessPointMap.get(AccessType.MODULE));
-            saveAccess(accessPointMap.get(AccessType.MENU));
-            saveAccess(accessPointMap.get(AccessType.API));
-            saveAccess(accessPointMap.get(AccessType.BUTTON));
+            // 收集系统权限并创建鉴权注解
+            initAccess();
         } catch (Exception e) {
             log.error("系统初始化异常:", e);
         }
+    }
+
+    private void initAccess() throws IOException {
+        AuthService service = AuthService.fromInitAuth(AuthDefinition.class);
+        Map<AccessType, List<AccessPoint>> accessPointMap = service.collectAccessPoint("com/zongshuo/**/");
+        if (accessPointMap.isEmpty()) return;
+        /**
+         * 首先将数据库中菜单来源为系统收集记录的updateTime置为空
+         * 更新权限点,先insert，再update。两者都更新updateTime
+         * 最后删除菜单来源为系统收集且updateTime为空的记录
+         */
+        menuService.update(
+                new UpdateWrapper<MenuModel>()
+                        .lambda()
+                        .set(MenuModel::getUpdateTime, null)
+                        .eq(MenuModel::getSource, MenuSource.SYSTEM.getValue()));
+
+        saveAccess(accessPointMap.get(AccessType.MODULE));
+        saveAccess(accessPointMap.get(AccessType.MENU));
+        saveAccess(accessPointMap.get(AccessType.API));
+        saveAccess(accessPointMap.get(AccessType.BUTTON));
+
+        menuService.clearAccessPoint();
     }
 
     private void saveAccess(List<AccessPoint> points) {
@@ -77,12 +98,10 @@ public class AppInitRunner implements ApplicationRunner{
             menu.setAuthority(point.getAuthority());
             menu.setParent(parentAuthMap.get(parentAuth));
             menu.setType(point.getType().getType());
-            menu.setHide(Contains.DEFAULT_YES);
-            menu.setCreateTime(new Date());
             try {
-                menuService.addMenu(menu);
-                log.info("添加权限点:{}", menu);
-            } catch (IllegalAccessException e) {
+                menuService.addAccessPoint(menu);
+                log.info("添加权限点:{}", menu.getName());
+            } catch (Exception e) {
                 log.error("添加权限点异常:{}", menu, e.getMessage());
             }
         }

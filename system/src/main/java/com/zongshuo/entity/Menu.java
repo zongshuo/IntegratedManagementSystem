@@ -52,9 +52,11 @@ public class Menu{
     @Column(name = "type")
     private Byte type ;
 
+    @Column(name = "source")
+    private Byte source ;
+
     @Column(name = "sort_number")
     private Integer sortNumber ;
-
 
     @Column(name = "target", length = 100)
     private String target ;
@@ -64,12 +66,6 @@ public class Menu{
 
     @Column(name = "hide")
     private Byte hide ;
-
-    @Column(name = "left_uid", length = 200)
-    private String leftUid;
-
-    @Column(name = "deleted")
-    private Byte deleted ;
 
     @Column(name = "create_time", nullable = false)
     private Date createTime ;

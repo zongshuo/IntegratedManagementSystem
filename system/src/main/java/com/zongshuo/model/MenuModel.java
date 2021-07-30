@@ -52,8 +52,11 @@ public class MenuModel implements GrantedAuthority {
     @ApiModelProperty(value = "菜单组件地址", name = "component")
     private String component ;
 
-    @ApiModelProperty(value = "菜单类型：0-菜单、1-按钮", name = "type")
+    @ApiModelProperty(value = "菜单类型", name = "type")
     private Byte type ;
+
+    @ApiModelProperty(value = "来源", name = "source")
+    private Byte source ;
 
     @NotNull(message = "排序号不能为空！")
     @ApiModelProperty(value = "排序号", name = "sortNumber")
@@ -68,12 +71,6 @@ public class MenuModel implements GrantedAuthority {
 
     @ApiModelProperty(value = "是否隐藏：0-否、1-是", name = "hide")
     private Byte hide ;
-
-    @ApiModelProperty(value = "嵌套路由左侧选中", name = "leftUid")
-    private String leftUid;
-
-    @ApiModelProperty(value = "是否删除：0-否、1-是", name = "deleted")
-    private Byte deleted ;
 
     @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime ;

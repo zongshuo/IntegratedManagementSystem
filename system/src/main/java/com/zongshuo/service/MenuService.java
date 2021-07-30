@@ -24,6 +24,21 @@ public interface MenuService extends IService<MenuModel> {
     void addMenu(MenuModel menuModel) throws IllegalAccessException;
 
     /**
+     * 新增权限点
+     * 以权限标识为主键，有则更新无则插入
+     * @param menu
+     * @throws IllegalAccessException
+     */
+    void addAccessPoint(MenuModel menu);
+
+    /**
+     * 清理数据库中废弃的权限点
+     * 权限点的updateTime为空视为废弃
+     * 同时删除权限点与角色的映射关系
+     */
+    void clearAccessPoint() ;
+
+    /**
      * 编辑菜单
      * 验证菜单是否存在
      * 更新除menuId外的所有字段
