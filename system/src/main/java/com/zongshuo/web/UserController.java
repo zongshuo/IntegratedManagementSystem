@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/sys/user")
 @Api(tags = "系统功能-用户操作")
-@AuthDefinition(name = "人员管理", path = "/system/user", authority = "sys:user", authType = AuthDefinition.AuthType.MENU)
+@AuthDefinition(name = "人员管理", path = "/system/user", authority = "sys:user", type = AuthDefinition.AuthType.MENU)
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
@@ -68,7 +68,7 @@ public class UserController extends BaseController{
 
     @PutMapping
     @ApiOperation("新增用户")
-    @AuthDefinition(name = "新增用户", authority = "sys:user:add", authType = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "新增用户", authority = "sys:user:add", type = AuthDefinition.AuthType.API)
     public ResponseJsonMsg addUser(@RequestBody UserModel user){
         log.info("新增用户:", user);
         try {
@@ -82,7 +82,7 @@ public class UserController extends BaseController{
 
     @ApiOperation("编辑用户")
     @PutMapping("/edit")
-    @AuthDefinition(name = "编辑用户", authority = "sys:user:edit", authType = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "编辑用户", authority = "sys:user:edit", type = AuthDefinition.AuthType.API)
     public ResponseJsonMsg editUser(@RequestBody UserModel user){
         log.info("编辑用户:{}", user);
         try {
@@ -100,7 +100,7 @@ public class UserController extends BaseController{
             @ApiImplicitParam(name = "enable", value = "状态", dataType = "Boolean", paramType = "query")
     })
     @PostMapping("/enable")
-    @AuthDefinition(name = "变更用户状态", authority = "sys:user:enable", authType = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "变更用户状态", authority = "sys:user:enable", type = AuthDefinition.AuthType.API)
     public ResponseJsonMsg toggleEnable(@RequestBody UserModel user){
         log.info("变更用户状态:{}", user);
         try {
@@ -115,7 +115,7 @@ public class UserController extends BaseController{
     @ApiOperation("删除用户")
     @ApiImplicitParam(name = "userIds", value = "用户主键数组", dataType = "Array", paramType = "query")
     @DeleteMapping
-    @AuthDefinition(name = "删除用户", authority = "sys:user:del", authType = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "删除用户", authority = "sys:user:del", type = AuthDefinition.AuthType.API)
     public ResponseJsonMsg removeUser(@RequestBody JSONObject request){
         log.info("批量删除用户:{}", request);
         Integer [] userIds = request.getJSONArray("userIds").toArray(new Integer[0]);

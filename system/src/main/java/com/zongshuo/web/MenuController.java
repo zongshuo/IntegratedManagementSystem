@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/menu")
 @Api(tags = "系统功能-菜单管理")
-@AuthDefinition(name = "菜单管理", path = "/system/menu", authority = "sys:menu", authType = AuthDefinition.AuthType.MENU)
+@AuthDefinition(name = "菜单管理", path = "/system/menu", authority = "sys:menu", type = AuthDefinition.AuthType.MENU)
 public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;
@@ -90,7 +90,7 @@ public class MenuController extends BaseController {
 
     @ApiOperation("新增菜单")
     @PutMapping
-    @AuthDefinition(name = "新增菜单", authority = "sys:menu:add", authType = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "新增菜单", authority = "sys:menu:add", type = AuthDefinition.AuthType.API)
     public ResponseJsonMsg addMenu(@RequestBody MenuModel menu) {
         log.info("新增菜单:{}", menu);
         int count = menuService.count(new QueryWrapper<MenuModel>().lambda().eq(MenuModel::getTitle, menu.getTitle()));
@@ -110,7 +110,7 @@ public class MenuController extends BaseController {
 
     @ApiOperation("编辑菜单")
     @PutMapping("/edit")
-    @AuthDefinition(name = "编辑菜单", authority = "sys:menu:edit", authType = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "编辑菜单", authority = "sys:menu:edit", type = AuthDefinition.AuthType.API)
     public ResponseJsonMsg editMenu(@RequestBody @Valid MenuModel menu) {
         log.info("编辑菜单：", menu);
         try {
@@ -125,7 +125,7 @@ public class MenuController extends BaseController {
     @ApiOperation("删除菜单")
     @ApiImplicitParam(name = "menuId", value = "菜单id", dataType = "Integer", paramType = "query")
     @DeleteMapping
-    @AuthDefinition(name = "删除菜单", authority = "sys:menu:del", authType = AuthDefinition.AuthType.API)
+    @AuthDefinition(name = "删除菜单", authority = "sys:menu:del", type = AuthDefinition.AuthType.API)
     public ResponseJsonMsg removeMenu(@RequestBody JSONObject request) {
         log.info("删除菜单:{}", request);
         Integer menuId = request.getInteger("menuId");

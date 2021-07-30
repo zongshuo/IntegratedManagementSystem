@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-@AuthDefinition(name = "系统管理", authority = "sys", authType = AuthDefinition.AuthType.MENU, path = "/system")
+@AuthDefinition(name = "系统管理", authority = "sys", type = AuthDefinition.AuthType.MENU, path = "/system")
 public class SystemInfo {
     private static final String CLASS_PATH_PRE = "classpath*:";
 

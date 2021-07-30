@@ -1,5 +1,9 @@
 package com.zongshuo;
 
+import com.zongshuo.annotation.AuthDefinition;
+import com.zongshuo.authorization.handler.AuthService;
+import com.zongshuo.authorization.model.AccessPoint;
+import com.zongshuo.authorization.model.AccessType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -11,6 +15,9 @@ import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -39,7 +46,8 @@ public class AppInitRunner implements ApplicationRunner, ResourceLoaderAware {
         ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         MetadataReaderFactory metadataReader = new CachingMetadataReaderFactory(resourceLoader);
         try {
-            // TODO 将全权限点收集和权限点设置独立成模块
+            AuthService service = AuthService.fromInitAuth(AuthDefinition.class);
+            Map<AccessType, List<AccessPoint>> accessPointMap = service.collectAccessPoint("com/zongshuo/**/");
             // 首先初始化管理员角色，添加菜单时默认给管理员添加
             Integer roleId = systemInfo.initRole();
             systemInfo.handleRootMenu(classLoader, resolver, metadataReader);

@@ -20,7 +20,7 @@ public @interface AuthDefinition {
     // 权限标识
     String authority() ;
 
-    AuthType authType() ;
+    AuthType type() ;
 
     // 路由地址
     String path() default "" ;
