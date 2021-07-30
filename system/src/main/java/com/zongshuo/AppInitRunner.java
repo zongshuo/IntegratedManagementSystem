@@ -63,7 +63,7 @@ public class AppInitRunner implements ApplicationRunner{
     }
 
     private void initAccess() throws IOException {
-        AuthService service = AuthService.fromInitAuth(AuthDefinition.class);
+        AuthService service = AuthService.fromBase(AuthDefinition.class);
         Map<AccessType, List<AccessPoint>> accessPointMap = service.collectAccessPoint("com/zongshuo/**/");
         if (accessPointMap.isEmpty()) return;
         /**
