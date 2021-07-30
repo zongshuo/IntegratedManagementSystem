@@ -1,6 +1,8 @@
 package com.zongshuo.annotation;
 
+import com.zongshuo.authorization.handler.MapToAuth;
 import com.zongshuo.authorization.model.AccessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.lang.annotation.*;
 
@@ -14,12 +16,12 @@ import java.lang.annotation.*;
 @Target(value={ElementType.TYPE, ElementType.METHOD, ElementType.PACKAGE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-//@PreAuthorize("isAuthenticated")
 public @interface AuthDefinition {
     // 权限名称
     String name() ;
 
     // 权限标识
+    @MapToAuth(authAnnotation = PreAuthorize.class, name = "value", format = FormatPreAuthorizeValue.class)
     String authority() ;
 
     AccessType type() ;

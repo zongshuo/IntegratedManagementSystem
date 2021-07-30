@@ -55,17 +55,15 @@ class AuthServiceImplInitAuth extends AuthServiceImplBase {
         Method[] methods = annotation.annotationType().getDeclaredMethods();
         for (Method method : methods) {
             try {
-                if (method.isAnnotationPresent(MapToAuths.class)) {
-                    MapToAuth [] mapToAuths = method.getAnnotation(MapToAuths.class).value();
-                    for (MapToAuth mapToAuth : mapToAuths){
-                        if (!buildAnnotationMap.containsKey(mapToAuth.authAnnotation())) {
-                            buildAnnotationMap.put(mapToAuth.authAnnotation(), new LinkedHashMap<>());
-                        }
-                        FieldFormat format = mapToAuth.format().newInstance();
-                        buildAnnotationMap.get(mapToAuth.authAnnotation()).put(
-                                "".equals(mapToAuth.name()) ? method.getName() : mapToAuth.name(),
-                            format.format(method.invoke(annotation)));
+                MapToAuth[] mapToAuths = method.getAnnotationsByType(MapToAuth.class);
+                for (MapToAuth mapToAuth : mapToAuths) {
+                    if (!buildAnnotationMap.containsKey(mapToAuth.authAnnotation())) {
+                        buildAnnotationMap.put(mapToAuth.authAnnotation(), new LinkedHashMap<>());
                     }
+                    FieldFormat format = mapToAuth.format().newInstance();
+                    buildAnnotationMap.get(mapToAuth.authAnnotation()).put(
+                            "".equals(mapToAuth.name()) ? method.getName() : mapToAuth.name(),
+                            format.format(method.invoke(annotation)));
                 }
             } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
                 log.error("收集需要新增鉴权注解异常:", e);
