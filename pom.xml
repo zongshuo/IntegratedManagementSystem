@@ -18,7 +18,6 @@
     <modules>
         <module>system</module>
         <module>core</module>
-        <module>annotation</module>
     </modules>
 
     <properties>

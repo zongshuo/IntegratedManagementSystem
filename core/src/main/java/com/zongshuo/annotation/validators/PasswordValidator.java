@@ -1,7 +1,7 @@
 package com.zongshuo.annotation.validators;
 
 import com.zongshuo.annotation.ValidatePassword;
-import com.zongshuo.annotation.util.FormatCheckUtil;
+import com.zongshuo.util.FormatCheckUtil;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

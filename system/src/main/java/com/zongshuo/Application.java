@@ -1,8 +1,6 @@
 package com.zongshuo;
 
 import com.zongshuo.annotation.AuthDefinition;
-import com.zongshuo.annotation.handler.AnnotationService;
-import com.zongshuo.annotation.util.AnnotationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +11,8 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
+import priv.zongshuo.annotation.handler.AnnotationService;
+import priv.zongshuo.annotation.util.AnnotationUtil;
 
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;

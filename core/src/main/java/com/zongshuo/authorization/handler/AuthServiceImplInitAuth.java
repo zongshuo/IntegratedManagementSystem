@@ -1,10 +1,11 @@
 package com.zongshuo.authorization.handler;
 
-import com.zongshuo.annotation.handler.AnnotationService;
 import com.zongshuo.authorization.AuthUtil;
 import com.zongshuo.authorization.model.AccessPoint;
 import com.zongshuo.authorization.model.AccessType;
 import lombok.extern.slf4j.Slf4j;
+import priv.zongshuo.annotation.handler.AnnotationService;
+import priv.zongshuo.annotation.util.AnnotationHandlerException;
 
 import javax.management.modelmbean.InvalidTargetObjectTypeException;
 import java.lang.annotation.Annotation;
@@ -77,7 +78,7 @@ class AuthServiceImplInitAuth extends AuthServiceImplBase {
         for (Map.Entry<Class<? extends Annotation>, LinkedHashMap<String, Object>> entry : buildAnnotationMap.entrySet()) {
             try {
                 service.addAnnotation(entry.getKey(), entry.getValue());
-            } catch (InvalidTargetObjectTypeException e) {
+            } catch (AnnotationHandlerException e) {
                 log.error("权限收集添加鉴权注解异常:", e);
             }
         }
