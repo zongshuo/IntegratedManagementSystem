@@ -39,6 +39,7 @@ import java.util.Map;
 @Slf4j
 @Component
 public class AppInitRunner implements ApplicationRunner{
+    public static Map<AccessType, List<AccessPoint>> accessPointMap;
     @Autowired
     private MenuService menuService;
     @Autowired
@@ -63,8 +64,6 @@ public class AppInitRunner implements ApplicationRunner{
     }
 
     private void initAccess() throws IOException {
-        AuthService service = AuthService.fromBase(AuthDefinition.class);
-        Map<AccessType, List<AccessPoint>> accessPointMap = service.collectAccessPoint("com/zongshuo/**/");
         if (accessPointMap.isEmpty()) return;
         /**
          * 首先将数据库中菜单来源为系统收集记录的updateTime置为空

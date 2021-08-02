@@ -28,7 +28,8 @@ public class Application {
 //        System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         try {
             AuthService service = AuthService.fromInitAuth(AuthDefinition.class);
-            service.collectAccessPoint("com/zongshuo/**/");
+            Map<AccessType, List<AccessPoint>> accessPoint = service.collectAccessPoint("com/zongshuo/**/");
+            AppInitRunner.accessPointMap = accessPoint;
         } catch (IOException e) {
             log.error("创建鉴权异常:", e);
         }

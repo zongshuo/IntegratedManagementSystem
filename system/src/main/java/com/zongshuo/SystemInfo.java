@@ -1,7 +1,11 @@
 package com.zongshuo;
 
 import com.zongshuo.annotation.AuthDefinition;
+import com.zongshuo.authorization.model.AccessPoint;
 import com.zongshuo.authorization.model.AccessType;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName: System_info
@@ -13,5 +17,4 @@ import com.zongshuo.authorization.model.AccessType;
  */
 @AuthDefinition(name = "系统管理", authority = "sys", type = AccessType.MODULE, path = "/system")
 class SystemInfo {
-
 }
