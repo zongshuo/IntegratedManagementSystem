@@ -2,8 +2,6 @@ package com.zongshuo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.zongshuo.annotation.AuthDefinition;
-import com.zongshuo.authorization.handler.AuthService;
 import com.zongshuo.authorization.model.AccessPoint;
 import com.zongshuo.authorization.model.AccessType;
 import com.zongshuo.model.MenuModel;
@@ -22,7 +20,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +60,7 @@ public class AppInitRunner implements ApplicationRunner{
         }
     }
 
-    private void initAccess() throws IOException {
+    private void initAccess(){
         if (accessPointMap.isEmpty()) return;
         /**
          * 首先将数据库中菜单来源为系统收集记录的updateTime置为空
