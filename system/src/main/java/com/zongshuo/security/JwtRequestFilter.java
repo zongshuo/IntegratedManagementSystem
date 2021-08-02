@@ -40,7 +40,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             //放置处理过程中token失效，如果过期时间小于约定时间，重新生成token
             if ((claims.getExpiration().getTime() - Instant.now().toEpochMilli()) / 1000 / 60 < Contains.TOKEN_WILL_EXPIRE){
-                token  = JwtUtil.buildToken(username, Contains.JWT_SLOT, Contains.TOKEN_EFFECTIVE_TIME);
+                token  = JwtUtil.buildToken(username, Contains.JWT_SLOT, Contains.EFFECTIVE_TIME_USER_TOKEN);
                 response.setHeader(JwtUtil.TOKEN_HEADER_NAME, token);
             }
         }

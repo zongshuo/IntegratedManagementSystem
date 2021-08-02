@@ -21,16 +21,6 @@ public final class Contains {
      * JWT token slot
      */
     public static final String JWT_SLOT = "MFpXPyZQbVpf5b2p6Imy5pi+56S65ZmoLXNlY3JldF9zbG90";//0ZW?&PmZ_彩色显示器-secret_slot
-    /**
-     * JWT token expire time
-     * 单位毫秒
-     */
-    public static final long TOKEN_EFFECTIVE_TIME = 1000*60*60*8L;
-    /**
-     * token提前刷新时间
-     * 单位分钟
-     */
-    public static final int TOKEN_WILL_EXPIRE = 30;
 
     /**
      * 验证码长度
@@ -38,11 +28,15 @@ public final class Contains {
     public static final int CHECK_CODE_LENGTH = 6;
     /**
      * 注册验证码有效时间
+     * 重置密码验证码有效时间
+     * 用户token有效时间
+     * 用户token提前刷新时间，单位min
      * 单位毫秒
      */
     public static final long EFFECTIVE_TIME_AUTH_CODE_REGISTER = 1000*60*60L;
     public static final long EFFECTIVE_TIME_AUTH_CODE_RESET_PASSWORD = 1000*60*10L;
-    public static final long EFFECTIVE_TIME_USER_TOKEN = 1000*60*60*8L;
+    public static final long EFFECTIVE_TIME_USER_TOKEN = 1000*60*60L;
+    public static final int TOKEN_WILL_EXPIRE = 30;
     /**
      * 渠道编码
      * REGISTER：用户注册

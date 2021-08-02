@@ -18,6 +18,7 @@
     <modules>
         <module>system</module>
         <module>core</module>
+        <module>schedule</module>
     </modules>
 
     <properties>

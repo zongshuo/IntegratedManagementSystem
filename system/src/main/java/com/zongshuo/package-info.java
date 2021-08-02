@@ -1,11 +1,15 @@
+/**
+ * ClassName: package-info
+ * date: 2021/8/2 17:42
+ *
+ * @author zongshuo
+ * version: 1.0
+ * Description:
+ */
 package com.zongshuo;
 
 import com.zongshuo.annotation.AuthDefinition;
-import com.zongshuo.authorization.model.AccessPoint;
 import com.zongshuo.authorization.model.AccessType;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * ClassName: System_info
